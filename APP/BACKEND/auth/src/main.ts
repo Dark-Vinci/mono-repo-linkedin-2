@@ -16,17 +16,17 @@ import {
   ClusterSignal,
   zeroUUID,
   logFiles,
+  AppState,
 } from 'sdk/dist/constants';
 import { GlobalLogger, MyLogger } from 'sdk/dist/helpers';
 
 import { ShutdownService, AppModule } from '@startup';
 
 class App {
-  private readonly isDevMode = false;
-
+  private readonly isDevMode = process.env.NODE_ENV !== AppState.PRODUCTION;
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
-  private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
 
+  private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
   private readonly logger = new MyLogger(this.globalLogger);
 
   public constructor() {
