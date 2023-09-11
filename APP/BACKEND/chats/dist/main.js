@@ -1,0 +1,78 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const cluster_1 = __importDefault(require("cluster"));
+const os_1 = require("os");
+const core_1 = require("@nestjs/core");
+const microservices_1 = require("@nestjs/microservices");
+const common_1 = require("@nestjs/common");
+const constants_1 = require("sdk/dist/constants");
+const _startup_1 = require("./startup");
+class App {
+    constructor() {
+        this.isDevMode = false;
+        this.numCPUs = this.isDevMode ? 1 : (0, os_1.cpus)().length;
+    }
+    primaryWorker() {
+        console.log(`Primary ${process.pid} is running`);
+        for (let i = 0; i < this.numCPUs; i++) {
+            cluster_1.default.fork();
+        }
+        cluster_1.default.on(constants_1.ClusterSignal.EXIT, (worker, code, signal) => {
+            console.log({ code, signal });
+            if (this.isDevMode) {
+                cluster_1.default.fork();
+            }
+            console.log(`worker ${worker.process.pid} died`);
+        });
+    }
+    async childWorker() {
+        try {
+            process.env.TZ = constants_1.TIME_ZONE;
+            const app = await core_1.NestFactory.create(_startup_1.AppModule);
+            const shutdownService = app.get(_startup_1.ShutdownService);
+            process.on(constants_1.TerminationSignal.SIGINT, async () => {
+                await shutdownService.shutdown();
+                process.exit(0);
+            });
+            process.on(constants_1.TerminationSignal.SIGTERM, async () => {
+                await shutdownService.shutdown();
+                process.exit(0);
+            });
+            process.on(constants_1.TerminationSignal.SIGHUP, async () => {
+                await shutdownService.shutdown();
+                process.exit(0);
+            });
+            const grpcClientOptions = {
+                transport: microservices_1.Transport.GRPC,
+                options: {
+                    package: constants_1.ServiceName.AUTH,
+                    gracefulShutdown: true,
+                    protoPath: constants_1.ServiceProtoPath.AUTH,
+                    loader: constants_1.GRPC_LOADER_OPTIONS,
+                },
+            };
+            app.connectMicroservice(grpcClientOptions);
+            app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
+            await app.startAllMicroservices();
+            await app.listen(constants_1.ServicePort.AUTH);
+            const url = await app.getUrl();
+            console.log(`Worker ${process.pid} started on URL| ${url}`);
+        }
+        catch (error) {
+            console.log({ error });
+        }
+    }
+    async start() {
+        if (cluster_1.default.isPrimary) {
+            this.primaryWorker();
+        }
+        else {
+            await this.childWorker();
+        }
+    }
+}
+new App().start();
+//# sourceMappingURL=main.js.map
