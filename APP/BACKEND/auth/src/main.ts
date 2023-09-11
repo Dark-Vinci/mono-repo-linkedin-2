@@ -8,9 +8,6 @@ import { ValidationPipe } from '@nestjs/common';
 
 import { ShutdownService, AppModule } from '@startup';
 
-
-
-
 class App {
   private readonly isDevMode = false;
 
