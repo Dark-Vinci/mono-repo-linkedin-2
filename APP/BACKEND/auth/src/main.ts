@@ -93,6 +93,7 @@ class App {
     }
   }
 
+  // bootstrap application
   public async start(): Promise<void> {
     if (cluster.isPrimary) {
       this.primaryWorker();
