@@ -13,12 +13,12 @@ const app_service_1 = require("./app.service");
 const app_shutdown_service_1 = require("./app.shutdown.service");
 let AppModule = class AppModule {
 };
-AppModule = __decorate([
+exports.AppModule = AppModule;
+exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, app_shutdown_service_1.ShutdownService],
     })
 ], AppModule);
-exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

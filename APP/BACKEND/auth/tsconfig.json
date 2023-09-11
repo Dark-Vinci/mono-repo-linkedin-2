@@ -24,6 +24,7 @@
       "@app": ["./src/app"],
       "@downstream": ["./src/downstream"],
       "@server": ["./src/server"],
+      "@sdk/*": ["sdk/dist/*"],
     }
   }
 }

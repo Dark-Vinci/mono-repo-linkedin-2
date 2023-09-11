@@ -13,8 +13,8 @@ let ShutdownService = class ShutdownService {
         return;
     }
 };
-ShutdownService = __decorate([
+exports.ShutdownService = ShutdownService;
+exports.ShutdownService = ShutdownService = __decorate([
     (0, common_1.Injectable)()
 ], ShutdownService);
-exports.ShutdownService = ShutdownService;
 //# sourceMappingURL=app.shutdown.service.js.map

@@ -4,10 +4,19 @@ export enum ServicePort {
   GATEWAY = 3002,
 }
 
-export enum ServiceProtoPath {
-  ACCOUNT = '../../SDK/grpc/account',
-  AUTH = '../../SDK/grpc/auth',
-}
+export const ServiceProtoPath = {
+  ACCOUNT: [
+    '../SDK/src/grpc/account/account.proto',
+    '../SDK/src/grpc/account/request.proto',
+    '../SDK/src/grpc/account/response.proto',
+  ],
+
+  AUTH: [
+    '../SDK/src/grpc/auth/auth.proto',
+    '../SDK/src/grpc/auth/request.proto',
+    '../SDK/src/grpc/auth/response.proto',
+  ],
+} as const;
 
 export enum AppState {
   PRODUCTION = 'production',

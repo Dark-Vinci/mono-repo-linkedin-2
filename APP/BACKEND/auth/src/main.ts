@@ -6,6 +6,16 @@ import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ValidationPipe } from '@nestjs/common';
 
+import {
+  TIME_ZONE,
+  ServicePort,
+  ServiceProtoPath,
+  GRPC_LOADER_OPTIONS,
+  ServiceName,
+  TerminationSignal,
+  ClusterSignal,
+} from 'sdk/dist/constants';
+
 import { ShutdownService, AppModule } from '@startup';
 
 class App {
@@ -21,7 +31,7 @@ class App {
       cluster.fork();
     }
 
-    cluster.on('exit', (worker, code, signal) => {
+    cluster.on(ClusterSignal.EXIT, (worker, code, signal) => {
       console.log({ code, signal });
       // for a new worker if this is not dev mode
       if (this.isDevMode) {
@@ -34,53 +44,47 @@ class App {
   private async childWorker(): Promise<void> {
     try {
       // set time zone
-      process.env.TZ = 'Africa/Lagos';
+      process.env.TZ = TIME_ZONE;
 
+      // instanciate application
       const app = await NestFactory.create(AppModule);
       const shutdownService = app.get(ShutdownService);
 
-      // listen to termination signals
-      process.on('SIGINT', async () => {
+      // listen all SIGINT kernel signals
+      process.on(TerminationSignal.SIGINT, async () => {
         await shutdownService.shutdown();
         process.exit(0);
       });
 
-      process.on('SIGTERM', async () => {
+      // handle all SIGTERM kernel signals
+      process.on(TerminationSignal.SIGTERM, async () => {
         await shutdownService.shutdown();
         process.exit(0);
       });
 
-      process.on('SIGHUP', async () => {
+      // handle all SIGHUP kernel signals
+      process.on(TerminationSignal.SIGHUP, async () => {
         await shutdownService.shutdown();
         process.exit(0);
       });
 
+      // set all needed grpc options
       const grpcClientOptions: MicroserviceOptions = {
         transport: Transport.GRPC,
         options: {
-          package: 'auth',
+          package: ServiceName.AUTH,
           gracefulShutdown: true,
-          protoPath: [
-            '../SDK/src/grpc/auth/auth.proto',
-            '../SDK/src/grpc/auth/request.proto',
-            '../SDK/src/grpc/auth/response.proto',
-          ],
-          loader: {
-            keepCase: false,
-            defaults: true,
-            arrays: true,
-            objects: true,
-            oneofs: true,
-            json: true,
-          },
+          protoPath: <string[]>(<unknown>ServiceProtoPath.AUTH),
+          loader: GRPC_LOADER_OPTIONS,
         },
       };
 
       app.connectMicroservice<MicroserviceOptions>(grpcClientOptions);
       app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
+      // start microservices and log necessary logs data
       await app.startAllMicroservices();
-      await app.listen(3000);
+      await app.listen(ServicePort.AUTH);
       const url = await app.getUrl();
 
       console.log(`Worker ${process.pid} started on URL| ${url}`);
