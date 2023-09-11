@@ -115,3 +115,5 @@
 {"fileName":"main.ts","level":"info","message":"Worker 6834 started on URL| http://[::1]:3001","methodName":"void","requestId":"00000000-00000000-00000000-00000000","timestamp":"2023-09-11T21:44:37.408Z"}
 {"fileName":"main.ts","level":"info","message":"Primary 6935 is running","methodName":"void","requestId":"00000000-00000000-00000000-00000000","timestamp":"2023-09-11T21:44:59.032Z"}
 {"fileName":"main.ts","level":"info","message":"Worker 6937 started on URL| http://[::1]:3001","methodName":"void","requestId":"00000000-00000000-00000000-00000000","timestamp":"2023-09-11T21:44:59.524Z"}
+{"fileName":"main.ts","level":"info","message":"Primary 8100 is running","methodName":"void","requestId":"00000000-00000000-00000000-00000000","timestamp":"2023-09-11T21:53:15.530Z"}
+{"fileName":"main.ts","level":"info","message":"Worker 8101 started on URL| http://[::1]:3001","methodName":"void","requestId":"00000000-00000000-00000000-00000000","timestamp":"2023-09-11T21:53:16.014Z"}

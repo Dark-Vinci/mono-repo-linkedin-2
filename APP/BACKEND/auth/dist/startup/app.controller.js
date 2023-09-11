@@ -11,22 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
 const microservices_1 = require("@nestjs/microservices");
 const auth_1 = require("sdk/dist/grpc/auth");
+const app_service_1 = require("./app.service");
+const SERVICE_NAME = 'Auth';
+var MethodName;
+(function (MethodName) {
+    MethodName["PING"] = "ping";
+})(MethodName || (MethodName = {}));
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
     async ping(payload) {
-        console.log({ payload });
         const { requestId } = payload;
-        return { requestId };
+        const requestUUID = this.appService.ping(requestId);
+        return { requestId: requestUUID.toString() };
     }
 };
 exports.AppController = AppController;
 __decorate([
-    (0, microservices_1.GrpcMethod)('Auth', 'ping'),
+    (0, microservices_1.GrpcMethod)(SERVICE_NAME, MethodName.PING),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

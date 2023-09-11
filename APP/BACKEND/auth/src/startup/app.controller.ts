@@ -22,6 +22,8 @@ export class AppController implements AuthService {
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
     const { requestId } = payload;
-    return { requestId };
+    const requestUUID = this.appService.ping(requestId);
+
+    return { requestId: requestUUID.toString() };
   }
 }
