@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import cluster from 'cluster';
 import { cpus } from 'os';
 
@@ -7,9 +8,13 @@ import { ValidationPipe } from '@nestjs/common';
 
 import { ShutdownService, AppModule } from '@startup';
 
+
+
+
 class App {
-  private readonly numCPUs =
-    process.env.NODE_ENV === 'development' ? 1 : cpus().length;
+  private readonly isDevMode = false;
+
+  private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private primaryWorker(): void {
     console.log(`Primary ${process.pid} is running`);
@@ -21,8 +26,10 @@ class App {
 
     cluster.on('exit', (worker, code, signal) => {
       console.log({ code, signal });
-      // fork a new cluster
-      cluster.fork();
+      // for a new worker if this is not dev mode
+      if (this.isDevMode) {
+        cluster.fork();
+      }
       console.log(`worker ${worker.process.pid} died`);
     });
   }
@@ -54,9 +61,21 @@ class App {
       const grpcClientOptions: MicroserviceOptions = {
         transport: Transport.GRPC,
         options: {
-          package: 'AUTH',
+          package: 'auth',
           gracefulShutdown: true,
-          protoPath: '../../SDK/grpc/auth/auth.proto',
+          protoPath: [
+            '../SDK/src/grpc/auth/auth.proto',
+            '../SDK/src/grpc/auth/request.proto',
+            '../SDK/src/grpc/auth/response.proto',
+          ],
+          loader: {
+            keepCase: false,
+            defaults: true,
+            arrays: true,
+            objects: true,
+            oneofs: true,
+            json: true,
+          },
         },
       };
 

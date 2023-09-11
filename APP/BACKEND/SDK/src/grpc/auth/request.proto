@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package linkedin_clone.auth;
+package auth;
 
 message PingRequest {
     string request_id = 1;

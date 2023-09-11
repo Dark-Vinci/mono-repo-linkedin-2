@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class ShutdownService {
   async shutdown(): Promise<void> {
+    return;
     // close DB connections
     // close redis connection
     // process all current running requests
