@@ -3,7 +3,7 @@ import { promisify } from 'util';
 
 import { hash, genSalt, compare } from 'bcrypt';
 
-import { CYPHER_ALGORITHM } from '@constants';
+import { CYPHER_ALGORITHM } from '../constants';
 
 export class Hasher {
   public constructor(private readonly round: number) {}

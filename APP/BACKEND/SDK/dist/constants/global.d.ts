@@ -8,3 +8,4 @@ export declare const GRPC_LOADER_OPTIONS: {
     readonly oneofs: true;
     readonly json: true;
 };
+export declare const logFiles: readonly ["./log/logger.txt", "./log/error.txt"];

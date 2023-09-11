@@ -9,23 +9,27 @@ const core_1 = require("@nestjs/core");
 const microservices_1 = require("@nestjs/microservices");
 const common_1 = require("@nestjs/common");
 const constants_1 = require("sdk/dist/constants");
+const helpers_1 = require("sdk/dist/helpers");
 const _startup_1 = require("./startup");
 class App {
     constructor() {
         this.isDevMode = false;
         this.numCPUs = this.isDevMode ? 1 : (0, os_1.cpus)().length;
+        this.globalLogger = new helpers_1.GlobalLogger(...constants_1.logFiles).getLogger;
+        this.logger = new helpers_1.MyLogger(this.globalLogger);
+        this.logger.setContext('main.ts', 'void', constants_1.zeroUUID);
     }
     primaryWorker() {
-        console.log(`Primary ${process.pid} is running`);
+        this.logger.log(`Primary ${process.pid} is running`);
         for (let i = 0; i < this.numCPUs; i++) {
             cluster_1.default.fork();
         }
         cluster_1.default.on(constants_1.ClusterSignal.EXIT, (worker, code, signal) => {
-            console.log({ code, signal });
+            this.logger.log(`${signal}| ${code}`);
             if (this.isDevMode) {
                 cluster_1.default.fork();
             }
-            console.log(`worker ${worker.process.pid} died`);
+            this.logger.log(`worker ${worker.process.pid} died`);
         });
     }
     async childWorker() {
@@ -59,10 +63,10 @@ class App {
             await app.startAllMicroservices();
             await app.listen(constants_1.ServicePort.AUTH);
             const url = await app.getUrl();
-            console.log(`Worker ${process.pid} started on URL| ${url}`);
+            this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
         }
         catch (error) {
-            console.log({ error });
+            this.logger.error(`${error}`);
         }
     }
     async start() {

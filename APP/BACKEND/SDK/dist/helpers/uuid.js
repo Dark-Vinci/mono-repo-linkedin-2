@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UUID = void 0;
 const crypto_1 = require("crypto");
-const _constants_1 = require("@constants");
+const constants_1 = require("../constants");
 class UUID {
     constructor(uuid) {
-        this.zeroUUID = _constants_1.zeroUUID;
+        this.zeroUUID = constants_1.zeroUUID;
         if (!UUID.isValidUUID(uuid)) {
             throw new Error('Invalid UUID format');
         }
@@ -15,7 +15,7 @@ class UUID {
         return new UUID((0, crypto_1.randomUUID)());
     }
     static nil() {
-        return new UUID(_constants_1.zeroUUID);
+        return new UUID(constants_1.zeroUUID);
     }
     static parse(uuid) {
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;

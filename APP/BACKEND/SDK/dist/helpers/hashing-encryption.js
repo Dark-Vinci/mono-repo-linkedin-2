@@ -4,7 +4,7 @@ exports.Encoder = exports.Hasher = void 0;
 const crypto_1 = require("crypto");
 const util_1 = require("util");
 const bcrypt_1 = require("bcrypt");
-const _constants_1 = require("@constants");
+const constants_1 = require("../constants");
 class Hasher {
     constructor(round) {
         this.round = round;
@@ -44,14 +44,14 @@ class Encoder {
     async encode(text) {
         const iv = this.getRandomIV();
         const key = await this.getKey();
-        const cipher = (0, crypto_1.createCipheriv)(_constants_1.CYPHER_ALGORITHM, key, iv);
+        const cipher = (0, crypto_1.createCipheriv)(constants_1.CYPHER_ALGORITHM, key, iv);
         const encryptedText = Buffer.concat([cipher.update(text), cipher.final()]);
         return encryptedText.toString();
     }
     async decode(encryptedString) {
         const iv = this.getRandomIV();
         const key = await this.getKey();
-        const decipher = (0, crypto_1.createDecipheriv)(_constants_1.CYPHER_ALGORITHM, key, iv);
+        const decipher = (0, crypto_1.createDecipheriv)(constants_1.CYPHER_ALGORITHM, key, iv);
         const decryptedText = Buffer.concat([
             decipher.update(encryptedString, 'ascii'),
             decipher.final(),

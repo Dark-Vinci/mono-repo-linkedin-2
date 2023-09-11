@@ -14,7 +14,10 @@ import {
   ServiceName,
   TerminationSignal,
   ClusterSignal,
+  zeroUUID,
+  logFiles,
 } from 'sdk/dist/constants';
+import { GlobalLogger, MyLogger } from 'sdk/dist/helpers';
 
 import { ShutdownService, AppModule } from '@startup';
 
@@ -22,9 +25,16 @@ class App {
   private readonly isDevMode = false;
 
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
+  private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
+
+  private readonly logger = new MyLogger(this.globalLogger);
+
+  public constructor() {
+    this.logger.setContext('main.ts', 'void', zeroUUID);
+  }
 
   private primaryWorker(): void {
-    console.log(`Primary ${process.pid} is running`);
+    this.logger.log(`Primary ${process.pid} is running`);
 
     // Fork workers.
     for (let i = 0; i < this.numCPUs; i++) {
@@ -32,12 +42,12 @@ class App {
     }
 
     cluster.on(ClusterSignal.EXIT, (worker, code, signal) => {
-      console.log({ code, signal });
+      this.logger.log(`${signal}| ${code}`);
       // for a new worker if this is not dev mode
       if (this.isDevMode) {
         cluster.fork();
       }
-      console.log(`worker ${worker.process.pid} died`);
+      this.logger.log(`worker ${worker.process.pid} died`);
     });
   }
 
@@ -87,9 +97,9 @@ class App {
       await app.listen(ServicePort.AUTH);
       const url = await app.getUrl();
 
-      console.log(`Worker ${process.pid} started on URL| ${url}`);
+      this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
     } catch (error) {
-      console.log({ error });
+      this.logger.error(`${error}`);
     }
   }
 

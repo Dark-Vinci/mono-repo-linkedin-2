@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 
-import { zeroUUID } from '@constants';
+import { zeroUUID } from '../constants';
 
 export class UUID {
   private value: string;
