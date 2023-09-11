@@ -9,7 +9,7 @@ import {
 
 import { AppService } from './app.service';
 
-const SERVICE_NAME = 'Auth';
+const SERVICE_NAME = 'Auth' as const;
 
 enum MethodName {
   PING = 'ping',
