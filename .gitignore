@@ -1,1 +1,3 @@
 /node_modules
+/APP/BACKEND/**/log
+/APP/BACKEND/**/disk

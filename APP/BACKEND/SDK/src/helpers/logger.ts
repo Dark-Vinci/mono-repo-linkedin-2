@@ -61,63 +61,53 @@ export class MyLogger implements LoggerService {
   }
 
   log(message: string, ..._optionalParams: any[]) {
-    const body = {
+    this.logger.info({
       fileName: this.fileName,
       methodName: this.methodName,
       requestId: this.requestId,
-      timeStamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
       message: message,
-    };
-
-    this.logger.info(JSON.stringify(body));
+    });
   }
 
-  public error(message: string, ..._optionalParams: any[]) {
-    // throw new Error('Method not implemented.');
-    const body = {
+  public error(error: Error, ..._optionalParams: any[]) {
+    this.logger.error({
       fileName: this.fileName,
       methodName: this.methodName,
       requestId: this.requestId,
-      timeStamp: new Date().toISOString(),
-      message: message,
-    };
-
-    this.logger.error(JSON.stringify(body));
+      timestamp: new Date().toISOString(),
+      message: error.message,
+      error,
+    });
   }
 
   public warn(message: string, ..._optionalParams: any[]) {
-    const body = {
+    this.logger.warn({
       fileName: this.fileName,
       methodName: this.methodName,
       requestId: this.requestId,
-      timeStamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
       message: message,
-    };
-
-    this.logger.warn(JSON.stringify(body));
+    });
   }
 
   public debug(message: string, ..._optionalParams: any[]) {
-    const body = {
+    this.logger.debug({
       fileName: this.fileName,
       methodName: this.methodName,
       requestId: this.requestId,
-      timeStamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
       message: message,
-    };
-
-    this.logger.debug(JSON.stringify(body));
+    });
   }
 
   public verbose(message: string, ..._optionalParams: any[]) {
-    const body = {
+    this.logger.verbose({
       fileName: this.fileName,
       methodName: this.methodName,
       requestId: this.requestId,
-      timeStamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
       message: message,
-    };
-
-    this.logger.verbose(JSON.stringify(body));
+    });
   }
 }

@@ -15,7 +15,7 @@ export declare class MyLogger implements LoggerService {
     constructor(logger: WinstonLogger);
     setContext(fileName: string, methodName: string, requestId: string): void;
     log(message: string, ..._optionalParams: any[]): void;
-    error(message: string, ..._optionalParams: any[]): void;
+    error(error: Error, ..._optionalParams: any[]): void;
     warn(message: string, ..._optionalParams: any[]): void;
     debug(message: string, ..._optionalParams: any[]): void;
     verbose(message: string, ..._optionalParams: any[]): void;

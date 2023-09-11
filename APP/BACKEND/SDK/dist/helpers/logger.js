@@ -41,54 +41,51 @@ class MyLogger {
         this.requestId = requestId;
     }
     log(message, ..._optionalParams) {
-        const body = {
+        this.logger.info({
             fileName: this.fileName,
             methodName: this.methodName,
             requestId: this.requestId,
-            timeStamp: new Date().toISOString(),
+            timestamp: new Date().toISOString(),
             message: message,
-        };
-        this.logger.info(JSON.stringify(body));
+        });
     }
-    error(message, ..._optionalParams) {
-        const body = {
+    error(error, ..._optionalParams) {
+        console.log({ error });
+        this.logger.error({
             fileName: this.fileName,
             methodName: this.methodName,
             requestId: this.requestId,
-            timeStamp: new Date().toISOString(),
-            message: message,
-        };
-        this.logger.error(JSON.stringify(body));
+            timestamp: new Date().toISOString(),
+            message: error.message,
+            error,
+        });
     }
     warn(message, ..._optionalParams) {
-        const body = {
+        this.logger.warn({
             fileName: this.fileName,
             methodName: this.methodName,
             requestId: this.requestId,
-            timeStamp: new Date().toISOString(),
+            timestamp: new Date().toISOString(),
             message: message,
-        };
-        this.logger.warn(JSON.stringify(body));
+        });
     }
     debug(message, ..._optionalParams) {
-        const body = {
+        this.logger.debug({
             fileName: this.fileName,
             methodName: this.methodName,
             requestId: this.requestId,
-            timeStamp: new Date().toISOString(),
+            timestamp: new Date().toISOString(),
             message: message,
-        };
-        this.logger.debug(JSON.stringify(body));
+        });
     }
     verbose(message, ..._optionalParams) {
-        const body = {
+        this.logger.verbose({
             fileName: this.fileName,
             methodName: this.methodName,
             requestId: this.requestId,
-            timeStamp: new Date().toISOString(),
+            timestamp: new Date().toISOString(),
             message: message,
-        };
-        this.logger.verbose(JSON.stringify(body));
+        });
     }
 }
 exports.MyLogger = MyLogger;

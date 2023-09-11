@@ -13,7 +13,7 @@ const helpers_1 = require("sdk/dist/helpers");
 const _startup_1 = require("./startup");
 class App {
     constructor() {
-        this.isDevMode = false;
+        this.isDevMode = process.env.NODE_ENV !== constants_1.AppState.PRODUCTION;
         this.numCPUs = this.isDevMode ? 1 : (0, os_1.cpus)().length;
         this.globalLogger = new helpers_1.GlobalLogger(...constants_1.logFiles).getLogger;
         this.logger = new helpers_1.MyLogger(this.globalLogger);
@@ -64,9 +64,10 @@ class App {
             await app.listen(constants_1.ServicePort.AUTH);
             const url = await app.getUrl();
             this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
+            throw new Error('what can i say to this');
         }
         catch (error) {
-            this.logger.error(`${error}`);
+            this.logger.error(error);
         }
     }
     async start() {

@@ -98,8 +98,9 @@ class App {
       const url = await app.getUrl();
 
       this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
+      throw new Error('what can i say to this')
     } catch (error) {
-      this.logger.error(`${error}`);
+      this.logger.error(error);
     }
   }
 
