@@ -64,7 +64,6 @@ class App {
             await app.listen(constants_1.ServicePort.AUTH);
             const url = await app.getUrl();
             this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
-            throw new Error('what can i say to this');
         }
         catch (error) {
             this.logger.error(error);
