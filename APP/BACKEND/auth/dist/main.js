@@ -56,6 +56,7 @@ class App {
                     gracefulShutdown: true,
                     protoPath: constants_1.ServiceProtoPath.AUTH,
                     loader: constants_1.GRPC_LOADER_OPTIONS,
+                    url: `localhost:${constants_1.ServicePort.AUTH}`,
                 },
             };
             app.connectMicroservice(grpcClientOptions);

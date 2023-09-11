@@ -1,6 +1,7 @@
 import { AppService } from './app.service';
-export declare class AppController {
+import { AuthPingRequest, AuthPingResponse, AuthService } from 'sdk/dist/grpc/auth';
+export declare class AppController implements AuthService {
     private readonly appService;
     constructor(appService: AppService);
-    getHello(): string;
+    ping(payload: AuthPingRequest): Promise<AuthPingResponse>;
 }

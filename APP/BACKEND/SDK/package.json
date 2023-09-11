@@ -16,6 +16,9 @@
     "bcrypt": "^5.1.1",
     "grpc": "^1.24.11",
     "lodash": "^4.17.21",
+    "protoc-gen-ts": "^0.8.6",
+    "ts-proto": "^1.157.0",
+    "ts-protoc-gen": "^0.15.0",
     "typeorm": "^0.3.17",
     "underscore": "^1.13.6",
     "winston": "^3.10.0"

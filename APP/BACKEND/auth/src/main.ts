@@ -86,6 +86,7 @@ class App {
           gracefulShutdown: true,
           protoPath: <string[]>(<unknown>ServiceProtoPath.AUTH),
           loader: GRPC_LOADER_OPTIONS,
+          url: `localhost:${ServicePort.AUTH}`,
         },
       };
 

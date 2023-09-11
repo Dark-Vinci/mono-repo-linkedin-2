@@ -50,7 +50,6 @@ class MyLogger {
         });
     }
     error(error, ..._optionalParams) {
-        console.log({ error });
         this.logger.error({
             fileName: this.fileName,
             methodName: this.methodName,

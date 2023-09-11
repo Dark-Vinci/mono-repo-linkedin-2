@@ -1,13 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { GrpcMethod } from '@nestjs/microservices';
+
+import {
+  AuthPingRequest,
+  AuthPingResponse,
+  AuthService,
+} from 'sdk/dist/grpc/auth';
 
 import { AppService } from './app.service';
 
+const SERVICE_NAME = 'Auth';
+
+enum MethodName {
+  PING = 'ping',
+}
+
 @Controller()
-export class AppController {
+export class AppController implements AuthService {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @GrpcMethod(SERVICE_NAME, MethodName.PING)
+  public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
+    const { requestId } = payload;
+    return { requestId };
   }
 }
