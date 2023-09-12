@@ -18,7 +18,7 @@ import {
   logFiles,
   AppState,
 } from 'sdk/dist/constants';
-import { GlobalLogger, MyLogger } from 'sdk/dist/helpers';
+import { GlobalLogger, MyLogger as Logger } from 'sdk/dist/helpers';
 
 import { ShutdownService, AppModule } from '@startup';
 
@@ -27,10 +27,16 @@ class App {
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
-  private readonly logger = new MyLogger(this.globalLogger);
+  private readonly logger = Logger.setContext(
+    'main.ts',
+    'void',
+    zeroUUID,
+    this.globalLogger,
+  );
 
   public constructor() {
-    this.logger.setContext('main.ts', 'void', zeroUUID);
+    // set the logger to be a global Object
+    global.logger = this.globalLogger as any;
   }
 
   private primaryWorker(): void {

@@ -35,10 +35,13 @@ class MyLogger {
     constructor(logger) {
         this.logger = logger;
     }
-    setContext(fileName, methodName, requestId) {
-        this.fileName = fileName;
-        this.methodName = methodName;
-        this.requestId = requestId;
+    static setContext(fileName, methodName, requestId, logger) {
+        const logInstance = new MyLogger(logger);
+        logInstance.fileName = fileName;
+        logInstance.methodName = methodName;
+        logInstance.requestId = requestId;
+        logInstance.logger = logger;
+        return logInstance;
     }
     log(message, ..._optionalParams) {
         this.logger.info({

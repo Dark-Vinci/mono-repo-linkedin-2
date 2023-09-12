@@ -6,14 +6,10 @@ import {
   AuthPingResponse,
   AuthService,
 } from 'sdk/dist/grpc/auth';
+import { MyLogger as Logger } from 'sdk/dist/helpers';
 
+import { SERVICE_NAME, fileName } from '@constants';
 import { AppService } from './app.service';
-
-const SERVICE_NAME = 'Auth' as const;
-
-enum MethodName {
-  PING = 'ping',
-}
 
 @Controller()
 export class AppController implements AuthService {
@@ -21,6 +17,15 @@ export class AppController implements AuthService {
 
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
+    const logger = Logger.setContext(
+      fileName,
+      'AppController.ping',
+      payload.requestId,
+      global.logger,
+    );
+
+    logger.log('got a new ping request');
+
     const { requestId } = payload;
     const requestUUID = this.appService.ping(requestId);
 

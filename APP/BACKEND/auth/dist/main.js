@@ -16,8 +16,8 @@ class App {
         this.isDevMode = process.env.NODE_ENV !== constants_1.AppState.PRODUCTION;
         this.numCPUs = this.isDevMode ? 1 : (0, os_1.cpus)().length;
         this.globalLogger = new helpers_1.GlobalLogger(...constants_1.logFiles).getLogger;
-        this.logger = new helpers_1.MyLogger(this.globalLogger);
-        this.logger.setContext('main.ts', 'void', constants_1.zeroUUID);
+        this.logger = helpers_1.MyLogger.setContext('main.ts', 'void', constants_1.zeroUUID, this.globalLogger);
+        global.logger = this.globalLogger;
     }
     primaryWorker() {
         this.logger.log(`Primary ${process.pid} is running`);

@@ -8,12 +8,12 @@ export declare class GlobalLogger extends Logger {
     get getLogger(): WinstonLogger;
 }
 export declare class MyLogger implements LoggerService {
-    private readonly logger;
+    private logger;
     private fileName;
     private methodName;
     private requestId;
     constructor(logger: WinstonLogger);
-    setContext(fileName: string, methodName: string, requestId: string): void;
+    static setContext(fileName: string, methodName: string, requestId: string, logger: WinstonLogger): MyLogger;
     log(message: string, ..._optionalParams: any[]): void;
     error(error: Error, ..._optionalParams: any[]): void;
     warn(message: string, ..._optionalParams: any[]): void;

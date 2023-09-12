@@ -52,12 +52,21 @@ export class MyLogger implements LoggerService {
   private methodName: string;
   private requestId: string;
 
-  public constructor(private readonly logger: WinstonLogger) {}
+  public constructor(private logger: WinstonLogger) {}
 
-  public setContext(fileName: string, methodName: string, requestId: string) {
-    this.fileName = fileName;
-    this.methodName = methodName;
-    this.requestId = requestId;
+  public static setContext(
+    fileName: string,
+    methodName: string,
+    requestId: string,
+    logger: WinstonLogger,
+  ): MyLogger {
+    const logInstance = new MyLogger(logger);
+    logInstance.fileName = fileName;
+    logInstance.methodName = methodName;
+    logInstance.requestId = requestId;
+    logInstance.logger = logger;
+
+    return logInstance;
   }
 
   log(message: string, ..._optionalParams: any[]) {

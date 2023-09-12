@@ -14,7 +14,9 @@ const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const auth_1 = require("sdk/dist/grpc/auth");
 const app_service_1 = require("./app.service");
+const helpers_1 = require("sdk/dist/helpers");
 const SERVICE_NAME = 'Auth';
+const fileName = 'src/startup/app.controller';
 var MethodName;
 (function (MethodName) {
     MethodName["PING"] = "ping";
@@ -24,6 +26,8 @@ let AppController = class AppController {
         this.appService = appService;
     }
     async ping(payload) {
+        const logger = helpers_1.MyLogger.setContext(fileName, 'AppController.ping', payload.requestId, global.logger);
+        logger.log('got a new ping request');
         const { requestId } = payload;
         const requestUUID = this.appService.ping(requestId);
         return { requestId: requestUUID.toString() };
