@@ -38,3 +38,8 @@ export enum ServiceName {
   GATE = 'gate',
   ACCOUNT = 'account',
 }
+
+export enum Type {
+  REQUEST_PAYLOAD = 'request_payload',
+  RESPONSE_RESPONSE = 'response_payload',
+}

@@ -6,6 +6,6 @@ declare global {
   }
 }
 
-declare enum MethodName {
-  PING = 'ping',
-}
+// declare enum MethodName {
+//   PING = 'ping',
+// }

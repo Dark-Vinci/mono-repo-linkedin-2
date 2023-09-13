@@ -7,8 +7,15 @@ import {
   AuthService,
 } from 'sdk/dist/grpc/auth';
 import { MyLogger as Logger } from 'sdk/dist/helpers';
+import { Type } from 'sdk/dist/constants';
 
-import { SERVICE_NAME, fileName } from '@constants';
+import {
+  SERVICE_NAME,
+  fileNames,
+  appControllerMethods,
+  MethodName,
+} from '@constants';
+
 import { AppService } from './app.service';
 
 @Controller()
@@ -18,16 +25,20 @@ export class AppController implements AuthService {
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
     const logger = Logger.setContext(
-      fileName,
-      'AppController.ping',
+      fileNames.APP_SERVICE,
+      appControllerMethods.PING,
       payload.requestId,
       global.logger,
+      payload,
     );
 
     logger.log('got a new ping request');
 
-    const { requestId } = payload;
-    const requestUUID = this.appService.ping(requestId);
+    const requestUUID = this.appService.ping(payload);
+    logger.logPayload(
+      { requestUUID: requestUUID.toJSON() },
+      Type.RESPONSE_RESPONSE,
+    );
 
     return { requestId: requestUUID.toString() };
   }

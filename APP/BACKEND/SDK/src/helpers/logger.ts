@@ -7,6 +7,8 @@ import {
   Logger as WinstonLogger,
 } from 'winston';
 
+import { Type } from '../constants';
+
 export class GlobalLogger extends Logger {
   public constructor(
     private readonly logFilePath: string,
@@ -59,14 +61,27 @@ export class MyLogger implements LoggerService {
     methodName: string,
     requestId: string,
     logger: WinstonLogger,
+    payload: Record<string, string | any> = {},
   ): MyLogger {
     const logInstance = new MyLogger(logger);
     logInstance.fileName = fileName;
     logInstance.methodName = methodName;
     logInstance.requestId = requestId;
     logInstance.logger = logger;
+    logInstance.logPayload(payload, Type.REQUEST_PAYLOAD);
 
     return logInstance;
+  }
+
+  public logPayload(property: Record<string, string | any>, type: Type) {
+    this.logger.info({
+      fileName: this.fileName,
+      methodName: this.methodName,
+      requestId: this.requestId,
+      timestamp: new Date().toISOString(),
+      message: property,
+      type,
+    });
   }
 
   log(message: string, ..._optionalParams: any[]) {
