@@ -1,3 +1,5 @@
 /node_modules
-/APP/BACKEND/auth/log
-/APP/BACKEND/auth/dist
+
+/APP/BACKEND/**/log
+/APP/BACKEND/**/dist
+/APP/BACKEND/**/.env

@@ -14,12 +14,13 @@ import {
   ServiceName,
   TerminationSignal,
   ClusterSignal,
+  AppState,
 } from 'sdk/dist/constants';
 
 import { ShutdownService, AppModule } from '@startup';
 
 class App {
-  private readonly isDevMode = false;
+  private readonly isDevMode = process.env.NODE_ENV !== AppState.PRODUCTION;
 
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 

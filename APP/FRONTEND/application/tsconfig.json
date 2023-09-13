@@ -35,6 +35,7 @@
       "@containers": ["./src/containers"],
       "@startup/*": ["./src/startup/*"],
       "@startup": ["./src/startup"],
+      "@router": ["./src/router"],
     }
   },
   "include": ["src"]
