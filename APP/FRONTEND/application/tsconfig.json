@@ -30,7 +30,7 @@
       "@components": ["./src/components"],
       "@util": ["./src/util"],
       "@store": ["./src/store"],
-      "@hooks": ["./src/hooks"],
+      "@hooks": ["src/utils/hooks"],
       "@pages": ["./src/pages"],
       "@containers": ["./src/containers"],
       "@startup/*": ["./src/startup/*"],

@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseFilters } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 
 import {
@@ -17,11 +17,13 @@ import {
 } from '@constants';
 
 import { AppService } from './app.service';
+import { ExceptionFilter } from '@app';
 
 @Controller()
 export class AppController implements AuthService {
   constructor(private readonly appService: AppService) {}
 
+  @UseFilters(new ExceptionFilter())
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
     const logger = Logger.setContext(

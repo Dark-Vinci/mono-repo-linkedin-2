@@ -3,3 +3,6 @@
 /APP/BACKEND/**/log
 /APP/BACKEND/**/dist
 /APP/BACKEND/**/.env
+
+.vscode
+.env

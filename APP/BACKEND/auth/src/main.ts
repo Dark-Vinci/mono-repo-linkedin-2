@@ -21,6 +21,7 @@ import {
 import { GlobalLogger, MyLogger as Logger } from 'sdk/dist/helpers';
 
 import { ShutdownService, AppModule } from '@startup';
+import {ExceptionFilter} from "@app";
 
 class App {
   private readonly isDevMode = process.env.NODE_ENV !== AppState.PRODUCTION;
@@ -98,6 +99,7 @@ class App {
 
       app.connectMicroservice<MicroserviceOptions>(grpcClientOptions);
       app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+      app.useGlobalFilters(new ExceptionFilter());
 
       // start microservices and log necessary logs data
       await app.startAllMicroservices();
