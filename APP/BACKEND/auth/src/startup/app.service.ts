@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
 import { MyLogger as Logger, UUID } from 'sdk/dist/helpers';
 import { AuthPingRequest } from 'sdk/dist/grpc/auth';
+import { Type } from 'sdk/dist/constants';
 
 import { appServiceMethods, fileNames } from '@constants';
 
@@ -12,7 +15,7 @@ export class AppService {
   }
 
   public ping(payload: AuthPingRequest): UUID {
-    const _logger = Logger.setContext(
+    const logger = Logger.setContext(
       fileNames.APP_SERVICE,
       appServiceMethods.PING,
       payload.requestId,
@@ -20,8 +23,20 @@ export class AppService {
       payload,
     );
 
-    const { requestId } = payload;
+    try {
+      const { requestId } = payload;
 
-    return UUID.parse(requestId);
+      const response = UUID.parse(requestId);
+
+      logger.logPayload(
+        { response: response.toJSON() },
+        Type.RESPONSE_RESPONSE,
+      );
+
+      return UUID.parse(requestId);
+    } catch (error) {
+      logger.error(error);
+      throw new RpcException(new NotFoundException(error.message));
+    }
   }
 }

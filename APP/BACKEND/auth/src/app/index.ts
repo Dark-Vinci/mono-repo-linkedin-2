@@ -4,19 +4,8 @@ import { RpcException } from '@nestjs/microservices';
 
 @Catch(RpcException)
 export class ExceptionFilter implements RpcExceptionFilter<RpcException> {
-  catch(exception: RpcException, host: ArgumentsHost): Observable<any> {
-    // @ts-ignore
-    return undefined;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  catch(exception: RpcException, _host: ArgumentsHost): Observable<never> {
+    return throwError(() => exception.getError());
   }
-  // catch(exception: RpcException, host: ArgumentsHost): Observable<any> {
-  // console.log({mymy: 'jlkdxndndfnj'})
-  // return throwError(() => exception.getError());
-  // catch(exception: RpcException, host: ArgumentsHost) {
-  //   const error: any = exception.getError();
-  //   const ctx = host.switchToHttp();
-  //   const response = ctx.getResponse<Response>();
-  //
-  //   response.status(error.statusCode).json(error);
-  //   // }
-  // }
 }
