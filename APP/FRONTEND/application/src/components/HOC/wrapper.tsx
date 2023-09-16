@@ -1,4 +1,4 @@
-import { ComponentType, FC } from 'react';
+import React, { ComponentType, FC } from 'react';
 
 export function WithWrapper<P extends object>(
   WrappedComponent: ComponentType<P & AdditionalProps>,

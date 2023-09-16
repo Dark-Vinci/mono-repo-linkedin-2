@@ -1,36 +1,19 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import {
-  legacy_createStore as createStore,
-  combineReducers,
-  applyMiddleware,
-  compose,
-} from 'redux';
-
-import { App, reportWebVitals } from '@startup';
-
-import '@startup/styles/index.css';
-
-const reducers = combineReducers({
-  auth: {} as any,
-});
-
-const composeEnhancer =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancer(applyMiddleware(thunk)));
+import './startup/styles/index.css';
+import App from './App';
+import reportWebVitals from './startup/reportWebVitals';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+  document.getElementById('root') as HTMLElement
 );
-
 root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

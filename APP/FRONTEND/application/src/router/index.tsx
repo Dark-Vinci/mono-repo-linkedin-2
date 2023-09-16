@@ -1,6 +1,7 @@
 import { createBrowserRouter, useLoaderData } from 'react-router-dom';
 
 import style from './styles/App.module.css';
+import React, { JSX } from 'react';
 
 // let [searchParams, setSearchParams] = useSearchParams();
 //   let paramValue = searchParams.get(key);
@@ -11,6 +12,10 @@ import style from './styles/App.module.css';
 // let [searchParams] = useSearchParams();
 //   let isActive = searchParams.get("brand") === brand;
 // let { id } = useParams<"id">();
+
+function DefaultElement(): JSX.Element {
+  return <div>Page 404</div>;
+}
 
 function router(props: { isVerified: boolean }) {
   return createBrowserRouter(
@@ -57,7 +62,7 @@ function router(props: { isVerified: boolean }) {
             errorElement: <div>Error Element</div>,
 
             async lazy() {
-              const { ErrorBoundary } = await import('@components');
+              const { ErrorBoundary } = await import('../components');
               console.log({ ErrorBoundary });
 
               return {
@@ -85,7 +90,7 @@ function router(props: { isVerified: boolean }) {
 
           {
             path: '*',
-            element: <div>Page 404</div>,
+            element: <DefaultElement />,
           },
         ],
       },

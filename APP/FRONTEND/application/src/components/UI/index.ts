@@ -1,1 +1,1 @@
-export const UI = 'UI';
+export const UI = 'UI' as const;

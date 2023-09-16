@@ -1,4 +1,4 @@
-import { ErrorInfo, ReactNode, Component } from 'react';
+import React, { ErrorInfo, ReactNode, Component } from 'react';
 
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,

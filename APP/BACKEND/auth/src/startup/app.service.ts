@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
-import { MyLogger as Logger, UUID } from 'sdk/dist/helpers';
-import { AuthPingRequest } from 'sdk/dist/grpc/auth';
-import { Type } from 'sdk/dist/constants';
+import { MyLogger as Logger, UUID, AuthPingRequest, Type } from 'sdk';
 
 import { appServiceMethods, fileNames } from '@constants';
 
@@ -36,7 +34,6 @@ export class AppService {
       return UUID.parse(requestId);
     } catch (error) {
       logger.error(error);
-      // new ImprovedError()
       throw new RpcException(error.message);
     }
   }
