@@ -13,14 +13,11 @@
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    // "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    // "noImplicitReturns": true,
+     "noImplicitReturns": true,
     "noImplicitAny": true,
-    // "assets"
-    // "watchAssets": true,
     "paths": {
       "@constants": ["./src/constants"],
       "@errors": ["./src/errors"],

@@ -5,9 +5,9 @@ import {
   AuthPingRequest,
   AuthPingResponse,
   AuthService,
-} from 'sdk/dist/grpc/auth';
-import { MyLogger as Logger } from 'sdk/dist/helpers';
-import { Type } from 'sdk/dist/constants';
+  MyLogger as Logger,
+  Type,
+} from 'sdk';
 
 import {
   SERVICE_NAME,

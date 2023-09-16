@@ -9,17 +9,18 @@ import { ValidationPipe } from '@nestjs/common';
 
 import {
   TIME_ZONE,
-  ServicePort,
-  ServiceProtoPath,
   GRPC_LOADER_OPTIONS,
+  ServiceProtoPath,
+  zeroUUID,
+  logFiles,
   ServiceName,
   TerminationSignal,
   ClusterSignal,
-  zeroUUID,
-  logFiles,
+  ServicePort,
   AppState,
-} from 'sdk/dist/constants';
-import { GlobalLogger, MyLogger as Logger } from 'sdk/dist/helpers';
+  GlobalLogger,
+  MyLogger as Logger
+} from 'sdk';
 
 import { ShutdownService, AppModule } from '@startup';
 import {ExceptionFilter} from "@app";
@@ -64,7 +65,7 @@ class App {
       // set time zone
       process.env.TZ = TIME_ZONE;
 
-      // instanciate application
+      // instance application
       const app = await NestFactory.create(AppModule);
       const shutdownService = app.get(ShutdownService);
 

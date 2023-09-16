@@ -11,4 +11,3 @@ export const GRPC_LOADER_OPTIONS = {
 } as const;
 
 export const logFiles = ['./log/logger.txt', './log/error.txt'] as const;
-// export const A_LOTS_OF_STEAK =

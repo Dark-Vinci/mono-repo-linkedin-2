@@ -36,7 +36,8 @@ export class AppService {
       return UUID.parse(requestId);
     } catch (error) {
       logger.error(error);
-      throw new RpcException(new NotFoundException(error.message));
+      // new ImprovedError()
+      throw new RpcException(error.message);
     }
   }
 }
