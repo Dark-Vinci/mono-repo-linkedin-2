@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,7 +17,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      return expect(appController.ping('abc')).toBe('Hello World!');
+      return expect(appController.ping({ requestId: 'abc' })).toBe({
+        requestId: 'Hello World!',
+      });
     });
   });
 });

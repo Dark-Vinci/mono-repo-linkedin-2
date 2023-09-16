@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import global from 'globals';
+
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
@@ -8,6 +9,7 @@ import { appServiceMethods, fileNames } from '@constants';
 
 @Injectable()
 export class AppService {
+  private readonly globalLogger = global.logger;
   getHello(): string {
     return 'Hello World!';
   }
@@ -17,7 +19,7 @@ export class AppService {
       fileNames.APP_SERVICE,
       appServiceMethods.PING,
       payload.requestId,
-      global.logger,
+      this.globalLogger,
       payload,
     );
 

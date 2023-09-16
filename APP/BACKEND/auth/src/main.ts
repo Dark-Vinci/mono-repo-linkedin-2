@@ -1,7 +1,7 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import cluster from 'cluster';
 import { cpus } from 'os';
+import process from 'process';
+import global from 'globals';
 
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -19,11 +19,11 @@ import {
   ServicePort,
   AppState,
   GlobalLogger,
-  MyLogger as Logger
+  MyLogger as Logger,
 } from 'sdk';
 
 import { ShutdownService, AppModule } from '@startup';
-import {ExceptionFilter} from "@app";
+import { ExceptionFilter } from '@app';
 
 class App {
   private readonly isDevMode = process.env.NODE_ENV !== AppState.PRODUCTION;
@@ -31,7 +31,7 @@ class App {
 
   private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
   private readonly logger = Logger.setContext(
-    'main.ts',
+    __filename,
     'void',
     zeroUUID,
     this.globalLogger,
@@ -53,7 +53,7 @@ class App {
     cluster.on(ClusterSignal.EXIT, (worker, code, signal) => {
       this.logger.log(`${signal}| ${code}`);
       // for a new worker if this is not dev mode
-      if (this.isDevMode) {
+      if (!this.isDevMode) {
         cluster.fork();
       }
       this.logger.log(`worker ${worker.process.pid} died`);
@@ -124,4 +124,4 @@ class App {
   }
 }
 
-new App().start();
+new App().start().then();

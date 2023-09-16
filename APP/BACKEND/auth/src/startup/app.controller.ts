@@ -1,3 +1,5 @@
+import global from 'globals';
+
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 
@@ -20,6 +22,8 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController implements AuthService {
+  private readonly globalLogger = global.logger;
+
   constructor(private readonly appService: AppService) {}
 
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
@@ -28,7 +32,7 @@ export class AppController implements AuthService {
       fileNames.APP_SERVICE,
       appControllerMethods.PING,
       payload.requestId,
-      global.logger,
+      this.globalLogger,
       payload,
     );
 

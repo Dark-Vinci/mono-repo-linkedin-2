@@ -1,8 +1,8 @@
 /node_modules
 
-/packages/BACKEND/**/log
-/packages/BACKEND/**/dist
-/packages/BACKEND/**/.env
+/APP/BACKEND/**/log
+/APP/BACKEND/**/dist
+/APP/BACKEND/**/.env
 
 .vscode
 .env
