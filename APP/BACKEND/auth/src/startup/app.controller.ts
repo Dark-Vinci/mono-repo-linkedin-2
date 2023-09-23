@@ -21,7 +21,7 @@ import {
 import { AppService } from './app.service';
 
 @Controller()
-export class AppController implements AuthService {
+export class AppController implements AuthService, AppController {
   private readonly globalLogger = global.logger;
 
   constructor(private readonly appService: AppService) {}
