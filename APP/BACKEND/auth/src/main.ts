@@ -1,6 +1,6 @@
 import cluster from 'cluster';
 import { cpus } from 'os';
-import process from 'process';
+import { exit, env, pid, on } from 'process';
 import global from 'globals';
 
 import { NestFactory } from '@nestjs/core';
@@ -26,7 +26,7 @@ import { ShutdownService, AppModule } from '@startup';
 import { ExceptionFilter } from '@app';
 
 class App {
-  private readonly isDevMode = process.env.NODE_ENV !== AppState.PRODUCTION;
+  private readonly isDevMode = env.NODE_ENV !== AppState.PRODUCTION;
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
@@ -43,7 +43,7 @@ class App {
   }
 
   private primaryWorker(): void {
-    this.logger.log(`Primary ${process.pid} is running`);
+    this.logger.log(`Primary ${pid} is running`);
 
     // Fork workers.
     for (let i = 0; i < this.numCPUs; i++) {
@@ -63,28 +63,36 @@ class App {
   private async childWorker(): Promise<void> {
     try {
       // set time zone
-      process.env.TZ = TIME_ZONE;
+      env.TZ = TIME_ZONE;
 
       // instance application
-      const app = await NestFactory.create(AppModule);
-      const shutdownService = app.get(ShutdownService);
+      const {
+        get,
+        connectMicroservice,
+        useGlobalFilters,
+        useGlobalPipes,
+        startAllMicroservices,
+        listen,
+        getUrl,
+      } = await NestFactory.create(AppModule);
+      const shutdownService = get(ShutdownService);
 
       // listen all SIGINT kernel signals
-      process.on(TerminationSignal.SIGINT, async () => {
+      on(TerminationSignal.SIGINT, async () => {
         await shutdownService.shutdown();
-        process.exit(0);
+        exit(0);
       });
 
       // handle all SIGTERM kernel signals
-      process.on(TerminationSignal.SIGTERM, async () => {
+      on(TerminationSignal.SIGTERM, async () => {
         await shutdownService.shutdown();
-        process.exit(0);
+        exit(0);
       });
 
       // handle all SIGHUP kernel signals
-      process.on(TerminationSignal.SIGHUP, async () => {
+      on(TerminationSignal.SIGHUP, async () => {
         await shutdownService.shutdown();
-        process.exit(0);
+        exit(0);
       });
 
       // set all needed grpc options
@@ -99,18 +107,19 @@ class App {
         },
       };
 
-      app.connectMicroservice<MicroserviceOptions>(grpcClientOptions);
-      app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-      app.useGlobalFilters(new ExceptionFilter());
+      connectMicroservice<MicroserviceOptions>(grpcClientOptions);
+      useGlobalPipes(new ValidationPipe({ whitelist: true }));
+      useGlobalFilters(new ExceptionFilter());
 
       // start microservices and log necessary logs data
-      await app.startAllMicroservices();
-      await app.listen(ServicePort.AUTH);
-      const url = await app.getUrl();
+      await startAllMicroservices();
+      await listen(ServicePort.AUTH);
+      const url = await getUrl();
 
       this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
     } catch (error) {
       this.logger.error(error);
+      exit(0);
     }
   }
 

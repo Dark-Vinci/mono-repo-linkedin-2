@@ -21,7 +21,7 @@ import {
 import { AppService } from './app.service';
 
 @Controller()
-export class AppController implements AuthService, AppController {
+export class AppController implements Pick<AuthService, 'ping'>, AppController {
   private readonly globalLogger = global.logger;
 
   constructor(private readonly appService: AppService) {}
