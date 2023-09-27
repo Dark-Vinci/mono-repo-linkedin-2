@@ -4,3 +4,5 @@ export enum fileNames {
 }
 
 export const SERVICE_NAME = 'Auth' as const;
+
+export const GLOBAL_LOGGER = 'GLOBAL_LOGGER' as const;

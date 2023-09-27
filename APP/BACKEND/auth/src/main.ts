@@ -1,6 +1,6 @@
 import cluster from 'cluster';
 import { cpus } from 'os';
-import { exit, env, pid, on } from 'process';
+import { exit, env, pid } from 'process';
 import global from 'globals';
 
 import { NestFactory } from '@nestjs/core';
@@ -78,19 +78,19 @@ class App {
       const shutdownService = get(ShutdownService);
 
       // listen all SIGINT kernel signals
-      on(TerminationSignal.SIGINT, async () => {
+      process.on(TerminationSignal.SIGINT, async () => {
         await shutdownService.shutdown();
         exit(0);
       });
 
       // handle all SIGTERM kernel signals
-      on(TerminationSignal.SIGTERM, async () => {
+      process.on(TerminationSignal.SIGTERM, async () => {
         await shutdownService.shutdown();
         exit(0);
       });
 
       // handle all SIGHUP kernel signals
-      on(TerminationSignal.SIGHUP, async () => {
+      process.on(TerminationSignal.SIGHUP, async () => {
         await shutdownService.shutdown();
         exit(0);
       });

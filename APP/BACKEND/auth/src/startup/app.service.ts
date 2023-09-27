@@ -24,6 +24,7 @@ export class AppService {
     );
 
     try {
+      // assert(2 == 2, 'something is entirely wrong');
       const { requestId } = payload;
 
       const response = UUID.parse(requestId);
