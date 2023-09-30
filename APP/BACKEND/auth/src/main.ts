@@ -24,6 +24,7 @@ import {
 
 import { ShutdownService, AppModule } from '@startup';
 import { ExceptionFilter } from '@app';
+import { MAIN_VOID } from '@constants';
 
 class App {
   private readonly isDevMode = env.NODE_ENV !== AppState.PRODUCTION;
@@ -32,7 +33,7 @@ class App {
   private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
   private readonly logger = Logger.setContext(
     __filename,
-    'void',
+    MAIN_VOID,
     zeroUUID,
     this.globalLogger,
   );

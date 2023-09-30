@@ -1,8 +1,7 @@
 interface AdditionalProps {
   customProps: string;
 }
-
-declare enum CSSProperties {
+enum CSSProperties {
   MAIN_COLOR = '--main-color',
   MINOR_COLOR = '--minor-color',
   MAIN_BACKGROUND_COLOR = '--main-background-color',

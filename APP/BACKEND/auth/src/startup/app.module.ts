@@ -1,11 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
+import { DOT_ENV_PATH } from 'sdk';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ShutdownService } from './app.shutdown.service';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: [DOT_ENV_PATH],
+      isGlobal: true,
+      cache: true,
+      expandVariables: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService, ShutdownService],
 })

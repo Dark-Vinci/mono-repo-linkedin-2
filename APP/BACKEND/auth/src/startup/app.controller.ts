@@ -19,12 +19,14 @@ import {
 } from '@constants';
 
 import { AppService } from './app.service';
+import winston from 'winston';
 
 @Controller()
 export class AppController implements Pick<AuthService, 'ping'>, AppController {
-  private readonly globalLogger = global.logger;
-
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly globalLogger: winston.Logger = global.logger,
+  ) {}
 
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {

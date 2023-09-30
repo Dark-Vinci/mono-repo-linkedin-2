@@ -1,5 +1,6 @@
 import global from 'globals';
 
+import winston from 'winston';
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
@@ -9,7 +10,8 @@ import { appServiceMethods, fileNames } from '@constants';
 
 @Injectable()
 export class AppService {
-  private readonly globalLogger = global.logger;
+  constructor(private readonly globalLogger: winston.Logger = global.logger) {}
+
   getHello(): string {
     return 'Hello World!';
   }

@@ -11,3 +11,5 @@ export const GRPC_LOADER_OPTIONS = {
 } as const;
 
 export const logFiles = ['./log/logger.txt', './log/error.txt'] as const;
+
+export const DOT_ENV_PATH = '../../.env' as const;
