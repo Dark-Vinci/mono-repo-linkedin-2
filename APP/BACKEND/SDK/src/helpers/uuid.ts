@@ -3,8 +3,8 @@ import { randomUUID } from 'crypto';
 import { zeroUUID } from '../constants';
 
 export class UUID {
-  private value: string;
-  private zeroUUID = zeroUUID;
+  private readonly value: string;
+  private readonly zeroUUID = zeroUUID;
 
   public constructor(uuid: string) {
     if (!UUID.isValidUUID(uuid)) {

@@ -3,9 +3,10 @@ import { cpus } from 'os';
 import { exit, env, pid } from 'process';
 import global from 'globals';
 
+import winston from 'winston';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ValidationPipe } from '@nestjs/common';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import {
   TIME_ZONE,
@@ -40,7 +41,7 @@ class App {
 
   public constructor() {
     // set the logger to be a global Object
-    global.logger = this.globalLogger as any;
+    global.logger = this.globalLogger as winston.Logger;
   }
 
   private primaryWorker(): void {

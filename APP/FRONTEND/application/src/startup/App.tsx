@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, JSX } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import router from '../router';
 import './styles/variables.css';
 import { Colors } from '../utils/constants/style';
 
-export function App() {
+export function App(): JSX.Element {
   useEffect(() => {
     const el = getComputedStyle(document.documentElement);
     const a = el.getPropertyValue(CSSProperties.MAIN_COLOR);
