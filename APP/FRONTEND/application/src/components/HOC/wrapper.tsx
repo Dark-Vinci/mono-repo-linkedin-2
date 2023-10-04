@@ -1,6 +1,6 @@
 import React, { ComponentType, FC } from 'react';
 
-export function WithWrapper<P extends object>(
+function WithWrapper<P extends object>(
   WrappedComponent: ComponentType<P & AdditionalProps>,
 ): FC<P> {
   const withWrapper: FC<P> = (props) => {
@@ -13,3 +13,5 @@ export function WithWrapper<P extends object>(
 
   return withWrapper;
 }
+
+export default WithWrapper;

@@ -1,7 +1,10 @@
 import cluster from 'cluster';
 import { cpus } from 'os';
-import { exit, env, pid } from 'process';
+import process, { exit, env, pid } from 'process';
 import global from 'globals';
+
+// import {setTimeout, setImmediate, setInterval} from 'timers/promises'
+// import {nextTick} from 'process';
 
 import winston from 'winston';
 import { NestFactory } from '@nestjs/core';

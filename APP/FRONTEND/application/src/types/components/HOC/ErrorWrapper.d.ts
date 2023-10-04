@@ -1,4 +1,4 @@
-declare interface ErrorBoundaryProps {
+interface ErrorBoundaryProps {
   children: ReactNode;
   fallback: ReactNode;
 }
