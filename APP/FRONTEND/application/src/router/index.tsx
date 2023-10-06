@@ -91,3 +91,15 @@ function router(props: { isVerified: boolean }) {
 }
 
 export default router;
+
+
+// callback: (...args: any[]) => any callbacks, callback: (...args: unknown[]) => any,
+
+
+// export function stringCleaner(str: string) {
+//   return str ? str.replace(/\s+/g, '').replace(/\n+/g, '') : str;
+// }
+
+
+// use package https://www.npmjs.com/package/uid
+

@@ -1,8 +1,6 @@
-declare global {
-  namespace NodeJS {
-    interface Global {
-      logger: winston.Logger;
-    }
+declare namespace NodeJS {
+  interface Global {
+    logger: winston.Logger;
   }
 }
 
@@ -21,3 +19,5 @@ interface AppController {
   readonly appService: any;
   ping(payload: any): Promise<any>;
 }
+
+declare let Myname: Partial<AppController>;

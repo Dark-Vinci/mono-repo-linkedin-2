@@ -1,4 +1,4 @@
-interface WithClassProps {
+export interface WithClassProps {
     children: any;
     classes: string;
 }

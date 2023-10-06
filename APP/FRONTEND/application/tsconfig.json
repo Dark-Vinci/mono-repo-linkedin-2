@@ -29,7 +29,8 @@
   //  "moduleResolution": "Node",
    "paths": {
     //  "@components": ["./src/components"],
-    //  "@util": ["./src/util"],
+      "@util": ["./src/util"],
+     "@types": ["./src/types"],
     //  "@store": ["./src/store"],
     //  "@pages": ["./src/pages"],
     //  "@containers": ["./src/containers"],

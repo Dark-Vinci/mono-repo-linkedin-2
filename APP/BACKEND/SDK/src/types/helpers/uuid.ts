@@ -1,4 +1,4 @@
-declare enum TypeOF {
+export enum TypeOF {
   STRING = 'string',
   OBJECT = 'object',
 }

@@ -15,10 +15,12 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictBindCallApply": false,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "allowJs": false,
     "paths": {
       "@startup": ["./src/startup"],
       "@store": ["./src/store"],
