@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { zeroUUID } from '../constants';
+import { TypeOF } from '../types';
 
 export class UUID {
   private readonly value: string;
