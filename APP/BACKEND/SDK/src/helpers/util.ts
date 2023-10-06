@@ -1,5 +1,6 @@
+import { HttpStatus, Injectable } from '@nestjs/common';
+
 import type { UUID } from './uuid';
-import { HttpStatus } from '@nestjs/common';
 import type {
   BaseResponse,
   ReturnT,
@@ -7,64 +8,93 @@ import type {
   Data,
   ErrorResponse,
   Error,
+  Pagination,
 } from '../types';
 import { Message } from '../types';
 
-export function assert(expression: boolean, message: string): void {
-  if (!expression) {
-    throw new Error(message);
-  }
-}
-
-function createSuccessResponse<DType = any>(
-  data: Data<DType>,
-  statusCode: HttpStatus,
-  requestId: UUID,
-): ReturnT<Data> {
-  const base: BaseResponse = {
-    timestamp: new Date(),
-    requestId,
-    statusCode,
-  };
-
-  const successResponse: SuccessResponse = {
-    ...base,
-    data,
-    message: Message.SUCCESS,
-  };
-
-  return successResponse;
-}
-
-function createFailureResponse(
-  error: Error,
-  statusCode: HttpStatus,
-  requestId: UUID,
-): ReturnT<Error> {
-  const base: BaseResponse = {
-    timestamp: new Date(),
-    requestId,
-    statusCode,
-  };
-
-  const errorResponse: ErrorResponse = {
-    ...base,
-    message: Message.FAILURE,
-    error,
-  };
-
-  return errorResponse;
-}
-
-export function response<
-  T extends Error | Data,
-  RType extends Record<string, never> = any,
->(value: T, statusCode: HttpStatus, requestId: UUID): RType {
-  // is data
-  if (Reflect.has(value, 'payload')) {
-    return createSuccessResponse(value as Data, statusCode, requestId) as any;
+@Injectable()
+export class Util {
+  public assert(expression: boolean, message: string): void | never {
+    if (!expression) {
+      throw new Error(message);
+    }
   }
 
-  // isError
-  return createFailureResponse(value as Error, statusCode, requestId) as any;
+  private createSuccessResponse<DType = any>(
+    data: Data<DType>,
+    statusCode: HttpStatus,
+    requestId: UUID,
+  ): ReturnT<Data> {
+    const base: BaseResponse = {
+      timestamp: new Date(),
+      requestId,
+      statusCode,
+    };
+
+    const successResponse: SuccessResponse = {
+      ...base,
+      data,
+      message: Message.SUCCESS,
+    };
+
+    return successResponse;
+  }
+
+  private createFailureResponse(
+    error: Error,
+    statusCode: HttpStatus,
+    requestId: UUID,
+  ): ReturnT<Error> {
+    const base: BaseResponse = {
+      timestamp: new Date(),
+      requestId,
+      statusCode,
+    };
+
+    const errorResponse: ErrorResponse = {
+      ...base,
+      message: Message.FAILURE,
+      error,
+    };
+
+    return errorResponse;
+  }
+
+  public generateResponse<
+    T extends Error | Data,
+    RType extends Record<string, never> = any,
+  >(value: T, statusCode: HttpStatus, requestId: UUID): RType {
+    // is data
+    if (Reflect.has(value, 'payload')) {
+      return this.createSuccessResponse(
+        value as Data,
+        statusCode,
+        requestId,
+      ) as any;
+    }
+
+    // isError
+    return this.createFailureResponse(
+      value as Error,
+      statusCode,
+      requestId,
+    ) as any;
+  }
+
+  public paginate(size: number, totalCount: number, page: number): Pagination {
+    const hasNext = size * page < totalCount;
+    const hasPrev = page > 1;
+
+    return {
+      hasPrev,
+      hasNext,
+      size,
+      currentPage: page,
+      totalRecord: totalCount,
+    } satisfies Pagination;
+  }
+
+  public paginationOffset(size: number, page: number): number {
+    return (page - 1) * size;
+  }
 }
