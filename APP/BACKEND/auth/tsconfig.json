@@ -11,7 +11,6 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -21,14 +20,26 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "allowJs": false,
-    "paths": {
-      "@startup": ["./src/startup"],
-      "@store": ["./src/store"],
-      "@app": ["./src/app"],
-      "@downstream": ["./src/downstream"],
-      "@server": ["./src/server"],
-      "@constants": ["./src/constants"],
-      "@sdk/*": ["sdk/dist/*"],
-    }
+    "strict": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "skipLibCheck": true
+  },
+  "paths": {
+    "@startup": ["./src/startup"],
+    "@store": ["./src/store"],
+    "@app": ["./src/app"],
+    "@downstream": ["./src/downstream"],
+    "@server": ["./src/server"],
+    "@constants": ["./src/constants"],
+    "@sdk/*": ["sdk/dist/*"],
   }
 }

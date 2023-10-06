@@ -120,7 +120,7 @@ class App {
 
       this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error(<Error>error);
       exit(0);
     }
   }
