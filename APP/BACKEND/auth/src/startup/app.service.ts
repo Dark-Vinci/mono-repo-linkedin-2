@@ -38,8 +38,8 @@ export class AppService {
 
       return UUID.parse(requestId);
     } catch (error) {
-      logger.error(error);
-      throw new RpcException(error.message);
+      logger.error(<Error>error);
+      throw new RpcException((<Error>error).message);
     }
   }
 }

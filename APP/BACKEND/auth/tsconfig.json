@@ -31,15 +31,15 @@
     "noImplicitOverride": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
-    "skipLibCheck": true
-  },
-  "paths": {
-    "@startup": ["./src/startup"],
-    "@store": ["./src/store"],
-    "@app": ["./src/app"],
-    "@downstream": ["./src/downstream"],
-    "@server": ["./src/server"],
-    "@constants": ["./src/constants"],
-    "@sdk/*": ["sdk/dist/*"],
+    "skipLibCheck": true,
+    "paths": {
+      "@startup": ["./src/startup"],
+      "@store": ["./src/store"],
+      "@app": ["./src/app"],
+      "@downstream": ["./src/downstream"],
+      "@server": ["./src/server"],
+      "@constants": ["./src/constants"],
+      "@sdk/*": ["sdk/dist/*"],
+    }
   }
 }
