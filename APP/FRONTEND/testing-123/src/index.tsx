@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { 
+  applyMiddleware, 
+  combineReducers, 
+  compose, 
+  legacy_createStore as createStore 
+} from 'redux';
 import { Provider } from 'react-redux';
 
 import './styles/index.css';
