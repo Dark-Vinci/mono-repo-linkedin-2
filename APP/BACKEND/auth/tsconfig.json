@@ -39,7 +39,6 @@
       "@downstream": ["./src/downstream"],
       "@server": ["./src/server"],
       "@constants": ["./src/constants"],
-      "@sdk/*": ["sdk/dist/*"],
     }
   }
 }

@@ -2,6 +2,7 @@ import global from 'globals';
 
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
+import winston from 'winston';
 
 import {
   AuthPingRequest,
@@ -19,10 +20,11 @@ import {
 } from '@constants';
 
 import { AppService } from './app.service';
-import winston from 'winston';
 
 @Controller()
-export class AppController implements Pick<AuthService, 'ping'>, AppController {
+export class AppController
+  implements Pick<AuthService, MethodName.PING>, AppController
+{
   constructor(
     private readonly appService: AppService,
     private readonly globalLogger: winston.Logger = global.logger,
