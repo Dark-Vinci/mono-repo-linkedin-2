@@ -1,0 +1,28 @@
+[TECHNOLOGY]
+
+Kafka
+RabbitMQ
+Redis
+GRPC
+Docker
+K8
+SOCKETIO
+WebRTC
+Great Typescript
+Nestjs
+Nodemailer
+MTN Messaging api
+WebHOOKS/MailHooks
+Passport (Google, Facebook, Github)
+AWS
+    S3
+    EC2
+
+[STRATEGIES]
+cluster module
+worker module
+test(DB SQLITE)
+streams
+read-write-replica
+Seeding
+Buffers

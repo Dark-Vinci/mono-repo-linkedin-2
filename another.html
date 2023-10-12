@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --border-radius: 20px;
+            --border-width: 2px;
+            --background-color: rgba(255, 255, 255, 0.917);
+        }
+
+        *,
+        *::after,
+        *::before {
+            box-sizing: border-box;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .item1 { 
+            grid-area: header;
+            position: relative;
+            background-image: url('https://cash-f.squarecdn.com/web/marketing/dfe9c92a574d867ebc8b3066b0d70e91163185e2/assets/images/redesign/assets_nav_bank.webp');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            /* background */
+        }
+        .item2 { 
+            grid-area: main;
+            position: relative;
+        }
+        .item3 { grid-area: footer;
+            position: relative;
+            background-image: url('https://cash-f.squarecdn.com/web/marketing/dfe9c92a574d867ebc8b3066b0d70e91163185e2/assets/images/redesign/assets_nav_bitcoin.webp');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        .item4 { 
+            grid-area: menu;
+            position: relative;
+            background-image: url('https://cash-f.squarecdn.com/web/marketing/dfe9c92a574d867ebc8b3066b0d70e91163185e2/assets/images/redesign/assets_nav_send.webp');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        .item5 { 
+            grid-area: right;
+            position: relative;
+            background-image: url('https://cash-f.squarecdn.com/web/marketing/dfe9c92a574d867ebc8b3066b0d70e91163185e2/assets/images/redesign/assets_nav_stocks.webp');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            display: grid;
+            grid-template: 
+                'header header header header right'
+                'menu main main main right'
+                'menu main main main footer';
+            gap: 10px;
+            box-sizing: border-box;
+            background-color: antiquewhite;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            border: var(--border-width) solid blue;
+        }
+
+        .container > div {
+            background-color: var(--background-color);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 30px;
+            border: 2px solid red;
+            margin: 0px;
+            border-radius: var(--border-radius);
+        }
+
+        #video-background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: calc(var(--border-radius) - var(--border-width));
+            object-fit: fill;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item1">header</div>
+        <div class="item2">
+            <video id="video-background" autoplay loop muted>
+                <source src="https://videos.ctfassets.net/jwea2w833xe7/4yvdq8UdDYTI0cKOONiby2/388087c20622a789d6424fe0157a4fa5/WEB_HERO_9x16_x264_RF30.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="item3">footer</div>
+        <div class="item4">menu</div>
+        <div class="item5">right</div>
+    </div>
+</body>
+</html>

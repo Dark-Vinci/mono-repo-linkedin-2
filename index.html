@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixelated Video Renderer</title>
+  <style>
+    canvas {
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+
+<video id="myVideo" width="640" height="360" controls>
+  <source src="https://videos.ctfassets.net/jwea2w833xe7/4yvdq8UdDYTI0cKOONiby2/388087c20622a789d6424fe0157a4fa5/WEB_HERO_9x16_x264_RF30.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<canvas id="myCanvas" width="640" height="360"></canvas>
+
+<script>
+function renderPixelatedVideo() {
+  var video = document.getElementById('myVideo');
+  var canvas = document.getElementById('myCanvas');
+  var ctx = canvas.getContext('2d');
+  console.log({video, canvas, ctx})
+
+  // Set canvas size to match video dimensions
+  canvas.width = video.width;
+  canvas.height = video.height;
+
+  // Play the video
+//   video.play();
+
+  // Function to render pixelated frames at regular intervals
+  function renderFrame() {
+    // Draw the current frame of the video onto the canvas
+    console.log('rendering')
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Get the pixel data of the canvas
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    console.log({imageData: imageData.data});
+    var pixels = imageData.data;
+
+    // Manipulate pixel data (e.g., apply pixelation effect)
+    for (var i = 0; i < pixels.length; i += 4) {
+      // Apply pixelation effect by setting each pixel color to a nearby pixel color
+      var pixelSize = 4; // Increase for a more pixelated effect
+      var x = (i / 4) % canvas.width;
+      var y = Math.floor((i / 4) / canvas.width);
+      var baseIndex = (y * canvas.width + x) * 4;
+      for (var j = 0; j < 3; j++) {
+        pixels[i + j] = pixels[baseIndex + j];
+      }
+    }
+
+    // Put the modified pixel data back on the canvas
+    ctx.putImageData(imageData, 0, 0);
+
+    // If the video is still playing, render the next frame
+    // if (!video.paused) {
+      requestAnimationFrame(renderFrame);
+    // }
+  }
+
+  // Start rendering pixelated frames
+  renderFrame();
+}
+
+renderPixelatedVideo()
+</script>
+
+</body>
+</html>
