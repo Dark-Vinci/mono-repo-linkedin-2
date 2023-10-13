@@ -39,6 +39,7 @@
       "@downstream": ["./src/downstream"],
       "@server": ["./src/server"],
       "@constants": ["./src/constants"],
+      "@connections": ["./src/connections"],
     }
   }
 }

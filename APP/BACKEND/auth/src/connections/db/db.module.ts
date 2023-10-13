@@ -2,7 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-type NodeEnvType = 'development' | 'production' | 'test' | TypeOrmModuleOptions;
+type NodeEnvType = 'development' | 'production' | 'test';
 
 type DBType = 'postgres';
 
@@ -43,7 +43,7 @@ export class DB {
       useFactory: (config: ConfigService<configInterface>) => {
         const get = config.get;
 
-        const connn: Partial<TypeOrmModuleOptions> = {
+        const connectionConfig = {
           username: get(USERNAME) as string,
           logging: true,
           logger: DB_LOGGER,
@@ -83,7 +83,7 @@ export class DB {
           },
         };
 
-        return connn;
+        return connectionConfig satisfies Partial<TypeOrmModuleOptions>;
       },
     });
   }

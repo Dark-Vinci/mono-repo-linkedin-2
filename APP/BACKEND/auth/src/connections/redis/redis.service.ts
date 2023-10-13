@@ -3,9 +3,9 @@ import { Redis } from 'ioredis';
 
 import { IORedisKey } from '@constants';
 
-enum RedisTimerType {
-  EX = 'EX',
-}
+// enum RedisTimerType {
+//   EX = 'EX',
+// }
 
 @Injectable()
 export class RedisClient {

@@ -19,7 +19,7 @@ import {
   MethodName,
 } from '@constants';
 
-import { AppService } from './app.service';
+import { AppService } from '.';
 
 @Controller()
 export class AppController
