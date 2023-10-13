@@ -2,11 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Redis } from 'ioredis';
 
 import { IORedisKey } from '@constants';
-
-// enum RedisTimerType {
-//   EX = 'EX',
-// }
-
+import { RedisTimerType } from '@types';
 @Injectable()
 export class RedisClient {
   public constructor(@Inject(IORedisKey) private readonly redisClient: Redis) {}
