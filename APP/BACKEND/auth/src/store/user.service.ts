@@ -1,8 +1,13 @@
 import global from 'globals';
 
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityNotFoundError, QueryFailedError, Repository } from 'typeorm';
 import winston from 'winston';
 
 import { MyLogger as Logger, UUID } from 'sdk';
@@ -36,7 +41,7 @@ export class UserRepository {
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      throw error;
+      throw HandleRepositoryError(error as any);
     }
   }
 
@@ -55,7 +60,7 @@ export class UserRepository {
       return;
     } catch (error) {
       logger.error(<Error>error);
-      throw error;
+      throw HandleRepositoryError(error as any);
     }
   }
 
@@ -82,13 +87,15 @@ export class UserRepository {
         skip: paginateOptions.skip,
 
         order: { createdAt: 'ASC' },
-        comment: 'get user by paination strategy',
+        comment: `get user that matches ${JSON.stringify(
+          payload,
+        )} by paination strategy with requestId ${requestId.toString()}`,
       });
 
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      throw error;
+      throw HandleRepositoryError(error as any);
     }
   }
 
@@ -115,12 +122,40 @@ export class UserRepository {
         where: {
           // ...payload,
         },
+
+        comment: `find one user with details ${JSON.stringify(
+          payload,
+        )} or fail`,
       });
 
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      throw error;
+      throw HandleRepositoryError(error as any);
     }
+  }
+}
+
+export function HandleRepositoryError<
+  T extends { new (...args: any[]): any; message: string },
+>(error: T): void {
+  switch (error.constructor) {
+    case EntityNotFoundError:
+      new NotFoundException('entity not found');
+      break;
+    case QueryFailedError:
+      if (error.message.includes('duplicate key')) {
+        new ConflictException('duplicate exist');
+        break;
+      }
+
+      new InternalServerErrorException(
+        'service is current unable to handle requests',
+      );
+      break;
+    default:
+      new InternalServerErrorException(
+        'service is current unable to handle requests',
+      );
   }
 }

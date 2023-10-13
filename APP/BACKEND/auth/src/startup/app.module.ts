@@ -5,7 +5,8 @@ import { DOT_ENV_PATH } from 'sdk';
 
 import { DB, RedisModule, RabbitMQ } from '@connections';
 import { StoreModule } from '@store';
-import { AppController, AppService, ShutdownService } from '.';
+import { ServerModule } from '@server';
+import { AppService, ShutdownService } from '.';
 
 @Module({
   imports: [
@@ -33,8 +34,10 @@ import { AppController, AppService, ShutdownService } from '.';
 
     // store
     StoreModule,
+
+    // Server module
+    ServerModule,
   ],
-  controllers: [AppController],
   providers: [AppService, ShutdownService],
 })
 export class AppModule {}

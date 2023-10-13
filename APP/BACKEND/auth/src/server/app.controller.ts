@@ -18,8 +18,7 @@ import {
   appControllerMethods,
   MethodName,
 } from '@constants';
-
-import { AppService } from '.';
+import { AppService } from '@startup';
 
 @Controller()
 export class AppController
