@@ -15,6 +15,10 @@ import { ShutdownService } from './app.shutdown.service';
       cache: true,
       expandVariables: true,
     }),
+
+    // redis
+
+    // typeorm
   ],
   controllers: [AppController],
   providers: [AppService, ShutdownService],
