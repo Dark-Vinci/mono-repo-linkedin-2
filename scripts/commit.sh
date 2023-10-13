@@ -10,6 +10,7 @@ directory = '../APP/BACKEND';
 
 for diren in "$directory"; do
     echo $diren
+    echo "commit command"
 #    if [ -d "$diren/node_modules" ]; then
 #     echo "node modules exists ====> Removing now"
 #     rm -rf $diren/node_modules
