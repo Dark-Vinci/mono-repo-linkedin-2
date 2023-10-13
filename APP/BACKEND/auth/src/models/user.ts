@@ -5,7 +5,7 @@ import { ColumType, EntityNames, Ordering } from '@types';
 import { Base } from '.';
 
 @Entity({
-  name: EntityNames.USER,
+  name: EntityNames.USERS,
   orderBy: { created_at: Ordering.ASC },
   synchronize: true,
   schema: SCHEMA,
