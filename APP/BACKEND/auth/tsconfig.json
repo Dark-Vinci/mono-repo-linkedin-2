@@ -41,6 +41,7 @@
       "@constants": ["./src/constants"],
       "@connections": ["./src/connections"],
       "@types": ["./src/types"],
+      "@models": ["./src/models"],
     }
   }
 }

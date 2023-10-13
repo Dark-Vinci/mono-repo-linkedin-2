@@ -6,9 +6,9 @@
 //   }
 // }
 
-type OrNull<Type> = Type | null;
+export type OrNull<Type> = Type | null;
 
-type OneOrMany<Type> = Type | Type[];
+export type OneOrMany<Type> = Type | Type[];
 
 export type OneOrManyOrNull<Type> = OrNull<OneOrMany<Type>>;
 
@@ -46,6 +46,13 @@ export interface configInterface {
   readonly dbUserName: string;
   readonly nodeEnv: NodeEnvType;
   readonly type: DBType;
+}
+
+export enum ColumType {
+  VARCHAR = 'varchar',
+  TIMESTAMP = 'timestamp',
+  UUID = 'uuid',
+  INT = 'int',
 }
 
 // declare let Myname: Partial<AppController>;

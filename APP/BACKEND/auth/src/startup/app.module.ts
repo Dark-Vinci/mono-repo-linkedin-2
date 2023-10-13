@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DOT_ENV_PATH } from 'sdk';
 
 import { DB, RedisModule, RabbitMQ } from '@connections';
+import { StoreModule } from '@store';
 import { AppController, AppService, ShutdownService } from '.';
 
 @Module({
@@ -29,6 +30,9 @@ import { AppController, AppService, ShutdownService } from '.';
 
     // typeorm
     DB.connect(),
+
+    // store
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService, ShutdownService],
