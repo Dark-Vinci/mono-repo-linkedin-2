@@ -1,10 +1,15 @@
 import { BeforeInsert, Column, Entity } from 'typeorm';
 
-import { EMPTY_STRING } from '@constants';
-import { ColumType } from '@types';
+import { EMPTY_STRING, SCHEMA } from '@constants';
+import { ColumType, EntityNames, Ordering } from '@types';
 import { Base } from '.';
 
-@Entity()
+@Entity({
+  name: EntityNames.USER,
+  orderBy: { created_at: Ordering.ASC },
+  synchronize: true,
+  schema: SCHEMA,
+})
 export class User extends Base {
   public constructor(payload: Partial<User>) {
     super();

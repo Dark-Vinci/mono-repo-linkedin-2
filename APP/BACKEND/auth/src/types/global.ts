@@ -55,4 +55,13 @@ export enum ColumType {
   INT = 'int',
 }
 
+export enum Ordering {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export enum EntityNames {
+  USER = 'user',
+}
+
 // declare let Myname: Partial<AppController>;
