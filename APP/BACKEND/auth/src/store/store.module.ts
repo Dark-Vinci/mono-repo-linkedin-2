@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { User } from '@models';
-import { UserRepository } from '.';
+import { Business, User } from '@models';
+import { UserRepository, BusinessRepository } from '.';
 
+@Global()
 @Module({
-  providers: [UserRepository],
-  imports: [TypeOrmModule.forFeature([User])],
-  exports: [UserRepository],
+  providers: [UserRepository, BusinessRepository],
+  imports: [TypeOrmModule.forFeature([User, Business])],
+  exports: [UserRepository, BusinessRepository],
 })
 export class StoreModule {}

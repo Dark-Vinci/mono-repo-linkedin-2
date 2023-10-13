@@ -62,6 +62,7 @@ export enum Ordering {
 
 export enum EntityNames {
   USERS = 'users',
+  BUSINESSES = 'businesses',
 }
 
 // declare let Myname: Partial<AppController>;

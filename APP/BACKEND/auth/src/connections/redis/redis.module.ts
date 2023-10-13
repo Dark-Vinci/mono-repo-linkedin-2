@@ -7,6 +7,7 @@ import {
 import IORedis, { RedisOptions, Redis } from 'ioredis';
 
 import { IORedisKey } from '@constants';
+import { RedisClient } from '.';
 
 type RedisModuleOptions = {
   connectionOptions: RedisOptions;
@@ -45,7 +46,7 @@ export class RedisModule {
     return {
       module: RedisModule,
       imports,
-      providers: [redisProvider],
+      providers: [redisProvider, RedisClient],
       exports: [redisProvider],
     } as DynamicModule;
   }
