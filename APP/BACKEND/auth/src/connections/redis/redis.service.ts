@@ -3,6 +3,7 @@ import { Redis } from 'ioredis';
 
 import { IORedisKey } from '@constants';
 import { RedisTimerType } from '@types';
+
 @Injectable()
 export class RedisClient {
   public constructor(@Inject(IORedisKey) private readonly redisClient: Redis) {}
