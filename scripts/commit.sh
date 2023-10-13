@@ -7,6 +7,7 @@ echo "commit message: [$2]";
 
 # add to [] and commit
 git add .;
+sleep 2
 git commit -am "$1:$2";
 
 echo "files now committed"
