@@ -9,11 +9,14 @@ K8
 SOCKETIO
 WebRTC
 Great Typescript
-Nestjs
+NestJS
 Nodemailer
-MTN Messaging api
+MTN Messaging API
 WebHOOKS/MailHooks
 Passport (Google, Facebook, Github)
+Rest
+GRAPHQL (Admin panel)
+MongoDB(Storing log messages)
 AWS
     S3
     EC2
@@ -26,3 +29,4 @@ streams
 read-write-replica
 Seeding
 Buffers
+Dynamic Module

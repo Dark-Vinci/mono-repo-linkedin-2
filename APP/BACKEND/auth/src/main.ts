@@ -52,14 +52,17 @@ class App {
       cluster.fork();
     }
 
-    cluster.on(ClusterSignal.EXIT, (worker, code, signal) => {
-      this.logger.log(`${signal}| ${code}`);
-      // for a new worker if this is not dev mode
-      if (!this.isDevMode) {
-        cluster.fork();
-      }
-      this.logger.log(`worker ${worker.process.pid} died`);
-    });
+    cluster.on(
+      ClusterSignal.EXIT,
+      (worker: { process: { pid: any } }, code: any, signal: any) => {
+        this.logger.log(`${signal}| ${code}`);
+        // for a new worker if this is not dev mode
+        if (!this.isDevMode) {
+          cluster.fork();
+        }
+        this.logger.log(`worker ${worker.process.pid} died`);
+      },
+    );
   }
 
   private async childWorker(): Promise<void> {

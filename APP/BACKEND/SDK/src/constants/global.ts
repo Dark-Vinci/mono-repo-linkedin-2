@@ -13,3 +13,5 @@ export const GRPC_LOADER_OPTIONS = {
 export const logFiles = ['./log/logger.txt', './log/error.txt'] as const;
 
 export const DOT_ENV_PATH = '../../.env' as const;
+
+export const mongoURL = 'mongodb://localhost:27017/linkedin-logger' as const;

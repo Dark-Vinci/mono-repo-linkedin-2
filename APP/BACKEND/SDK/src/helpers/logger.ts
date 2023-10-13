@@ -6,13 +6,15 @@ import {
   transports,
   Logger as WinstonLogger,
 } from 'winston';
+import('winston-mongodb');
 
-import { Type } from '../constants';
+import { Type, mongoURL } from '../constants';
 
 export class GlobalLogger extends Logger {
   public constructor(
     private readonly logFilePath: string,
     private readonly errorFilePath: string,
+    private readonly mongoCollectionName: string,
   ) {
     super();
   }
@@ -40,6 +42,13 @@ export class GlobalLogger extends Logger {
       new transports.File({
         filename: this.errorFilePath, // Change the path as needed
         level: 'error',
+      }),
+      // insert into mongodb
+      new transports.MongoDB({
+        db: mongoURL,
+        options: { useUnifiedTopology: true },
+        collection: this.mongoCollectionName,
+        level: 'debug',
       }),
     ],
   });

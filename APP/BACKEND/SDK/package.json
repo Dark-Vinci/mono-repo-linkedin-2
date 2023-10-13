@@ -23,6 +23,7 @@
     "ts-protoc-gen": "^0.15.0",
     "typeorm": "^0.3.17",
     "underscore": "^1.13.6",
-    "winston": "^3.10.0"
+    "winston": "^3.10.0",
+    "winston-mongodb": "^5.1.1"
   }
 }
