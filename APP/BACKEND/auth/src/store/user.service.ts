@@ -151,7 +151,7 @@ export class UserRepository {
     );
 
     try {
-      const user = await this.userRepository.findOneOrFail({
+      const user = await this.userSlave1Repository.findOneOrFail({
         where: {
           // ...payload,
         },
@@ -175,7 +175,6 @@ export function HandleRepositoryError<
   switch (error.constructor) {
     case EntityNotFoundError:
       throw new NotFoundException('entity not found');
-      // break;
     case QueryFailedError:
       if (error.message.includes('duplicate key')) {
         throw new ConflictException('duplicate exist');
@@ -185,7 +184,6 @@ export function HandleRepositoryError<
       throw new InternalServerErrorException(
         'service is current unable to handle requests',
       );
-      // break;
     default:
       throw new InternalServerErrorException(
         'service is current unable to handle requests',
