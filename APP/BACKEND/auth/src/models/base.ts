@@ -9,16 +9,16 @@ import {
 
 import { UUID } from 'sdk';
 
-import { ColumType, OrNull } from '@types';
+import { ColumnType, OrNull } from '@types';
 import { CURRENCT_TIMESTAMP } from '@constants';
 
 export abstract class Base extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn(ColumnType.UUID)
   id!: UUID;
 
   @CreateDateColumn({
     name: 'created_at',
-    type: ColumType.TIMESTAMP,
+    type: ColumnType.TIMESTAMP,
     nullable: false,
     default: CURRENCT_TIMESTAMP,
   })
@@ -26,7 +26,7 @@ export abstract class Base extends BaseEntity {
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: ColumType.TIMESTAMP,
+    type: ColumnType.TIMESTAMP,
     nullable: false,
     default: CURRENCT_TIMESTAMP,
   })
@@ -34,14 +34,14 @@ export abstract class Base extends BaseEntity {
 
   @DeleteDateColumn({
     name: 'deleted_at',
-    type: ColumType.TIMESTAMP,
+    type: ColumnType.TIMESTAMP,
     nullable: true,
   })
   deletedAt!: OrNull<Date>;
 
   @VersionColumn({
     name: 'version',
-    type: ColumType.INT,
+    type: ColumnType.INT,
     nullable: true,
     default: 1,
   })

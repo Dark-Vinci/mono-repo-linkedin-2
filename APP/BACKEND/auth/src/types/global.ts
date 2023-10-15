@@ -48,7 +48,7 @@ export interface configInterface {
   readonly type: DBType;
 }
 
-export enum ColumType {
+export enum ColumnType {
   VARCHAR = 'varchar',
   TIMESTAMP = 'timestamp',
   UUID = 'uuid',

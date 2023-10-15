@@ -1,7 +1,7 @@
 import { BeforeInsert, Column, Entity } from 'typeorm';
 
 import { EMPTY_STRING, SCHEMA } from '@constants';
-import { ColumType, EntityNames, Ordering } from '@types';
+import { ColumnType, EntityNames, Ordering } from '@types';
 import { Base } from '.';
 
 @Entity({
@@ -23,28 +23,28 @@ export class User extends Base {
   }
 
   @Column({
-    type: ColumType.VARCHAR,
+    type: ColumnType.VARCHAR,
     name: 'first_name',
     nullable: false,
   })
   firstName!: string;
 
   @Column({
-    type: ColumType.VARCHAR,
+    type: ColumnType.VARCHAR,
     name: 'first_name',
     nullable: false,
   })
   lastName!: string;
 
   @Column({
-    type: ColumType.VARCHAR,
+    type: ColumnType.VARCHAR,
     name: 'password',
     nullable: false,
   })
   password!: string;
 
   @Column({
-    type: ColumType.VARCHAR,
+    type: ColumnType.VARCHAR,
     name: 'email',
     nullable: false,
   })
