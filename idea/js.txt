@@ -1,0 +1,2 @@
+Use map in plaace of object where needed to speed up app
+Use process.nestTick/setImmediate to execute defer functions
