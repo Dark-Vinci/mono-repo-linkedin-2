@@ -7,17 +7,36 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityNotFoundError, QueryFailedError, Repository } from 'typeorm';
+import {
+  EntityNotFoundError,
+  FindManyOptions,
+  FindOptionsWhere,
+  QueryFailedError,
+  Repository,
+} from 'typeorm';
 import winston from 'winston';
 
 import { MyLogger as Logger, UUID } from 'sdk';
 
 import { User } from '@models';
+import { AuthDatabase } from '@types';
 
 @Injectable()
 export class UserRepository {
   public constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    // master connection
+    @InjectRepository(User, AuthDatabase.MASTER)
+    private readonly userMasterRepository: Repository<User>,
+    // slave1 connection
+    @InjectRepository(User, AuthDatabase.SLAVE1)
+    private readonly userSlave1Repository: Repository<User>,
+    // slave1 connection
+    @InjectRepository(User, AuthDatabase.SLAVE2)
+    private readonly userSlave2Repository: Repository<User>,
+    // slave1 connection
+    @InjectRepository(User, AuthDatabase.SLAVE3)
+    private readonly userSlave3Repository: Repository<User>,
+    // logger
     private readonly globalLogger: winston.Logger = global.logger,
   ) {}
 
@@ -34,7 +53,7 @@ export class UserRepository {
     );
 
     try {
-      const user = this.userRepository.create(payload);
+      const user = this.userMasterRepository.create(payload);
 
       await user.save();
 
@@ -55,7 +74,7 @@ export class UserRepository {
     );
 
     try {
-      await this.userRepository.softDelete(userId.toString());
+      await this.userMasterRepository.softDelete(userId.toString());
 
       return;
     } catch (error) {
@@ -78,7 +97,7 @@ export class UserRepository {
     );
 
     try {
-      const user = await this.userRepository.find({
+      const findObj: FindManyOptions<User> = {
         where: {
           // ...payload,
         },
@@ -90,12 +109,19 @@ export class UserRepository {
         comment: `get user that matches ${JSON.stringify(
           payload,
         )} by paination strategy with requestId ${requestId.toString()}`,
-      });
+      };
+
+      const user = await Promise.any([
+        this.userSlave1Repository.find(findObj),
+        this.userSlave2Repository.find(findObj),
+        this.userSlave3Repository.find(findObj),
+      ]);
 
       return user;
-    } catch (error) {
-      logger.error(<Error>error);
-      throw HandleRepositoryError(error as any);
+    } catch (error: any) {
+      error = error.errors[0] as Error;
+      logger.error(error);
+      HandleRepositoryError(error);
     }
   }
 
@@ -104,6 +130,13 @@ export class UserRepository {
     update: Partial<User>,
     requestId: UUID,
   ): Promise<void> {
+    // userDetails = userDetails as FindOptionsWhere<User>;
+
+    // const user = await this.userSlave1Repository.find({
+    //   where: {
+    //     ...userDetails
+    //   }
+    // }),
     console.log({ userDetails, update, requestId });
     return;
   }
@@ -131,30 +164,30 @@ export class UserRepository {
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      throw HandleRepositoryError(error as any);
+      HandleRepositoryError(error as any);
     }
   }
 }
 
 export function HandleRepositoryError<
   T extends { new (...args: any[]): any; message: string },
->(error: T): void {
+>(error: T): never {
   switch (error.constructor) {
     case EntityNotFoundError:
-      new NotFoundException('entity not found');
-      break;
+      throw new NotFoundException('entity not found');
+      // break;
     case QueryFailedError:
       if (error.message.includes('duplicate key')) {
-        new ConflictException('duplicate exist');
-        break;
+        throw new ConflictException('duplicate exist');
+        // break;
       }
 
-      new InternalServerErrorException(
+      throw new InternalServerErrorException(
         'service is current unable to handle requests',
       );
-      break;
+      // break;
     default:
-      new InternalServerErrorException(
+      throw new InternalServerErrorException(
         'service is current unable to handle requests',
       );
   }

@@ -41,6 +41,7 @@ export class DB {
                 database: AuthDatabase.SLAVE1,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
+                name: AuthDatabase.SLAVE1,
               },
               {
                 port: get(DB_PORT) as number,
@@ -48,6 +49,7 @@ export class DB {
                 database: AuthDatabase.SLAVE2,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
+                name: AuthDatabase.SLAVE2,
               },
               {
                 port: get(DB_PORT) as number,
@@ -55,6 +57,7 @@ export class DB {
                 database: AuthDatabase.SLAVE3,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
+                name: AuthDatabase.SLAVE3,
               },
             ],
           },
