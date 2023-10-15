@@ -51,7 +51,7 @@ export class User extends Base {
   email!: string;
 
   @BeforeInsert()
-  private hashPassword(): Promise<void> {
+  public hashPassword(): Promise<void> {
     return Promise.resolve();
   }
 }
