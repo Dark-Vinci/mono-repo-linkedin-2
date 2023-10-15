@@ -28,7 +28,7 @@ export class DB {
           synchronize: false,
           replication: {
             master: {
-              port: get(DB_PORT) as number,
+              port: +get(DB_PORT),
               host: get(HOST) as string,
               database: AuthDatabase.MASTER,
               username: get(USERNAME) as string,
@@ -36,7 +36,7 @@ export class DB {
             },
             slaves: [
               {
-                port: get(DB_PORT) as number,
+                port: +get(DB_PORT),
                 host: get(HOST) as string,
                 database: AuthDatabase.SLAVE1,
                 username: get(USERNAME) as string,
@@ -44,7 +44,7 @@ export class DB {
                 name: AuthDatabase.SLAVE1,
               },
               {
-                port: get(DB_PORT) as number,
+                port: +get(DB_PORT),
                 host: get(HOST) as string,
                 database: AuthDatabase.SLAVE2,
                 username: get(USERNAME) as string,
@@ -52,7 +52,7 @@ export class DB {
                 name: AuthDatabase.SLAVE2,
               },
               {
-                port: get(DB_PORT) as number,
+                port: +get(DB_PORT),
                 host: get(HOST) as string,
                 database: AuthDatabase.SLAVE3,
                 username: get(USERNAME) as string,
