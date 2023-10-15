@@ -10,7 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   EntityNotFoundError,
   FindManyOptions,
-  FindOptionsWhere,
   QueryFailedError,
   Repository,
 } from 'typeorm';
@@ -175,15 +174,16 @@ export function HandleRepositoryError<
   switch (error.constructor) {
     case EntityNotFoundError:
       throw new NotFoundException('entity not found');
+
     case QueryFailedError:
       if (error.message.includes('duplicate key')) {
         throw new ConflictException('duplicate exist');
         // break;
       }
-
       throw new InternalServerErrorException(
         'service is current unable to handle requests',
       );
+
     default:
       throw new InternalServerErrorException(
         'service is current unable to handle requests',
