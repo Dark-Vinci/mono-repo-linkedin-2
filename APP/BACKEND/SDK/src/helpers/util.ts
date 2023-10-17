@@ -91,7 +91,7 @@ export class Util {
       size,
       currentPage: page,
       totalRecord: totalCount,
-    } satisfies Pagination;
+    } as Pagination;
   }
 
   public paginationOffset(size: number, page: number): number {

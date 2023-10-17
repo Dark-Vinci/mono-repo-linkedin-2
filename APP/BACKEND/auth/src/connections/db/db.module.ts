@@ -63,7 +63,7 @@ export class DB {
           },
         };
 
-        return connectionConfig satisfies Partial<TypeOrmModuleOptions>;
+        return connectionConfig as Partial<TypeOrmModuleOptions>;
       },
     });
   }

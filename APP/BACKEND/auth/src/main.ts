@@ -31,7 +31,9 @@ class App {
   private readonly isDevMode = env.NODE_ENV !== AppState.PRODUCTION;
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
-  private readonly globalLogger = new GlobalLogger(...logFiles).getLogger;
+  private readonly globalLogger = new GlobalLogger(...logFiles, 'abc')
+    .getLogger;
+
   private readonly logger = Logger.setContext(
     __filename,
     MAIN_VOID,

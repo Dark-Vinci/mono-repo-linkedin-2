@@ -42,6 +42,7 @@
       "@connections": ["./src/connections"],
       "@types": ["./src/types"],
       "@models": ["./src/models"],
+      "@config": ["./src/config"]
     }
   }
 }

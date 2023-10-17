@@ -17,6 +17,8 @@ services:
     ports:
       - "3001:3001"
     container_name: "guard"
+#    networks:
+#      - "mono-repo"
     volumes:
       - ./APP/BACKEND/auth:/app/backend/auth #bind mount(for managing rebuild)
       - ./APP/BACKEND/SDK:/app/backend/SDK #bind mounts for sdk
@@ -123,3 +125,5 @@ services:
   #     - "5601:5601"
   #   depends_on:
   #     - elasticsearch
+
+#networks:/
