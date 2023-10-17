@@ -31,8 +31,11 @@ class App {
   private readonly isDevMode = env.NODE_ENV !== AppState.PRODUCTION;
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
-  private readonly globalLogger = new GlobalLogger(...logFiles, 'abc')
-    .getLogger;
+  private readonly globalLogger = new GlobalLogger(...logFiles, {
+    collection: 'auth_logger',
+    db: 'mongodb://miwa:miwa@127.0.0.1:27017',
+    level: 'silly',
+  }).getLogger();
 
   private readonly logger = Logger.setContext(
     __filename,

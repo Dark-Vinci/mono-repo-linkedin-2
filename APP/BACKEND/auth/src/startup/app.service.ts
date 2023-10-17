@@ -1,16 +1,22 @@
 import global from 'globals';
 
 import winston from 'winston';
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
-import { MyLogger as Logger, UUID, AuthPingRequest, Type } from 'sdk';
+import { MyLogger as Logger, UUID, AuthPingRequest, Type, Util } from 'sdk';
 
 import { appServiceMethods, fileNames } from '@constants';
 
 @Injectable()
-export class AppService {
-  constructor(private readonly globalLogger: winston.Logger = global.logger) {}
+export class AppService implements OnApplicationBootstrap {
+  private globalLogger: winston.Logger | any;
+
+  public onApplicationBootstrap(): void {
+    this.globalLogger = global.logger;
+  }
+
+  public constructor(private readonly util: Util) {}
 
   getHello(): string {
     return 'Hello World!';
@@ -26,7 +32,8 @@ export class AppService {
     );
 
     try {
-      // assert(2 == 2, 'something is entirely wrong');
+      this.util.assert(2 == 2, 'something is entirely wrong');
+
       const { requestId } = payload;
 
       const response = UUID.parse(requestId);

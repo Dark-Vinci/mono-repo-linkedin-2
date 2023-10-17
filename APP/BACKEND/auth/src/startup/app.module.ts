@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-// import { DOT_ENV_PATH } from 'sdk';
-
-import { DB, RedisModule, RabbitMQ } from '@connections';
-import { StoreModule } from '@store';
-import { ServerModule } from '@server';
+// import { DB, RedisModule, RabbitMQ } from '@connections';
+// import { StoreModule } from '@store';
+// import { ServerModule } from '@server';
 import { DBConfig } from '@config';
-import { AppService, ShutdownService } from '.';
+import { AppService } from './app.service';
+import { ShutdownService } from './app.shutdown.service';
 
 @Module({
   imports: [
@@ -19,26 +18,26 @@ import { AppService, ShutdownService } from '.';
       load: [DBConfig],
     }),
 
-    // rabbitmq
-    RabbitMQ,
-
-    // redis
-    RedisModule.registerAsync({
-      useFactory: () => {
-        return {} as any;
-      },
-      inject: [],
-      imports: [],
-    }),
-
-    // typeorm
-    DB.connect(),
-
-    // store
-    StoreModule,
-
-    // Server module
-    ServerModule,
+    // // rabbitmq
+    // RabbitMQ,
+    //
+    // // redis
+    // RedisModule.registerAsync({
+    //   useFactory: () => {
+    //     return {} as any;
+    //   },
+    //   inject: [],
+    //   imports: [],
+    // }),
+    //
+    // // typeorm
+    // DB.connect(),
+    //
+    // // store
+    // StoreModule,
+    //
+    // // Server module
+    // ServerModule,
   ],
   providers: [AppService, ShutdownService],
 })

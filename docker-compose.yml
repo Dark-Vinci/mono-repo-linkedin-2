@@ -17,12 +17,14 @@ services:
     ports:
       - "3001:3001"
     container_name: "guard"
+    restart:
+      unless-stopped
 #    networks:
 #      - "mono-repo"
     volumes:
       - ./APP/BACKEND/auth:/app/backend/auth #bind mount(for managing rebuild)
       - ./APP/BACKEND/SDK:/app/backend/SDK #bind mounts for sdk
-      - ./APP/BACKEND/auth/logs:/app/backend/auth/logs # bind mounts for logs files
+      - ./APP/BACKEND/auth/log:/app/backend/auth/log # bind mounts for logs files
       - /app/backend/auth/node_modules #anonymous volumes(for reusing node_modules)
 #      - logs:/app/backend/auth/logs
 #      - dist:/app/backend/auth/dist
@@ -84,18 +86,17 @@ services:
   #   volumes:
   #     - ./APP/BACKEND/MACHINERY/rabbitmq/rabbitmq-data:/var/lib/rabbitmq/mnesia
 
-  # mongodb:
-  #   build:
-  #     context: ./APP/BACKEND/MACHINERY
-  #     dockerfile: mongodb/Dockerfile
-  #   ports:
-  #     - "27017:27017"
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: miwa
-  #     MONGO_INITDB_ROOT_PASSWORD: miwa
-  #     MONGO_INITDB_DATABASE: /would be added/
-  #   volumes:
-  #     - ./APP/BACKEND/MACHINERY/mongodb/data:/data/db
+  mongodb:
+     build:
+       context: ./APP/BACKEND/MACHINERY
+       dockerfile: mongodb/Dockerfile
+     ports:
+       - "27017:27017"
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: miwa
+#       MONGO_INITDB_ROOT_PASSWORD: miwa
+     volumes:
+       - ./APP/BACKEND/MACHINERY/mongodb/data:/data/db
 
   # elasticsearch:
   #   build:

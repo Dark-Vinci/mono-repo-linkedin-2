@@ -6,55 +6,67 @@ import {
   transports,
   Logger as WinstonLogger,
 } from 'winston';
-import('winston-mongodb');
+
+import { MongoDB, MongoDBConnectionOptions } from 'winston-mongodb';
 
 import { Type, mongoURL } from '../constants';
+import { MongoConnectionLogsProperties } from '../types/helpers/logger';
 
 export class GlobalLogger extends Logger {
+  private finalMongoOptions: MongoDBConnectionOptions;
+
   public constructor(
     private readonly logFilePath: string,
     private readonly errorFilePath: string,
-    private readonly mongoCollectionName: string,
+    private readonly mongoOptions: MongoConnectionLogsProperties,
   ) {
     super();
+    const finalMongoOptions: MongoDBConnectionOptions = {
+      db: mongoOptions.db,
+      level: mongoOptions.level,
+      name: 'mongodb',
+      collection: mongoOptions.collection,
+      decolorize: false,
+      tryReconnect: true,
+      options: {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      },
+      dbName: 'LINKEDIN_CLONE',
+    };
+
+    this.finalMongoOptions = finalMongoOptions;
   }
 
-  private readonly logger = createLogger({
-    level: 'info',
-    format: format.combine(
-      format.timestamp(),
-      format.json(), // Log messages as JSON objects
-    ),
-    transports: [
-      // Log to console
-      new transports.Console({
-        format: format.combine(
-          format.colorize(), // Apply colors to console output
-          format.simple(),
-        ),
-      }),
-      // Log to a file
-      new transports.File({
-        filename: this.logFilePath, // Change the path as needed
-        level: 'info',
-      }),
-      // Log errors to a separate error file
-      new transports.File({
-        filename: this.errorFilePath, // Change the path as needed
-        level: 'error',
-      }),
-      // insert into mongodb
-      new transports.MongoDB({
-        db: mongoURL,
-        options: { useUnifiedTopology: true },
-        collection: this.mongoCollectionName,
-        level: 'debug',
-      }),
-    ],
-  });
-
-  public get getLogger(): WinstonLogger {
-    return this.logger;
+  public getLogger(): WinstonLogger {
+    return createLogger({
+      level: 'info',
+      format: format.combine(
+        format.timestamp(),
+        format.json(), // Log messages as JSON objects
+      ),
+      transports: [
+        // Log to console
+        new transports.Console({
+          format: format.combine(
+            format.colorize(), // Apply colors to console output
+            format.simple(),
+          ),
+        }),
+        // Log to a file
+        new transports.File({
+          filename: this.logFilePath, // Change the path as needed
+          level: 'info',
+        }),
+        // Log errors to a separate error file
+        new transports.File({
+          filename: this.errorFilePath, // Change the path as needed
+          level: 'error',
+        }),
+        // insert into mongodb
+        new MongoDB(this.finalMongoOptions),
+      ],
+    });
   }
 }
 

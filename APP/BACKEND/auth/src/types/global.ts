@@ -1,11 +1,3 @@
-// import winston from 'winston';
-
-// declare namespace NodeJS {
-//   interface Global {
-//     logger: winston.Logger;
-//   }
-// }
-
 export type OrNull<Type> = Type | null;
 
 export type OneOrMany<Type> = Type | Type[];
