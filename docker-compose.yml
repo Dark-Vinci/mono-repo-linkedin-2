@@ -1,0 +1,125 @@
+version: '3.1'
+
+services:
+  auth:
+    build:
+      context: ./APP/BACKEND
+      dockerfile: auth/Dockerfile
+      args:
+        app_env: "development"
+        name: "auth"
+        service_token: "000000"
+        port: "3001"
+        config: "config"
+        node_env: "development"
+    env_file:
+      - ./dev.env
+    ports:
+      - "3001:3001"
+    container_name: "guard"
+    volumes:
+      - ./APP/BACKEND/auth:/app/backend/auth #bind mount(for managing rebuild)
+      - ./APP/BACKEND/SDK:/app/backend/SDK #bind mounts for sdk
+      - ./APP/BACKEND/auth/logs:/app/backend/auth/logs # bind mounts for logs files
+      - /app/backend/auth/node_modules #anonymous volumes(for reusing node_modules)
+#      - logs:/app/backend/auth/logs
+#      - dist:/app/backend/auth/dist
+
+#    depends_on:
+#        - postgres
+
+  # postgres:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: postgres/Dockerfile
+  #   ports:
+  #     - "5420:5432"
+  #   environment:
+  #     - POSTGRES_USER=miwa
+  #     - POSTGRES_PASSWORD=miwa
+  #     - PGDATA=/pgdata
+
+  # redis:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: redis/Dockerfile
+  #   ports:
+  #     - "6309:6309"
+
+  # zookeeper:
+  #   image: wurstmeister/zookeeper:latest
+  #   container_name: my-zookeeper
+  #   ports:
+  #     - "2181:2181"
+
+  #   volumes:
+  #   - ./APP/BACKEND/MACHINERY/kafka/zookeeper-data:/opt/zookeeper/data
+  #   - ./APP/BACKEND/MACHINERY/kafka/zookeeper-logs:/opt/zookeeper/logs
+
+  # kafka:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: kafka/Dockerfile
+  #   container_name: my-kafka
+  #   ports:
+  #     - "9092:9092"
+  #   depends_on:
+  #     - zookeeper
+  #   volumes:
+  #     - ./APP/BACKEND/MACHINERY/kafka/kafka-data:/var/lib/kafka/data
+  #     - ./APP/BACKEND/MACHINERY/kafka/kafka-logs:/var/lib/kafka/logs
+
+  # rabbitmq:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: rabbitmq/Dockerfile
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: miwa
+  #     RABBITMQ_DEFAULT_PASS: miwa
+  #   volumes:
+  #     - ./APP/BACKEND/MACHINERY/rabbitmq/rabbitmq-data:/var/lib/rabbitmq/mnesia
+
+  # mongodb:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: mongodb/Dockerfile
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: miwa
+  #     MONGO_INITDB_ROOT_PASSWORD: miwa
+  #     MONGO_INITDB_DATABASE: /would be added/
+  #   volumes:
+  #     - ./APP/BACKEND/MACHINERY/mongodb/data:/data/db
+
+  # elasticsearch:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: elastic-search/Dockerfile
+  #   container_name: my-elasticsearch
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     discovery.type: single-node
+
+  # logstash:
+  #   build:
+  #     context: ./APP/BACKEND/MACHINERY
+  #     dockerfile: elastic-search/logstash/Dockerfile
+  #   container_name: my-logstash
+  #   ports:
+  #     - "5044:5044"
+  #   depends_on:
+  #     - elasticsearch
+
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.15.0
+  #   container_name: my-kibana
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch
