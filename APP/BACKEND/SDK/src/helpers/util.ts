@@ -1,4 +1,12 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  HttpStatus,
+} from '@nestjs/common';
+
+import { EntityNotFoundError, QueryFailedError } from 'typeorm';
 
 import type { UUID } from './uuid';
 import type {
@@ -96,5 +104,28 @@ export class Util {
 
   public paginationOffset(size: number, page: number): number {
     return (page - 1) * size;
+  }
+
+  public handleRepositoryError<
+    T extends { new (...args: any[]): any; message: string },
+  >(error: T): never {
+    switch (error.constructor) {
+      case EntityNotFoundError:
+        throw new NotFoundException('entity not found');
+
+      case QueryFailedError:
+        if (error.message.includes('duplicate key')) {
+          throw new ConflictException('duplicate exist');
+          // break;
+        }
+        throw new InternalServerErrorException(
+          'service is current unable to handle requests',
+        );
+
+      default:
+        throw new InternalServerErrorException(
+          'service is current unable to handle requests',
+        );
+    }
   }
 }

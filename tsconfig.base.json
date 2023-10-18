@@ -8,8 +8,6 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -32,5 +30,5 @@
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "skipLibCheck": true
-  }
+  },
 }

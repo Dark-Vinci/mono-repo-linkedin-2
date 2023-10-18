@@ -9,7 +9,7 @@ import {
 
 import { MongoDB, MongoDBConnectionOptions } from 'winston-mongodb';
 
-import { Type, mongoURL } from '../constants';
+import { Type } from '../constants';
 import { MongoConnectionLogsProperties } from '../types/helpers/logger';
 
 export class GlobalLogger extends Logger {

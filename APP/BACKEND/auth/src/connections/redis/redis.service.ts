@@ -37,7 +37,7 @@ export class RedisClient {
   public async setWithDecay(
     key: string,
     value: string,
-    timeInSecods = 1,
+    timeInSeconds = 1,
   ): Promise<string> {
     try {
       const bufferedValue = Buffer.from(value);
@@ -46,7 +46,7 @@ export class RedisClient {
         key,
         bufferedValue,
         RedisTimerType.EX,
-        timeInSecods,
+        timeInSeconds,
       );
 
       return result;

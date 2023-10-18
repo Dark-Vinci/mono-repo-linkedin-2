@@ -1,6 +1,6 @@
 import global from 'globals';
 
-import { Controller } from '@nestjs/common';
+import { Controller, OnApplicationBootstrap } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import winston from 'winston';
 
@@ -10,6 +10,7 @@ import {
   AuthService,
   MyLogger as Logger,
   Type,
+  Util,
 } from 'sdk';
 
 import {
@@ -22,12 +23,22 @@ import { AppService } from '@startup';
 
 @Controller()
 export class AppController
-  implements Pick<AuthService, MethodName.PING>, AppController
+  implements
+    Pick<AuthService, MethodName.PING>,
+    AppController,
+    OnApplicationBootstrap
 {
+  private globalLogger: winston.Logger | any;
+
   constructor(
     private readonly appService: AppService,
-    private readonly globalLogger: winston.Logger = global.logger,
+    private readonly util: Util,
   ) {}
+
+  public onApplicationBootstrap(): void {
+    this.globalLogger = global.logger;
+    console.log({ util: this.util });
+  }
 
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {

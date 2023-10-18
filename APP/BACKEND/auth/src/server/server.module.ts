@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { AppController, SignInController, LogInController } from '.';
+import { LogInController } from './login.controller';
+import { SignInController } from './signin.controller';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [],

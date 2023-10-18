@@ -1,27 +1,19 @@
 import global from 'globals';
 
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  EntityNotFoundError,
-  FindManyOptions,
-  QueryFailedError,
-  Repository,
-} from 'typeorm';
-import winston from 'winston';
+import { FindManyOptions, Repository } from 'typeorm';
+import { Logger as WinstonLogger } from 'winston';
 
-import { MyLogger as Logger, UUID } from 'sdk';
+import { MyLogger as Logger, Util, UUID } from 'sdk';
 
 import { User } from '@models';
 import { AuthDatabase } from '@types';
 
 @Injectable()
-export class UserRepository {
+export class UserRepository implements OnApplicationBootstrap {
+  private globalLogger: WinstonLogger | any;
+
   public constructor(
     // master connection
     @InjectRepository(User, AuthDatabase.MASTER)
@@ -35,9 +27,13 @@ export class UserRepository {
     // slave1 connection
     @InjectRepository(User, AuthDatabase.SLAVE3)
     private readonly userSlave3Repository: Repository<User>,
-    // logger
-    private readonly globalLogger: winston.Logger = global.logger,
+
+    private readonly util: Util,
   ) {}
+
+  public onApplicationBootstrap(): void {
+    this.globalLogger = global.logger;
+  }
 
   public async createUser(
     payload: Partial<User>,
@@ -59,7 +55,7 @@ export class UserRepository {
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      throw HandleRepositoryError(error as any);
+      throw this.util.handleRepositoryError(error as any);
     }
   }
 
@@ -78,7 +74,7 @@ export class UserRepository {
       return;
     } catch (error) {
       logger.error(<Error>error);
-      throw HandleRepositoryError(error as any);
+      throw this.util.handleRepositoryError(error as any);
     }
   }
 
@@ -107,7 +103,7 @@ export class UserRepository {
         order: { createdAt: 'ASC' },
         comment: `get user that matches ${JSON.stringify(
           payload,
-        )} by paination strategy with requestId ${requestId.toString()}`,
+        )} by pagination strategy with requestId ${requestId.toString()}`,
       };
 
       const user = await Promise.any([
@@ -120,7 +116,7 @@ export class UserRepository {
     } catch (error: any) {
       error = error.errors[0] as Error;
       logger.error(error);
-      HandleRepositoryError(error);
+      this.util.handleRepositoryError(error);
     }
   }
 
@@ -163,30 +159,7 @@ export class UserRepository {
       return user;
     } catch (error) {
       logger.error(<Error>error);
-      HandleRepositoryError(error as any);
+      this.util.handleRepositoryError(error as any);
     }
-  }
-}
-
-export function HandleRepositoryError<
-  T extends { new (...args: any[]): any; message: string },
->(error: T): never {
-  switch (error.constructor) {
-    case EntityNotFoundError:
-      throw new NotFoundException('entity not found');
-
-    case QueryFailedError:
-      if (error.message.includes('duplicate key')) {
-        throw new ConflictException('duplicate exist');
-        // break;
-      }
-      throw new InternalServerErrorException(
-        'service is current unable to handle requests',
-      );
-
-    default:
-      throw new InternalServerErrorException(
-        'service is current unable to handle requests',
-      );
   }
 }
