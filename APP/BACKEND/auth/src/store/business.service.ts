@@ -6,15 +6,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import winston from 'winston';
 
-import { UUID } from 'sdk';
+import { Util, UUID } from 'sdk';
 
 @Injectable()
 export class BusinessRepository implements OnApplicationBootstrap {
-  public globalLogger: winston.Logger;
+  public globalLogger: winston.Logger | any;
 
   public constructor(
     @InjectRepository(Business)
     private readonly _businessRepository: Repository<Business>,
+    private readonly util: Util,
   ) {}
 
   public onApplicationBootstrap(): void {
@@ -25,7 +26,11 @@ export class BusinessRepository implements OnApplicationBootstrap {
     _payload: Partial<Business>,
     _requestId: UUID,
   ): Promise<void> {
-    console.log({ a: this._businessRepository, b: this.globalLogger! });
+    console.log({
+      a: this._businessRepository,
+      b: this.globalLogger,
+      c: this.util,
+    });
     return;
   }
 }

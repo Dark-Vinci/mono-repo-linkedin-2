@@ -2,7 +2,7 @@ import { Entity } from 'typeorm';
 
 import { SCHEMA } from '@constants';
 import { EntityNames, Ordering } from '@types';
-import { Base } from '.';
+import { Base } from './base';
 
 @Entity({
   name: EntityNames.BUSINESSES,

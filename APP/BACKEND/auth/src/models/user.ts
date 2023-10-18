@@ -2,7 +2,7 @@ import { BeforeInsert, Column, Entity } from 'typeorm';
 
 import { EMPTY_STRING, SCHEMA } from '@constants';
 import { ColumnType, EntityNames, Ordering } from '@types';
-import { Base } from '.';
+import { Base } from './base';
 
 @Entity({
   name: EntityNames.USERS,

@@ -32,8 +32,8 @@ class App {
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private readonly globalLogger = new GlobalLogger(...logFiles, {
-    collection: 'auth_logger',
-    db: 'mongodb://miwa:miwa@127.0.0.1:27017',
+    collection: process.env.APP_NAME ?? 'auth_logger',
+    db: process.env.MONGO_DB_LOG_URI ?? 'mongodb://miwa:miwa@127.0.0.1:27017',
     level: 'silly',
   }).getLogger();
 

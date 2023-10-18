@@ -1,5 +1,3 @@
-// export {};
-
 import process from 'process';
 
 export const DBConfig = () => {

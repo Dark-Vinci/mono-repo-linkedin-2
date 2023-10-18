@@ -4,7 +4,13 @@ import { ConfigModule } from '@nestjs/config';
 // import { DB, RedisModule, RabbitMQ } from '@connections';
 // import { StoreModule } from '@store';
 // import { ServerModule } from '@server';
-import { DBConfig } from '@config';
+import {
+  AppCoreConfig,
+  DBConfig,
+  KafkaConfig,
+  MongoConfig,
+  RedisConfig,
+} from '@config';
 import { AppService } from './app.service';
 import { ShutdownService } from './app.shutdown.service';
 
@@ -15,7 +21,7 @@ import { ShutdownService } from './app.shutdown.service';
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      load: [DBConfig],
+      load: [DBConfig, AppCoreConfig, MongoConfig, KafkaConfig, RedisConfig],
     }),
 
     // // rabbitmq
