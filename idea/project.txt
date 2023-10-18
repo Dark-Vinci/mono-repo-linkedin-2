@@ -6,7 +6,7 @@ Redis
 GRPC
 Docker
 K8
-SOCKETIO
+SOCKET.IO
 WebRTC
 Great Typescript
 NestJS

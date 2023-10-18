@@ -42,6 +42,8 @@ services:
       - "3000:3000"
     container_name: "UI"
     restart: unless-stopped
+    tty: true
+    stdin_open: true
     volumes:
       - ./APP/FRONTEND/app:/usr/frontend/app # bind mount for updating changes in container[rerunning app when changes is made]
       - /usr/frontend/app/node_modules #anonymous volumes for container node_modules[doesn't survive container shutdown]
@@ -206,4 +208,5 @@ services:
   #   depends_on:
   #     - elasticsearch
 
-#networks:/
+#volumes:
+#  - only for named volumes:
