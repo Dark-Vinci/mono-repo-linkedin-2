@@ -9,3 +9,5 @@ export class ExceptionFilter implements RpcExceptionFilter<RpcException> {
     return throwError(() => exception.getError());
   }
 }
+
+export { AppServiceModule as default } from './app.module';

@@ -30,6 +30,22 @@ services:
 #    depends_on:
 #        - postgres
 
+  ui:
+    build:
+      context: ./APP/FRONTEND
+      dockerfile: app/Dockerfile
+      args:
+        port: 3000
+    env_file:
+      - ./dev.env
+    ports:
+      - "3000:3000"
+    container_name: "UI"
+    restart: unless-stopped
+    volumes:
+      - ./APP/FRONTEND/app:/usr/frontend/app # bind mount for updating changes in container[rerunning app when changes is made]
+      - /usr/frontend/app/node_modules #anonymous volumes for container node_modules[doesn't survive container shutdown]
+
   postgres-master:
    build:
      context: ./APP/BACKEND/MACHINERY

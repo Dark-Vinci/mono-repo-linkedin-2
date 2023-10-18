@@ -1,3 +1,3 @@
 export * from './user.service';
-export * from './store.module';
 export * from './business.service';
+export { StoreModule as default } from './store.module';
