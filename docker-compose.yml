@@ -50,40 +50,40 @@ services:
       - /usr/frontend/app/node_modules #anonymous volumes for container node_modules[doesn't survive container shutdown]
 
   postgres-master:
-   build:
-     context: ./APP/BACKEND/MACHINERY
-     dockerfile: postgres/Dockerfile
-   ports:
-     - "5420:5432"
-   volumes:
-     - ./APP/BACKEND/MACHINERY/postgres/bitnami:/bitnami/postgresql
-   environment:
-     - POSTGRESQL_PASSWORD=miwa
-     - POSTGRESQL_USERNAME=miwa
-     - POSTGRESQL_DATABASE=linked_in_clone
-     - POSTGRESQL_REPLICATION_MODE=master
-     - POSTGRESQL_REPLICATION_USER=miwa
-     - POSTGRESQL_REPLICATION_PASSWORD=miwa
-     - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-     - POSTGRESQL_LOG_HOSTNAME=true
-     - ALLOW_EMPTY_PASSWORD=yes
+    build:
+      context: ./APP/BACKEND/MACHINERY
+      dockerfile: postgres/Dockerfile
+    ports:
+      - "5420:5432"
+    volumes:
+      - ./APP/BACKEND/MACHINERY/postgres/bitnami:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_PASSWORD=miwa
+      - POSTGRESQL_USERNAME=miwa
+      - POSTGRESQL_DATABASE=linked_in_clone
+      - POSTGRESQL_REPLICATION_MODE=master
+      - POSTGRESQL_REPLICATION_USER=miwa
+      - POSTGRESQL_REPLICATION_PASSWORD=miwa
+      - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
+      - POSTGRESQL_LOG_HOSTNAME=true
+      - ALLOW_EMPTY_PASSWORD=yes
 
   postgres-slave1:
-     build:
-       context: ./APP/BACKEND/MACHINERY
-       dockerfile: postgres/Dockerfile
-     ports:
-       - "5421:5432"
-     environment:
-       - POSTGRESQL_USERNAME=miwa
-       - POSTGRESQL_PASSWORD=miwa
-       - POSTGRESQL_MASTER_HOST=localhost
-       - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-       - POSTGRESQL_LOG_HOSTNAME=true
-       - POSTGRESQL_REPLICATION_MODE=slave
-       - POSTGRESQL_REPLICATION_USER=reading_user
-       - POSTGRESQL_REPLICATION_PASSWORD=reading_user
-       - POSTGRESQL_MASTER_PORT_NUMBER=5420
+      build:
+        context: ./APP/BACKEND/MACHINERY
+        dockerfile: postgres/Dockerfile
+      ports:
+        - "5421:5432"
+      environment:
+        - POSTGRESQL_USERNAME=miwa
+        - POSTGRESQL_PASSWORD=miwa
+        - POSTGRESQL_MASTER_HOST=localhost
+        - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
+        - POSTGRESQL_LOG_HOSTNAME=true
+        - POSTGRESQL_REPLICATION_MODE=slave
+        - POSTGRESQL_REPLICATION_USER=reading_user
+        - POSTGRESQL_REPLICATION_PASSWORD=reading_user
+        - POSTGRESQL_MASTER_PORT_NUMBER=5420
 #     depends_on:
 #      - postgres-master
 

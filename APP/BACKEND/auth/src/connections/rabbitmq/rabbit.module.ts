@@ -7,7 +7,8 @@ import winston from 'winston';
 import { MyLogger as Logger, UUID } from 'sdk';
 
 import { appServiceMethods, fileNames } from '@constants';
-import { MessagingProducer, MessagingSubscriber } from '.';
+import { MessagingSubscriber } from './consumers.service';
+import { MessagingProducer } from './producers.service';
 
 @Module({
   imports: [

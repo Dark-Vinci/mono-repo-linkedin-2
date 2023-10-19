@@ -17,7 +17,7 @@ export class MessagingSubscriber {
     routingKey: 'subscribe-route1',
     queue: 'subscribe-queue',
   })
-  public async competingPubSubHandler(payload: object) {
+  public async competingPubSubHandler(payload: object): Promise<void> {
     const logger = Logger.setContext(
       __filename,
       'pubSubHandler',
