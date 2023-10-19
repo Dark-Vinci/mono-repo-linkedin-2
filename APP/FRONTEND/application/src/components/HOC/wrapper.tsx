@@ -1,5 +1,7 @@
 import React, { ComponentType, FC } from 'react';
 
+import { AdditionalProps } from '@types';
+
 function WithWrapper<P extends object>(
   WrappedComponent: ComponentType<P & AdditionalProps>,
 ): FC<P> {
