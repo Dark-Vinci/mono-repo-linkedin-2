@@ -11,3 +11,6 @@ export class ExceptionFilter implements RpcExceptionFilter<RpcException> {
 }
 
 export { AppServiceModule as default } from './app.module';
+export * from './app.service';
+export * from './login.service';
+export * from './signup.service';
