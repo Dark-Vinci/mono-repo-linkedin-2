@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import {
   AppCoreConfig,
   DBConfig,
+  JWTConfig,
   KafkaConfig,
   MongoConfig,
   RedisConfig,
@@ -21,7 +22,14 @@ import { ShutdownService } from './app.shutdown.service';
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      load: [DBConfig, AppCoreConfig, MongoConfig, KafkaConfig, RedisConfig],
+      load: [
+        DBConfig,
+        AppCoreConfig,
+        MongoConfig,
+        KafkaConfig,
+        RedisConfig,
+        JWTConfig,
+      ],
     }),
 
     // // rabbitmq

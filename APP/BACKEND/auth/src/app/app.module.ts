@@ -20,6 +20,7 @@ import { JwtAuthService } from './jwt.service';
     JwtModule.registerAsync({
       inject: [ConfigService],
       imports: [ConfigModule],
+
       useFactory: (config: ConfigService<configInterface>) => {
         const get = config.get;
 
