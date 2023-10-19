@@ -14,4 +14,9 @@ export interface configInterface {
   readonly dbUserName: string;
   readonly nodeEnv: NodeEnvType;
   readonly type: DBType;
+
+  readonly jwtSecret: string;
+  readonly jwtNotBefore: string;
+  readonly jwtIssuer: string;
+  readonly jwtExpiresIn: string;
 }
