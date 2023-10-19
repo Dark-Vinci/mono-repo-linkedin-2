@@ -30,6 +30,8 @@ export class BusinessRepository implements OnApplicationBootstrap {
       a: this._businessRepository,
       b: this.globalLogger,
       c: this.util,
+      d: _payload,
+      e: _requestId,
     });
     return;
   }
