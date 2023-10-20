@@ -24,7 +24,13 @@ export class JwtAuthService implements OnApplicationBootstrap {
     requestId: string;
     payload: any;
   }): Promise<string> {
-    const logger = Logger.setContext(__filename, '', requestId, this.logger);
+    const logger = Logger.setContext(
+      __filename,
+      '',
+      requestId,
+      this.logger,
+      payload,
+    );
 
     try {
       const token = await this.jwtService.signAsync(payload, {});
@@ -43,7 +49,9 @@ export class JwtAuthService implements OnApplicationBootstrap {
     token: string;
     requestId: string;
   }): Promise<boolean> {
-    const logger = Logger.setContext(__filename, '', requestId, this.logger);
+    const logger = Logger.setContext(__filename, '', requestId, this.logger, {
+      token,
+    });
 
     try {
       await this.jwtService.verifyAsync(token, {});
@@ -62,7 +70,9 @@ export class JwtAuthService implements OnApplicationBootstrap {
     token: string;
     requestId: string;
   }): string | Record<string, any> {
-    const logger = Logger.setContext(__filename, '', requestId, this.logger);
+    const logger = Logger.setContext(__filename, '', requestId, this.logger, {
+      token,
+    });
 
     try {
       const detail = this.jwtService.decode(token, {});
