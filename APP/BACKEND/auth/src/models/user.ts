@@ -1,8 +1,12 @@
 import { BeforeInsert, Column, Entity } from 'typeorm';
 
-import { EMPTY_STRING, SCHEMA } from '@constants';
+import { Hasher } from 'sdk';
+
+import { SCHEMA } from '@constants';
 import { ColumnType, EntityNames, Ordering } from '@types';
 import { Base } from './base';
+
+const hasher = new Hasher(parseInt(process.env.ROUND!) ?? 10);
 
 @Entity({
   name: EntityNames.USERS,
@@ -14,12 +18,7 @@ export class User extends Base {
   public constructor(payload: Partial<User>) {
     super();
 
-    const { firstName, lastName, password, email } = payload;
-
-    this.email = email || EMPTY_STRING;
-    this.password = password || EMPTY_STRING;
-    this.lastName = lastName || EMPTY_STRING;
-    this.firstName = firstName || EMPTY_STRING;
+    Object.assign(this, payload);
   }
 
   @Column({
@@ -51,7 +50,23 @@ export class User extends Base {
   email!: string;
 
   @BeforeInsert()
-  public hashPassword(): Promise<void> {
-    return Promise.resolve();
+  public async hashPassword(): Promise<void> {
+    try {
+      const hashedPassword = await hasher.hash(this.password);
+
+      this.password = hashedPassword;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async verifyPassword(value: string): Promise<boolean> {
+    try {
+      const isValid = await Hasher.compare(value, this.password);
+
+      return isValid;
+    } catch (error) {
+      throw error;
+    }
   }
 }

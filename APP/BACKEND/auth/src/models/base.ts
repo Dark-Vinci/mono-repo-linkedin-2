@@ -12,7 +12,7 @@ import { UUID } from 'sdk';
 import { ColumnType, OrNull } from '@types';
 import { CURRENCT_TIMESTAMP } from '@constants';
 
-export abstract class Base extends BaseEntity {
+export class Base extends BaseEntity {
   @PrimaryGeneratedColumn(ColumnType.UUID)
   id!: UUID;
 

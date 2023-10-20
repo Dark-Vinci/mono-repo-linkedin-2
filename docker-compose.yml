@@ -49,6 +49,19 @@ services:
       - ./APP/FRONTEND/app:/usr/frontend/app # bind mount for updating changes in container[rerunning app when changes is made]
       - /usr/frontend/app/node_modules #anonymous volumes for container node_modules[doesn't survive container shutdown]
 
+  postgres:
+    build: 
+      context: ./APP/BACKEND/MACHINERY
+      dockerfile: postgres/Dockerfile
+    volumes:
+      - ./APP/BACKEND/MACHINERY/postgres/pgdata:/pgdata
+    ports:
+      - "5420:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - PGDATA=/pgdata
+
   postgres-master:
     build:
       context: ./APP/BACKEND/MACHINERY

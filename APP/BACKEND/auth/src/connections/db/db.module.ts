@@ -1,6 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import {
   DB_PORT,
@@ -21,11 +22,16 @@ export class DB {
         const get = config.get;
 
         const connectionConfig = {
+          namingStrategy: new SnakeNamingStrategy(),
+          migrationsTableName: 'migrations',
+          entities: ['dist/src/model/*.{js, ts}'],
+          migrations: ['dist/src/migrations/*.ts'],
           username: get(USERNAME) as string,
           logging: true,
           logger: DB_LOGGER,
           type: get(DB_TYPE) || POSTGRES,
           synchronize: false,
+
           replication: {
             master: {
               port: +get(DB_PORT),
@@ -41,7 +47,7 @@ export class DB {
                 database: AuthDatabase.SLAVE1,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
-                name: AuthDatabase.SLAVE1,
+                // name: AuthDatabase.SLAVE1,
               },
               {
                 port: +get(DB_PORT),
@@ -49,7 +55,7 @@ export class DB {
                 database: AuthDatabase.SLAVE2,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
-                name: AuthDatabase.SLAVE2,
+                // name: AuthDatabase.SLAVE2,
               },
               {
                 port: +get(DB_PORT),
@@ -57,7 +63,7 @@ export class DB {
                 database: AuthDatabase.SLAVE3,
                 username: get(USERNAME) as string,
                 password: get(DBPassword.SLAVE) as string,
-                name: AuthDatabase.SLAVE3,
+                // name: AuthDatabase.SLAVE3,
               },
             ],
           },

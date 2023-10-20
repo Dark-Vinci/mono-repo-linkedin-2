@@ -13,5 +13,7 @@ export class LogInController implements OnApplicationBootstrap {
 
   public onApplicationBootstrap(): void {
     this.logger = global.logger;
+    console.log({ a: this.signInService });
+    console.log({ abc: this.signInService, b: this.logger });
   }
 }

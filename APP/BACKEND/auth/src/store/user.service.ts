@@ -7,7 +7,7 @@ import { Logger as WinstonLogger } from 'winston';
 
 import { MyLogger as Logger, Util, UUID } from 'sdk';
 
-import { User } from '@models';
+import { User } from 'src';
 import { AuthDatabase } from '@types';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class UserRepository implements OnApplicationBootstrap {
     private readonly userSlave3Repository: Repository<User>,
 
     private readonly util: Util,
-  ) {}
+  ) { }
 
   public onApplicationBootstrap(): void {
     this.globalLogger = global.logger;
@@ -54,7 +54,7 @@ export class UserRepository implements OnApplicationBootstrap {
 
       return user;
     } catch (error) {
-      logger.error(<Error>error);
+      logger.error(<Error> error);
       throw this.util.handleRepositoryError(error as any);
     }
   }
@@ -73,7 +73,7 @@ export class UserRepository implements OnApplicationBootstrap {
 
       return;
     } catch (error) {
-      logger.error(<Error>error);
+      logger.error(<Error> error);
       throw this.util.handleRepositoryError(error as any);
     }
   }
@@ -158,7 +158,7 @@ export class UserRepository implements OnApplicationBootstrap {
 
       return user;
     } catch (error) {
-      logger.error(<Error>error);
+      logger.error(<Error> error);
       this.util.handleRepositoryError(error as any);
     }
   }
