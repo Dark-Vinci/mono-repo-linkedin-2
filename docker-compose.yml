@@ -20,7 +20,7 @@ services:
     restart:
       unless-stopped
   #    networks:
-  #      - "mono-repo"
+#        - "mono-repo"
     volumes:
       - ./APP/BACKEND/auth/src:/app/backend/auth/src #bind mount(for managing rebuild)
       - ./APP/BACKEND/SDK:/app/backend/SDK #bind mounts for sdk
