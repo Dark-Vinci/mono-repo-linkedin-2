@@ -62,100 +62,51 @@ services:
       - POSTGRES_PASSWORD=docker
       - PGDATA=/pgdata
 
-  postgres-master:
-    build:
+  slave:
+    build: 
       context: ./APP/BACKEND/MACHINERY
       dockerfile: postgres/Dockerfile
-    ports:
-      - "5420:5432"
     volumes:
-      - ./APP/BACKEND/MACHINERY/postgres/bitnami:/bitnami/postgresql
+      - ./APP/BACKEND/MACHINERY/postgres/slave/pgdata:/pgdata
+      - ./APP/BACKEND/MACHINERY/postgres/slave/data:/data
+    ports:
+      - "5422:5432"
     environment:
-      - POSTGRESQL_PASSWORD=miwa
-      - POSTGRESQL_USERNAME=miwa
-      - POSTGRESQL_DATABASE=linked_in_clone
-      - POSTGRESQL_REPLICATION_MODE=master
-      - POSTGRESQL_REPLICATION_USER=miwa
-      - POSTGRESQL_REPLICATION_PASSWORD=miwa
-      - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-      - POSTGRESQL_LOG_HOSTNAME=true
-      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - PGDATA=/pgdata
 
-  postgres-slave1:
-      build:
-        context: ./APP/BACKEND/MACHINERY
-        dockerfile: postgres/Dockerfile
-      ports:
-        - "5421:5432"
-      environment:
-        - POSTGRESQL_USERNAME=miwa
-        - POSTGRESQL_PASSWORD=miwa
-        - POSTGRESQL_MASTER_HOST=localhost
-        - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-        - POSTGRESQL_LOG_HOSTNAME=true
-        - POSTGRESQL_REPLICATION_MODE=slave
-        - POSTGRESQL_REPLICATION_USER=reading_user
-        - POSTGRESQL_REPLICATION_PASSWORD=reading_user
-        - POSTGRESQL_MASTER_PORT_NUMBER=5420
-#     depends_on:
-#      - postgres-master
+  slv:
+    build: 
+      context: ./APP/BACKEND/MACHINERY
+      dockerfile: postgres/Dockerfile
+    volumes:
+      - ./APP/BACKEND/MACHINERY/postgres/slv:/pgdata
+    ports:
+      - "5427:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - PGDATA=/pgdata
 
-#  postgres-slave2:
-#    build:
-#      context: ./APP/BACKEND/MACHINERY
-#      dockerfile: postgres/Dockerfile
-#    ports:
-#      - "5422:5432"
-#    environment:
-#      - POSTGRESQL_USERNAME=miwa
-#      - POSTGRESQL_PASSWORD=miwa
-#      - POSTGRESQL_MASTER_HOST=postgres-master
-#      - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-#      - POSTGRESQL_LOG_HOSTNAME=true
-#      - POSTGRESQL_REPLICATION_MODE=slave
-#      - POSTGRESQL_REPLICATION_USER=miwa
-#      - POSTGRESQL_REPLICATION_PASSWORD=miwa
-#      - POSTGRESQL_MASTER_PORT_NUMBER=5420
-#    depends_on:
-#      - postgres-master
-#
-#  postgres-slave3:
-#    build:
-#      context: ./APP/BACKEND/MACHINERY
-#      dockerfile: postgres/Dockerfile
-#    ports:
-#      - "5423:5432"
-#    environment:
-#      - POSTGRESQL_USERNAME=miwa
-#      - POSTGRESQL_PASSWORD=miwa
-#      - POSTGRESQL_MASTER_HOST=postgres-master
-#      - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
-#      - POSTGRESQL_LOG_HOSTNAME=true
-#      - POSTGRESQL_REPLICATION_MODE=slave
-#      - POSTGRESQL_REPLICATION_USER=miwa
-#      - POSTGRESQL_REPLICATION_PASSWORD=miwa
-#      - POSTGRESQL_MASTER_PORT_NUMBER=5420
-#    depends_on:
-#      - postgres-master
+  mongodb:
+    build:
+      context: ./APP/BACKEND/MACHINERY
+      dockerfile: mongodb/Dockerfile
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: miwa
+      MONGO_INITDB_ROOT_PASSWORD: miwa
+    volumes:
+      - ./APP/BACKEND/MACHINERY/mongodb/data:/data/db
 
-#  mongodb:
-#   build:
-#     context: ./APP/BACKEND/MACHINERY
-#     dockerfile: mongodb/Dockerfile
-#   ports:
-#     - "27017:27017"
-#   environment:
-#     MONGO_INITDB_ROOT_USERNAME: miwa
-#     MONGO_INITDB_ROOT_PASSWORD: miwa
-#   volumes:
-#     - ./APP/BACKEND/MACHINERY/mongodb/data:/data/db
-
-  # redis:
-  #   build:
-  #     context: ./APP/BACKEND/MACHINERY
-  #     dockerfile: redis/Dockerfile
-  #   ports:
-  #     - "6309:6309"
+  redis:
+    build:
+      context: ./APP/BACKEND/MACHINERY
+      dockerfile: redis/Dockerfile
+    ports:
+      - "6309:6309"
 
   # zookeeper:
   #   image: wurstmeister/zookeeper:latest
