@@ -7,7 +7,7 @@ import { Logger as WinstonLogger } from 'winston';
 
 import { MyLogger as Logger, Util, UUID } from 'sdk';
 
-import { User } from 'src';
+import { User } from '@models';
 import { AuthDatabase } from '@types';
 
 @Injectable()

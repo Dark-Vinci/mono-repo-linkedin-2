@@ -1,6 +1,6 @@
 import global from 'globals';
 
-import { Business } from 'src';
+import { Business } from '@models';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

@@ -6,8 +6,6 @@ import { SCHEMA } from '@constants';
 import { ColumnType, EntityNames, Ordering } from '@types';
 import { Base } from './base';
 
-const hasher = new Hasher(parseInt(process.env.ROUND!) ?? 10);
-
 @Entity({
   name: EntityNames.USERS,
   orderBy: { created_at: Ordering.ASC },
@@ -15,6 +13,10 @@ const hasher = new Hasher(parseInt(process.env.ROUND!) ?? 10);
   schema: SCHEMA,
 })
 export class User extends Base {
+  private readonly hasher = new Hasher(
+    parseInt(process.env.ROUND as unknown as string) ?? 10,
+  );
+
   public constructor(payload: Partial<User>) {
     super();
 
@@ -52,7 +54,7 @@ export class User extends Base {
   @BeforeInsert()
   public async hashPassword(): Promise<void> {
     try {
-      const hashedPassword = await hasher.hash(this.password);
+      const hashedPassword = await this.hasher.hash(this.password);
 
       this.password = hashedPassword;
     } catch (error) {
@@ -62,7 +64,7 @@ export class User extends Base {
 
   public async verifyPassword(value: string): Promise<boolean> {
     try {
-      const isValid = await Hasher.compare(value, this.password);
+      const isValid = await this.hasher.compare(value, this.password);
 
       return isValid;
     } catch (error) {

@@ -2,22 +2,24 @@
 
 echo "commit command will run now";
 
+cd ..
+
 echo "commit type: [$1]";
 echo "commit message: [$2]";
 
 directory = '../APP/BACKEND';
 
 
-for diren in "$directory"; do
-    echo $diren
-    echo "commit command"
+# for diren in "$directory"; do
+#     echo $diren
+#     echo "commit command"
 #    if [ -d "$diren/node_modules" ]; then
 #     echo "node modules exists ====> Removing now"
 #     rm -rf $diren/node_modules
 #    else
 #     echo "The directory does not exist ====> well pass"
 #    fi
-done
+# done
 
 # add to [] and commit
 git add .;

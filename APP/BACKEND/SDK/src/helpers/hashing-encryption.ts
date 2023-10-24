@@ -20,10 +20,7 @@ export class Hasher {
     return hashed;
   }
 
-  public static async compare(
-    password: string,
-    hashed: string,
-  ): Promise<boolean> {
+  public async compare(password: string, hashed: string): Promise<boolean> {
     const isValid = await compare(password, hashed);
     return isValid;
   }

@@ -25,7 +25,7 @@ export class DB {
           namingStrategy: new SnakeNamingStrategy(),
           migrationsTableName: 'migrations',
           entities: ['dist/src/model/*.{js, ts}'],
-          migrations: ['dist/src/migrations/*.ts'],
+          migrations: ['dist/src/migrations/*.{js, ts}'],
           username: get(USERNAME) as string,
           logging: true,
           logger: DB_LOGGER,
