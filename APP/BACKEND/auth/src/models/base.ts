@@ -10,7 +10,7 @@ import {
 import { UUID } from 'sdk';
 
 import { ColumnType, OrNull } from '@types';
-import { CURRENCT_TIMESTAMP } from '@constants';
+import { CURRENT_TIMESTAMP } from '@constants';
 
 export class Base extends BaseEntity {
   @PrimaryGeneratedColumn(ColumnType.UUID)
@@ -20,7 +20,7 @@ export class Base extends BaseEntity {
     name: 'created_at',
     type: ColumnType.TIMESTAMP,
     nullable: false,
-    default: CURRENCT_TIMESTAMP,
+    default: CURRENT_TIMESTAMP,
   })
   createdAt!: Date;
 
@@ -28,7 +28,7 @@ export class Base extends BaseEntity {
     name: 'updated_at',
     type: ColumnType.TIMESTAMP,
     nullable: false,
-    default: CURRENCT_TIMESTAMP,
+    default: CURRENT_TIMESTAMP,
   })
   updatedAt!: Date;
 
