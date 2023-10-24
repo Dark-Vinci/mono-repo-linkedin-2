@@ -11,4 +11,4 @@ import { BusinessRepository } from './business.service';
   imports: [TypeOrmModule.forFeature([User, Business])],
   exports: [UserRepository, BusinessRepository],
 })
-export class StoreModule { }
+export class StoreModule {}

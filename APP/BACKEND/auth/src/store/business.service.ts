@@ -16,7 +16,7 @@ export class BusinessRepository implements OnApplicationBootstrap {
     @InjectRepository(Business)
     private readonly _businessRepository: Repository<Business>,
     private readonly util: Util,
-  ) { }
+  ) {}
 
   public onApplicationBootstrap(): void {
     this.globalLogger = global.logger;
