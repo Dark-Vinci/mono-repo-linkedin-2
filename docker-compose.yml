@@ -27,8 +27,8 @@ services:
       - ./APP/BACKEND/auth/log:/app/backend/auth/log # bind mounts for logs files
       - /app/backend/auth/node_modules #anonymous volumes(for reusing node_modules)
 
-    depends_on:
-        - postgres
+#    depends_on:
+#        - postgres
 
   ui:
     build:

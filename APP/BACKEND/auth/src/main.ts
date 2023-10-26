@@ -45,7 +45,7 @@ class App {
   );
 
   public constructor() {
-    // set the logger to be a global Object
+    // set the logger to be a global Objects
     global.logger = this.globalLogger as winston.Logger;
   }
 
@@ -135,6 +135,11 @@ class App {
 
   // bootstrap application
   public async start(): Promise<void> {
+    const b = process.env.DOPPLER_PROJECT;
+    const c = process.env.FEATURE_FLAGS;
+    const d = process.env.STRIPE_KEY;
+
+    console.log({ b, c, d });
     if (cluster.isPrimary) {
       this.primaryWorker();
     } else {

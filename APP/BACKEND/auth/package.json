@@ -23,7 +23,7 @@
     "generate": "typeorm-ts-node-esm migration:generate ./src/migrations/create-bussiness --dataSource=dist/ormconfig.js --timestamp"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.9.2",
+    "@grpc/grpc-js": "^1.9.7",
     "@grpc/proto-loader": "^0.7.9",
     "@nestjs-plus/rabbitmq": "^1.4.4",
     "@nestjs/common": "^9.0.0",
@@ -35,7 +35,6 @@
     "@nestjs/typeorm": "^10.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
-    "grpc": "^1.24.11",
     "ioredis": "^5.3.2",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",

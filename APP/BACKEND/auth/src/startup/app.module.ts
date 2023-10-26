@@ -14,6 +14,7 @@ import {
 } from '@config';
 import { AppService } from './app.service';
 import { ShutdownService } from './app.shutdown.service';
+import { Util } from 'sdk';
 
 @Module({
   imports: [
@@ -53,6 +54,6 @@ import { ShutdownService } from './app.shutdown.service';
     // // Server module
     // ServerModule,
   ],
-  providers: [AppService, ShutdownService],
+  providers: [AppService, ShutdownService, Util],
 })
 export class AppModule {}

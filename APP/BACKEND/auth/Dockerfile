@@ -33,6 +33,7 @@ RUN npm i
 
 # Copy the rest of the application code
 COPY ./auth /app/backend/auth
+COPY ../../tsconfig.base.json ./tsconfig.base.json
 
 # Set environment variables
 ENV CONFIG=${config}
