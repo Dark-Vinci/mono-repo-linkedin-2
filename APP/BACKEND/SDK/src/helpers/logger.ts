@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { LoggerService, Logger } from '@nestjs/common';
 import {
   format,

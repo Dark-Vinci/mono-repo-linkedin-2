@@ -1,9 +1,9 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, AfterLoad } from 'typeorm';
 
 import { Hasher } from 'sdk';
 
 import { SCHEMA } from '@constants';
-import { ColumnType, EntityNames, Ordering } from '@types';
+import { ColumnType, EntityNames, Ordering, OrNull } from '@types';
 import { Base } from './base';
 
 @Entity({
@@ -51,12 +51,22 @@ export class User extends Base {
   })
   email!: string;
 
+  public previousPassword!: OrNull<string>;
+
+  @AfterLoad()
+  public loadPreviousPassword(): void {
+    this.previousPassword = this.password;
+  }
+
   @BeforeInsert()
+  @BeforeUpdate()
   public async hashPassword(): Promise<void> {
     try {
-      const hashedPassword = await this.hasher.hash(this.password);
+      if (this.password == this.previousPassword && this.password) {
+        const hashedPassword = await this.hasher.hash(this.password);
 
-      this.password = hashedPassword;
+        this.password = hashedPassword;
+      }
     } catch (error) {
       throw error;
     }

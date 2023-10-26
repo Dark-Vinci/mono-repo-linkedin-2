@@ -8,7 +8,7 @@ import {
 
 import { EntityNotFoundError, QueryFailedError } from 'typeorm';
 
-import type { UUID } from './uuid';
+import { UUID } from './uuid';
 import type {
   BaseResponse,
   ReturnT,
@@ -127,5 +127,9 @@ export class Util {
           'service is current unable to handle requests',
         );
     }
+  }
+
+  public generateUUID(): UUID {
+    return UUID.new();
   }
 }
