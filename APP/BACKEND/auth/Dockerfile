@@ -3,10 +3,8 @@ FROM node:20-alpine3.17 as sdk_build
 
 RUN apk add --update alpine-sdk && apk add linux-headers
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-#RUN #apk add --no-cache make gcc g++ python
 
 WORKDIR /
-#npm rebuild bcrypt --build-from-source
 COPY ./SDK .
 
 RUN npm cache clean --force
@@ -17,13 +15,6 @@ RUN npm config set legacy-peer-deps true
 
 # Install app dependencies
 RUN npm i
-
-#RUN npm rebuild bcrypt --build-from-source
-#
-#RUN apk del make gcc g++ python
-
-#RUN #npm uninstall bcrypt
-#RUN #npm i bcrypt
 
 RUN npm i -g typescript
 
@@ -48,7 +39,6 @@ ARG node_env=development
 COPY ./auth/package*.json /app/backend/auth
 
 # copy sdk, will be used in {npm install}
-#COPY ./SDK /app/backend/SDK
 COPY --from=sdk_build / /app/backend/SDK
 
 # clear cache
@@ -63,7 +53,6 @@ RUN npm i --force
 
 # Copy the rest of the application code
 COPY ./auth /app/backend/auth
-#COPY ../../../tsconfig.base.json ./tsconfig.base.json[isn't working somehow]
 
 # Set environment variables
 ENV CONFIG=${config}
