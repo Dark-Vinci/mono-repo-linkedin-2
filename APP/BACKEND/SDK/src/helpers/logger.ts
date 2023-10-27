@@ -23,7 +23,7 @@ export class GlobalLogger extends Logger {
     const finalMongoOptions: MongoDBConnectionOptions = {
       db: mongoOptions.db,
       level: mongoOptions.level,
-      name: 'mongodb',
+      // name: 'mongodb',
       collection: mongoOptions.collection,
       decolorize: false,
       tryReconnect: true,

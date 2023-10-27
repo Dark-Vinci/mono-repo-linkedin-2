@@ -1,6 +1,6 @@
 export enum ServicePort {
   ACCOUNT = 3000,
-  AUTH = 3001,
+  AUTH = 3000,
   GATEWAY = 3002,
 }
 

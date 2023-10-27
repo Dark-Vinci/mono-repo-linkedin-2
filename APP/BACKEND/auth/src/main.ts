@@ -32,8 +32,8 @@ class App {
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private readonly globalLogger = new GlobalLogger(...logFiles, {
-    collection: process.env.APP_NAME ?? 'auth_logger',
-    db: process.env.MONGO_DB_LOG_URI ?? 'mongodb://miwa:miwa@127.0.0.1:27017',
+    collection: 'auth_logger',
+    db: 'mongodb://miwa:miwa@mongodb:27017',
     level: 'silly',
   }).getLogger();
 
@@ -54,6 +54,7 @@ class App {
 
     // Fork workers.
     for (let i = 0; i < this.numCPUs; i++) {
+      console.log('forked');
       cluster.fork();
     }
 
@@ -113,7 +114,7 @@ class App {
           gracefulShutdown: true,
           protoPath: <string[]>(<unknown>ServiceProtoPath.AUTH),
           loader: GRPC_LOADER_OPTIONS,
-          url: `localhost:${ServicePort.AUTH}`,
+          url: `localhost:${3000}`,
         },
       };
 
@@ -128,6 +129,7 @@ class App {
 
       this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
     } catch (error) {
+      console.log({ error });
       this.logger.error(<Error>error);
       exit(0);
     }

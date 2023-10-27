@@ -1,7 +1,7 @@
 import { createCipheriv, randomBytes, scrypt, createDecipheriv } from 'crypto';
 import { promisify } from 'util';
 
-import { hash, genSalt, compare } from 'bcrypt';
+import { hash, genSalt, compare } from 'bcryptjs';
 
 import { CYPHER_ALGORITHM } from '../constants';
 

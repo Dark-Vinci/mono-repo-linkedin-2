@@ -9,13 +9,13 @@ services:
         app_env: "development"
         name: "auth"
         service_token: "000000"
-        port: "3001"
+        port: "3000"
         config: "config"
         node_env: "development"
     env_file:
       - ./dev.env
     ports:
-      - "3001:3001"
+      - "3000:3000"
     container_name: "guard"
     restart:
       unless-stopped
@@ -27,8 +27,9 @@ services:
       - ./APP/BACKEND/auth/log:/app/backend/auth/log # bind mounts for logs files
       - /app/backend/auth/node_modules #anonymous volumes(for reusing node_modules)
 
-#    depends_on:
+    depends_on:
 #        - postgres
+        - mongodb
 
   ui:
     build:
