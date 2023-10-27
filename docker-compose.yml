@@ -14,13 +14,12 @@ services:
         node_env: "development"
     env_file:
       - ./dev.env
+      - env/local/auth.yaml
     ports:
       - "3000:3000"
     container_name: "guard"
     restart:
       unless-stopped
-  #    networks:
-#        - "mono-repo"
     volumes:
       - ./APP/BACKEND/auth/src:/app/backend/auth/src #bind mount(for managing rebuild)
       - ./APP/BACKEND/SDK:/app/backend/SDK #bind mounts for sdk

@@ -4,6 +4,10 @@
 /APP/BACKEND/**/node_modules
 /APP/BACKEND/**/dist
 /APP/BACKEND/**/.env
+/env/prod
+/APP/BACKEND/MACHINERY/mongodb/data
+/APP/BACKEND/MACHINERY/postgres/pgdata
+/APP/BACKEND/MACHINERY/postgres/slv
 
 .vscode
 .env

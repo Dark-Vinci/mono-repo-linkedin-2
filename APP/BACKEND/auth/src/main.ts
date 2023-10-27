@@ -54,7 +54,6 @@ class App {
 
     // Fork workers.
     for (let i = 0; i < this.numCPUs; i++) {
-      console.log('forked');
       cluster.fork();
     }
 
