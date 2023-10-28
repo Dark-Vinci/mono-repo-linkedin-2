@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 // import { DB, RedisModule, RabbitMQ } from '@connections';
 // import { StoreModule } from '@store';
 // import { ServerModule } from '@server';
+import { Util } from 'sdk';
+
 import {
   AppCoreConfig,
   DBConfig,
@@ -14,7 +16,6 @@ import {
 } from '@config';
 import { AppService } from './app.service';
 import { ShutdownService } from './app.shutdown.service';
-import { Util } from 'sdk';
 
 @Module({
   imports: [
