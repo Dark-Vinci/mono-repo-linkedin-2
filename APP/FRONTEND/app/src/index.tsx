@@ -9,9 +9,8 @@ import {
 import { Provider } from 'react-redux';
 
 import './styles/index.css';
-import reportWebVitals from './startup/reportWebVitals';
-import { dummyReducer } from './app-store/redux/reducers';
-import App from './startup/App';
+import { dummyReducer } from './app-store';
+import { App, reportWebVitals } from './startup';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

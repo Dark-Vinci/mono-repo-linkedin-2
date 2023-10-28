@@ -113,7 +113,7 @@ function DefaultElement(): JSX.Element {
 // //     : {},
 // // ],
 //
-// // Component: <div>This is the componenet to be redered</div>,
+// // Component: <div>This is the component to be rendered</div>,
 // // action: todosAction,
 // // loader: todosLoader,
 // // Component: TodosList,
