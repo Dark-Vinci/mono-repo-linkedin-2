@@ -1,5 +1,3 @@
-// export {};
-
 import { UUID } from '@helpers';
 
 export class Users {
