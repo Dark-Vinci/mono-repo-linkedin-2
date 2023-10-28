@@ -8,4 +8,3 @@ import "auth/response.proto";
 service Auth {
     rpc ping(PingRequest) returns (PingResponse) {}
 }
-
