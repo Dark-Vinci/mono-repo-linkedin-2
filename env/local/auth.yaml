@@ -4,17 +4,10 @@ DOPPLER_ENVIRONMENT: dev
 DOPPLER_PROJECT: example-project
 FEATURE_FLAGS: "{\n\t\"AUTOPILOT\": true,\n\t\"TOP_SPEED\": 130\n}"
 LOGGING: dev
-# PRIVATE_KEY: -----BEGIN EC PRIVATE KEY-----
-#   MHQCAQEEIFP3mjgRvPQoCDYulMdmBBbnqG8+94t2zomLAw/EXUVyoAcGBSuBBAAK
-#   oUQDQgAEuJ7m0u5bpDODDj/HwKZja2JjQ0Fdm84w0NyS0JZFTQRzVFvxESRc3Pvn
-#   wLzJMS1gpK28PrA3DAMAcIYvoAEYMg==
-#   -----END EC PRIVATE KEY-----
-STRIPE_KEY: sk_test_mKciizZfpXhQgXoNZmzECVN
-
+STRIPE_KEY: sk_test_mKciizZfpXhQgXoNZmzE2VN
 NODE_ENV: development
 PORT: 3000
 MONGODB_URL:  mongodb://miwa:miwa@mongodb:27017
 LOGGER_COLLECTION: auth_logger
 MONGODB_LOG_LEVEL: 'silly'
 URL: localhost:3000
-#PORT: 3000
