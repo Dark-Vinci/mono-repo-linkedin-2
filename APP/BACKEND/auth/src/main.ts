@@ -89,19 +89,19 @@ class App {
       // listen all SIGINT kernel signals
       process.on(TerminationSignal.SIGINT, async () => {
         await shutdownService.shutdown();
-        exit(0);
+        exit(1);
       });
 
       // handle all SIGTERM kernel signals
       process.on(TerminationSignal.SIGTERM, async () => {
         await shutdownService.shutdown();
-        exit(0);
+        exit(1);
       });
 
       // handle all SIGHUP kernel signals
       process.on(TerminationSignal.SIGHUP, async () => {
         await shutdownService.shutdown();
-        exit(0);
+        exit(1);
       });
 
       // set all needed grpc options
