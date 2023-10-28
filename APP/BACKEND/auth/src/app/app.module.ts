@@ -25,11 +25,11 @@ import { JwtAuthService } from './jwt.service';
         const get = config.get;
 
         const jwtOptions: JwtModuleOptions = {
-          secret: get(JWT_SECRET) as string,
+          secret: get(JWT_SECRET)!,
           signOptions: {
-            expiresIn: get(JWT_EXPIRES_IN) as string,
-            issuer: get(JWT_ISSUER) as string,
-            notBefore: get(JWT_NOT_BEFORE) as string,
+            expiresIn: get(JWT_EXPIRES_IN)!,
+            issuer: get(JWT_ISSUER)!,
+            notBefore: get(JWT_NOT_BEFORE)!,
           },
         };
 
