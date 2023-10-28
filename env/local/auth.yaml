@@ -12,4 +12,9 @@ LOGGING: dev
 STRIPE_KEY: sk_test_mKciizZfpXhQgXoNZmzECVN
 
 NODE_ENV: development
-PORT: 3001
+PORT: 3000
+MONGODB_URL:  mongodb://miwa:miwa@mongodb:27017
+LOGGER_COLLECTION: auth_logger
+MONGODB_LOG_LEVEL: 'silly'
+URL: localhost:3000
+#PORT: 3000

@@ -17,7 +17,6 @@ import {
   ServiceName,
   TerminationSignal,
   ClusterSignal,
-  ServicePort,
   AppState,
   GlobalLogger,
   MyLogger as Logger,
@@ -32,9 +31,9 @@ class App {
   private readonly numCPUs = this.isDevMode ? 1 : cpus().length;
 
   private readonly globalLogger = new GlobalLogger(...logFiles, {
-    collection: 'auth_logger',
-    db: 'mongodb://miwa:miwa@mongodb:27017',
-    level: 'silly',
+    collection: process.env.LOGGER_COLLECTION!,
+    db: process.env.MONGODB_URL!,
+    level: process.env.MONGODB_LOG_LEVEL!,
   }).getLogger();
 
   private readonly logger = Logger.setContext(
@@ -113,7 +112,6 @@ class App {
           gracefulShutdown: true,
           protoPath: <string[]>(<unknown>ServiceProtoPath.AUTH),
           loader: GRPC_LOADER_OPTIONS,
-          url: `localhost:${3000}`,
         },
       };
 
@@ -123,12 +121,11 @@ class App {
 
       // start microservices and log necessary logs data
       await startAllMicroservices();
-      await listen(ServicePort.AUTH);
+      await listen(process.env.PORT!);
       const url = await getUrl();
 
       this.logger.log(`Worker ${process.pid} started on URL| ${url}`);
     } catch (error) {
-      console.log({ error });
       this.logger.error(<Error>error);
       exit(0);
     }
@@ -136,11 +133,6 @@ class App {
 
   // bootstrap application
   public async start(): Promise<void> {
-    const b = process.env.DOPPLER_PROJECT;
-    const c = process.env.FEATURE_FLAGS;
-    const d = process.env.STRIPE_KEY;
-
-    console.log({ b, c, d });
     if (cluster.isPrimary) {
       this.primaryWorker();
     } else {
