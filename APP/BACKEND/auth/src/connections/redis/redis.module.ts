@@ -15,7 +15,8 @@ export class RedisModule {
     const redisProvider = {
       provide: IORedisKey,
       inject,
-      useFactory: async (...args: any[]) => {
+      useFactory: async (...args: unknown[]) => {
+        // @ts-ignore
         const { connectionOptions, onClientReady } = await useFactory(args);
         const client = new IORedis(connectionOptions);
 

@@ -1,9 +1,10 @@
 import { NodeEnvType, DBType } from './type';
+import winston from 'winston';
 
 export interface AppController {
-  readonly globalLogger: any;
-  readonly appService: any;
-  ping(payload: any): Promise<any>;
+  readonly globalLogger: Undefinable<winston.Logger>;
+  readonly appService: object;
+  ping(payload: object): Promise<object>;
 }
 
 export interface configInterface {
@@ -20,3 +21,5 @@ export interface configInterface {
   readonly jwtIssuer: string;
   readonly jwtExpiresIn: string;
 }
+
+export type Undefinable<T> = T | undefined;

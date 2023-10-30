@@ -8,11 +8,11 @@ import { Logger as WinstonLogger } from 'winston';
 import { MyLogger as Logger, Util, UUID } from 'sdk';
 
 import { User } from '@models';
-import { AuthDatabase } from '@types';
+import { AuthDatabase, Undefinable } from '@types';
 
 @Injectable()
 export class UserRepository implements OnApplicationBootstrap {
-  private globalLogger: WinstonLogger | any;
+  private globalLogger: Undefinable<WinstonLogger>;
 
   public constructor(
     // master connection
@@ -43,7 +43,7 @@ export class UserRepository implements OnApplicationBootstrap {
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger,
+      this.globalLogger!,
       payload,
     );
 
@@ -64,7 +64,7 @@ export class UserRepository implements OnApplicationBootstrap {
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger,
+      this.globalLogger!,
       { userId: userId.toString() },
     );
 
@@ -81,13 +81,13 @@ export class UserRepository implements OnApplicationBootstrap {
   public async getUsers(
     payload: Partial<User>,
     requestId: UUID,
-    paginateOptions: any,
+    paginateOptions: { skip: number; size: number },
   ): Promise<Array<User>> {
     const logger = Logger.setContext(
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger,
+      this.globalLogger!,
       payload,
     );
 
@@ -113,10 +113,11 @@ export class UserRepository implements OnApplicationBootstrap {
       ]);
 
       return user;
-    } catch (error: any) {
-      error = error.errors[0] as Error;
-      logger.error(error);
-      this.util.handleRepositoryError(error);
+    } catch (error: unknown) {
+      error = error!.errors[0] as Error;
+      logger.error(<Error>error);
+      // @ts-ignore
+      this.util.handleRepositoryError(error as NonNullable<unknown>);
     }
   }
 
@@ -141,7 +142,7 @@ export class UserRepository implements OnApplicationBootstrap {
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger,
+      this.globalLogger!,
       payload,
     );
 
@@ -157,9 +158,10 @@ export class UserRepository implements OnApplicationBootstrap {
       });
 
       return user;
-    } catch (error) {
+    } catch (error: unknown) {
       logger.error(<Error>error);
-      this.util.handleRepositoryError(error as any);
+      // @ts-ignore
+      this.util.handleRepositoryError(error as object);
     }
   }
 }

@@ -2,7 +2,7 @@ import global from 'globals';
 
 import { Controller, OnApplicationBootstrap } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 
 import {
   AuthPingRequest,
@@ -20,6 +20,7 @@ import {
   MethodName,
 } from '@constants';
 import { AppService } from '@startup';
+import { Undefinable } from '@types';
 
 @Controller()
 export class AppController
@@ -28,7 +29,7 @@ export class AppController
     AppController,
     OnApplicationBootstrap
 {
-  private globalLogger: winston.Logger | any;
+  public globalLogger: Undefinable<WinstonLogger>;
 
   constructor(
     private readonly appService: AppService,
@@ -46,7 +47,7 @@ export class AppController
       fileNames.APP_SERVICE,
       appControllerMethods.PING,
       payload.requestId,
-      this.globalLogger,
+      this.globalLogger!,
       payload,
     );
 

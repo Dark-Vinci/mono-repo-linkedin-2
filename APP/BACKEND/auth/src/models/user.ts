@@ -13,9 +13,7 @@ import { Base } from './base';
   schema: SCHEMA,
 })
 export class User extends Base {
-  private readonly hasher = new Hasher(
-    parseInt(process.env.ROUND as unknown as string) ?? 10,
-  );
+  private readonly hasher = new Hasher(parseInt(process.env.ROUND!) ?? 10);
 
   public constructor(payload: Partial<User>) {
     super();

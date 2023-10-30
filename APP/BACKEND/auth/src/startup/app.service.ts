@@ -1,16 +1,17 @@
 import global from 'globals';
 
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
 import { MyLogger as Logger, UUID, AuthPingRequest, Type, Util } from 'sdk';
 
 import { appServiceMethods, fileNames } from '@constants';
+import { Undefinable } from '@types';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
-  private globalLogger: winston.Logger | any;
+  private globalLogger: Undefinable<WinstonLogger>;
 
   public onApplicationBootstrap(): void {
     this.globalLogger = global.logger;
@@ -27,7 +28,7 @@ export class AppService implements OnApplicationBootstrap {
       fileNames.APP_SERVICE,
       appServiceMethods.PING,
       payload.requestId,
-      this.globalLogger,
+      this.globalLogger!,
       payload,
     );
 

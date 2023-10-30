@@ -5,11 +5,12 @@ import winston from 'winston';
 
 import { RedisClient } from '@connections';
 
+import { Undefinable } from '@types';
 import { JwtAuthService } from './jwt.service';
 
 @Injectable()
 export class SignUpService implements OnApplicationBootstrap {
-  private logger: winston.Logger | any;
+  private logger: Undefinable<winston.Logger>;
 
   public constructor(
     private readonly jwtAuthService: JwtAuthService,

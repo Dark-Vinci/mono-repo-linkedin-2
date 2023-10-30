@@ -4,13 +4,15 @@ import { Business } from '@models';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 
 import { Util, UUID } from 'sdk';
 
+import { Undefinable } from '@types';
+
 @Injectable()
 export class BusinessRepository implements OnApplicationBootstrap {
-  public globalLogger: winston.Logger | any;
+  public globalLogger: Undefinable<WinstonLogger>;
 
   public constructor(
     @InjectRepository(Business)
@@ -22,7 +24,7 @@ export class BusinessRepository implements OnApplicationBootstrap {
     this.globalLogger = global.logger;
   }
 
-  public async createBusiness(
+  public async _createBusiness(
     _payload: Partial<Business>,
     _requestId: UUID,
   ): Promise<void> {

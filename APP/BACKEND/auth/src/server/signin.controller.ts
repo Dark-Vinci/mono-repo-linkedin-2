@@ -1,18 +1,19 @@
 import global from 'globals';
 
 import { Controller, OnApplicationBootstrap } from '@nestjs/common';
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 
 import { SignInService } from '@app';
+import { Undefinable } from '@types';
 
 @Controller()
 export class SignInController implements OnApplicationBootstrap {
-  private logger: winston.Logger | any;
+  public globalLogger: Undefinable<WinstonLogger>;
 
   public constructor(private readonly signInService: SignInService) {}
 
   public onApplicationBootstrap(): void {
-    this.logger = global.logger;
-    console.log({ abc: this.signInService, b: this.logger });
+    this.globalLogger = global.logger;
+    console.log({ abc: this.signInService, b: this.globalLogger });
   }
 }

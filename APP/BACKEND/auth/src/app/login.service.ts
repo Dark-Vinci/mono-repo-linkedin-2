@@ -1,15 +1,16 @@
 import global from 'globals';
 
 import { Injectable } from '@nestjs/common';
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 
 import { RedisClient } from '@connections';
+import { Undefinable } from '@types';
 
 import { JwtAuthService } from './jwt.service';
 
 @Injectable()
 export class SignInService {
-  private logger: winston.Logger | any;
+  private logger: Undefinable<WinstonLogger>;
 
   public constructor(
     private readonly jwtAuthService: JwtAuthService,

@@ -58,7 +58,11 @@ class App {
 
     cluster.on(
       ClusterSignal.EXIT,
-      (worker: { process: { pid: any } }, code: any, signal: any) => {
+      (
+        worker: { process: { pid: number } },
+        code: number,
+        signal: string | number | object,
+      ) => {
         this.logger.log(`${signal}| ${code}`);
         // for a new worker if this is not dev mode
         if (!this.isDevMode) {

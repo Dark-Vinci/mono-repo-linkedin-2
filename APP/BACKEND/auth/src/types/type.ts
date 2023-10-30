@@ -16,9 +16,9 @@ export type RedisModuleOptions = {
   onClientReady?: (client: Redis) => void;
 };
 
-export type RedisAsyncModuleOptions = {
+export type RedisAsyncModuleOptions<T = never> = {
   useFactory: (
-    ...args: any[]
+    ...args: T[]
   ) => Promise<RedisModuleOptions> | RedisModuleOptions;
 } & Pick<ModuleMetadata, 'imports'> &
   Pick<FactoryProvider, 'inject'>;

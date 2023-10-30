@@ -1,14 +1,15 @@
 import global from 'globals';
 
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import winston from 'winston';
+import { Logger as WinstonLogger } from 'winston';
 import { JwtService } from '@nestjs/jwt';
 
 import { MyLogger as Logger } from 'sdk';
+import { Undefinable } from '@types';
 
 @Injectable()
 export class JwtAuthService implements OnApplicationBootstrap {
-  private logger: winston.Logger | any;
+  private logger: Undefinable<WinstonLogger>;
 
   public onApplicationBootstrap(): void {
     this.logger = global.logger;
@@ -22,13 +23,13 @@ export class JwtAuthService implements OnApplicationBootstrap {
     payload,
   }: {
     requestId: string;
-    payload: any;
+    payload: object;
   }): Promise<string> {
     const logger = Logger.setContext(
       __filename,
       '',
       requestId,
-      this.logger,
+      this.logger!,
       payload,
     );
 
@@ -49,7 +50,7 @@ export class JwtAuthService implements OnApplicationBootstrap {
     token: string;
     requestId: string;
   }): Promise<boolean> {
-    const logger = Logger.setContext(__filename, '', requestId, this.logger, {
+    const logger = Logger.setContext(__filename, '', requestId, this.logger!, {
       token,
     });
 
@@ -69,15 +70,15 @@ export class JwtAuthService implements OnApplicationBootstrap {
   }: {
     token: string;
     requestId: string;
-  }): string | Record<string, any> {
-    const logger = Logger.setContext(__filename, '', requestId, this.logger, {
+  }): string | Record<string, object> {
+    const logger = Logger.setContext(__filename, '', requestId, this.logger!, {
       token,
     });
 
     try {
       const detail = this.jwtService.decode(token, {});
 
-      return detail as string | Record<string, any>;
+      return detail as string | Record<string, object>;
     } catch (error) {
       logger.error(<Error>error);
       throw error;

@@ -3,15 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-import {
-  DB_PORT,
-  HOST,
-  USERNAME,
-  DB_LOGGER,
-  DB_TYPE,
-  POSTGRES,
-} from '@constants';
+import { DB_PORT, HOST, USERNAME, DB_LOGGER, DB_TYPE } from '@constants';
 import { AuthDatabase, DBPassword, configInterface } from '@types';
+import { CreateBussiness1698115751953 } from '@migrations';
+import { Business, User } from '@models';
 
 @Module({})
 export class DB {
@@ -24,45 +19,45 @@ export class DB {
         const connectionConfig = {
           namingStrategy: new SnakeNamingStrategy(),
           migrationsTableName: 'migrations',
-          entities: ['dist/src/model/*.{js, ts}'],
-          migrations: ['dist/src/migrations/*.{js, ts}'],
-          username: get(USERNAME) as string,
+          entities: [User, Business],
+          migrations: [CreateBussiness1698115751953],
+          username: get(USERNAME)!,
           logging: true,
           logger: DB_LOGGER,
-          type: get(DB_TYPE) || POSTGRES,
+          type: get(DB_TYPE)!,
           synchronize: false,
 
           replication: {
             master: {
               port: +get(DB_PORT),
-              host: get(HOST) as string,
+              host: get(HOST)!,
               database: AuthDatabase.MASTER,
-              username: get(USERNAME) as string,
-              password: get(DBPassword.MASTER) as string,
+              username: get(USERNAME)!,
+              password: get(DBPassword.MASTER)!,
             },
             slaves: [
               {
                 port: +get(DB_PORT),
-                host: get(HOST) as string,
+                host: get(HOST)!,
                 database: AuthDatabase.SLAVE1,
-                username: get(USERNAME) as string,
-                password: get(DBPassword.SLAVE) as string,
+                username: get(USERNAME)!,
+                password: get(DBPassword.SLAVE)!,
                 // name: AuthDatabase.SLAVE1,
               },
               {
                 port: +get(DB_PORT),
-                host: get(HOST) as string,
+                host: get(HOST)!,
                 database: AuthDatabase.SLAVE2,
-                username: get(USERNAME) as string,
-                password: get(DBPassword.SLAVE) as string,
+                username: get(USERNAME)!,
+                password: get(DBPassword.SLAVE)!,
                 // name: AuthDatabase.SLAVE2,
               },
               {
                 port: +get(DB_PORT),
-                host: get(HOST) as string,
+                host: get(HOST)!,
                 database: AuthDatabase.SLAVE3,
-                username: get(USERNAME) as string,
-                password: get(DBPassword.SLAVE) as string,
+                username: get(USERNAME)!,
+                password: get(DBPassword.SLAVE)!,
                 // name: AuthDatabase.SLAVE3,
               },
             ],
