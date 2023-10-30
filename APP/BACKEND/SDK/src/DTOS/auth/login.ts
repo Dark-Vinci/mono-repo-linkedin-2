@@ -3,7 +3,6 @@ import {
   IsEmail,
   IsNotEmpty,
   IsString,
-  Min,
   MinLength,
   ValidationArguments,
 } from 'class-validator';

@@ -12,7 +12,7 @@ import { Type } from '../constants';
 import { MongoConnectionLogsProperties } from '../types';
 
 export class GlobalLogger extends Logger {
-  private finalMongoOptions: MongoDBConnectionOptions;
+  private finalMongoOptions: MongoDBConnectionOptions | undefined;
 
   public constructor(
     private readonly logFilePath: string,
