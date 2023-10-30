@@ -13,23 +13,30 @@ import { AuthDatabase, Undefinable } from '@types';
 @Injectable()
 export class UserRepository implements OnApplicationBootstrap {
   private globalLogger: Undefinable<WinstonLogger>;
+  private slaveRepositories: Undefinable<Repository<User>[]>;
 
   public constructor(
     // master connection
     @InjectRepository(User, AuthDatabase.MASTER)
-    private readonly userMasterRepository: Repository<User>,
+    private readonly masterRepository: Repository<User>,
     // slave1 connection
     @InjectRepository(User, AuthDatabase.SLAVE1)
-    private readonly userSlave1Repository: Repository<User>,
+    userSlave1Repository: Repository<User>,
     // slave1 connection
     @InjectRepository(User, AuthDatabase.SLAVE2)
-    private readonly userSlave2Repository: Repository<User>,
-    // slave1 connection
+    userSlave2Repository: Repository<User>,
+    // // slave1 connection
     @InjectRepository(User, AuthDatabase.SLAVE3)
-    private readonly userSlave3Repository: Repository<User>,
+    userSlave3Repository: Repository<User>,
 
     private readonly util: Util,
-  ) {}
+  ) {
+    this.slaveRepositories = [
+      userSlave3Repository,
+      userSlave2Repository,
+      userSlave1Repository,
+    ];
+  }
 
   public onApplicationBootstrap(): void {
     this.globalLogger = global.logger;
@@ -39,42 +46,44 @@ export class UserRepository implements OnApplicationBootstrap {
     payload: Partial<User>,
     requestId: UUID,
   ): Promise<User> {
+    const { globalLogger, masterRepository } = this;
     const logger = Logger.setContext(
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger!,
+      globalLogger!,
       payload,
     );
 
     try {
-      const user = this.userMasterRepository.create(payload);
+      const user = masterRepository.create(payload);
 
       await user.save();
 
       return user;
-    } catch (error) {
+    } catch (error: unknown) {
       logger.error(<Error>error);
-      throw this.util.handleRepositoryError(error as any);
+      throw this.util.handleRepositoryError(<Error>error);
     }
   }
 
   public async softDelete(userId: UUID, requestId: UUID): Promise<void> {
+    const { globalLogger, masterRepository } = this;
     const logger = Logger.setContext(
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger!,
+      globalLogger!,
       { userId: userId.toString() },
     );
 
     try {
-      await this.userMasterRepository.softDelete(userId.toString());
+      await masterRepository.softDelete(userId.toString());
 
       return;
-    } catch (error) {
+    } catch (error: unknown) {
       logger.error(<Error>error);
-      throw this.util.handleRepositoryError(error as any);
+      throw this.util.handleRepositoryError(<Error>error);
     }
   }
 
@@ -83,11 +92,12 @@ export class UserRepository implements OnApplicationBootstrap {
     requestId: UUID,
     paginateOptions: { skip: number; size: number },
   ): Promise<Array<User>> {
+    const { globalLogger, slaveRepositories } = this;
     const logger = Logger.setContext(
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger!,
+      globalLogger!,
       payload,
     );
 
@@ -106,18 +116,17 @@ export class UserRepository implements OnApplicationBootstrap {
         )} by pagination strategy with requestId ${requestId.toString()}`,
       };
 
-      const user = await Promise.any([
-        this.userSlave1Repository.find(findObj),
-        this.userSlave2Repository.find(findObj),
-        this.userSlave3Repository.find(findObj),
-      ]);
+      const findMap = slaveRepositories!.map((repo: Repository<User>) => {
+        return repo.find(findObj);
+      });
 
-      return user;
+      const users = await Promise.any(findMap);
+
+      return users;
     } catch (error: unknown) {
-      error = error!.errors[0] as Error;
+      error = (error as { errors: Array<Error> }).errors[0] as Error;
       logger.error(<Error>error);
-      // @ts-ignore
-      this.util.handleRepositoryError(error as NonNullable<unknown>);
+      this.util.handleRepositoryError(<Error>error);
     }
   }
 
@@ -138,16 +147,18 @@ export class UserRepository implements OnApplicationBootstrap {
   }
 
   public async getUser(payload: Partial<User>, requestId: UUID): Promise<User> {
+    const { globalLogger, slaveRepositories } = this;
+
     const logger = Logger.setContext(
       __filename,
       'appControllerMethods.PING',
       requestId.toString(),
-      this.globalLogger!,
+      globalLogger!,
       payload,
     );
 
     try {
-      const user = await this.userSlave1Repository.findOneOrFail({
+      const findOneOrFailOptions = {
         where: {
           // ...payload,
         },
@@ -155,13 +166,18 @@ export class UserRepository implements OnApplicationBootstrap {
         comment: `find one user with details ${JSON.stringify(
           payload,
         )} or fail`,
+      };
+
+      const findMap = slaveRepositories!.map((repo: Repository<User>) => {
+        return repo.findOneOrFail(findOneOrFailOptions);
       });
+
+      const user = await Promise.any(findMap);
 
       return user;
     } catch (error: unknown) {
       logger.error(<Error>error);
-      // @ts-ignore
-      this.util.handleRepositoryError(error as object);
+      this.util.handleRepositoryError(<Error>error);
     }
   }
 }

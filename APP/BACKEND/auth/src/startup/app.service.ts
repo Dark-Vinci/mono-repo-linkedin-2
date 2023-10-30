@@ -24,16 +24,17 @@ export class AppService implements OnApplicationBootstrap {
   }
 
   public ping(payload: AuthPingRequest): UUID {
+    const { globalLogger, util } = this;
     const logger = Logger.setContext(
       fileNames.APP_SERVICE,
       appServiceMethods.PING,
       payload.requestId,
-      this.globalLogger!,
+      globalLogger!,
       payload,
     );
 
     try {
-      this.util.assert(2 == 2, 'something is entirely wrong');
+      util.assert(2 == 2, 'something is entirely wrong');
 
       const { requestId } = payload;
 

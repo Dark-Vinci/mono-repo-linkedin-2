@@ -43,17 +43,19 @@ export class AppController
 
   @GrpcMethod(SERVICE_NAME, MethodName.PING)
   public async ping(payload: AuthPingRequest): Promise<AuthPingResponse> {
+    const { appService, globalLogger } = this;
+
     const logger = Logger.setContext(
       fileNames.APP_SERVICE,
       appControllerMethods.PING,
       payload.requestId,
-      this.globalLogger!,
+      globalLogger!,
       payload,
     );
 
     logger.log('got a new ping request');
 
-    const requestUUID = this.appService.ping(payload);
+    const requestUUID = appService.ping(payload);
 
     logger.logPayload(
       { requestUUID: requestUUID.toJSON() },

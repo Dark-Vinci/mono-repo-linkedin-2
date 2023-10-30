@@ -15,7 +15,7 @@ import type {
   SuccessResponse,
   Data,
   ErrorResponse,
-  Error,
+  Error as SError,
   Pagination,
 } from '../types';
 import { Message } from '../types';
@@ -49,10 +49,10 @@ export class Util {
   }
 
   private createFailureResponse(
-    error: Error,
+    error: SError,
     statusCode: HttpStatus,
     requestId: UUID,
-  ): ReturnT<Error> {
+  ): ReturnT<SError> {
     const base: BaseResponse = {
       timestamp: new Date(),
       requestId,
@@ -83,7 +83,7 @@ export class Util {
 
     // isError
     return this.createFailureResponse(
-      value as Error,
+      <SError>(<unknown>value),
       statusCode,
       requestId,
     ) as any;
@@ -106,9 +106,7 @@ export class Util {
     return (page - 1) * size;
   }
 
-  public handleRepositoryError<
-    T extends { new (...args: any[]): any; message: string },
-  >(error: T): never {
+  public handleRepositoryError(error: Error): never {
     switch (error.constructor) {
       case EntityNotFoundError:
         throw new NotFoundException('entity not found');
