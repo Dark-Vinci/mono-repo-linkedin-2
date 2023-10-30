@@ -26,6 +26,7 @@ export class DB {
           logger: DB_LOGGER,
           type: get(DB_TYPE)!,
           synchronize: false,
+          migrationsRun: true,
 
           replication: {
             master: {

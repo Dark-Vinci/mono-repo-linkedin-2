@@ -2,7 +2,7 @@ import global from 'globals';
 
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { Logger as WinstonLogger } from 'winston';
 
 import { MyLogger as Logger, Util, UUID } from 'sdk';
@@ -158,7 +158,7 @@ export class UserRepository implements OnApplicationBootstrap {
     );
 
     try {
-      const findOneOrFailOptions = {
+      const findOneOrFailOptions: FindOneOptions = {
         where: {
           // ...payload,
         },
