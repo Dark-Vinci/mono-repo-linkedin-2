@@ -2,6 +2,6 @@ import process from 'process';
 
 export const AppCoreConfig = () => {
   return {
-    AUTH_MASTER_PASSWORD: process.env.AUTH_MASTER_PASSWORD,
+    ACCOUNT_MASTER_PASSWORD: process.env.ACCOUNT_MASTER_PASSWORD,
   };
 };
