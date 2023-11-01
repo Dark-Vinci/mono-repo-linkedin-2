@@ -1,6 +1,5 @@
 import global from 'globals';
 
-import { Business } from '@models';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,6 +8,7 @@ import { Logger as WinstonLogger } from 'winston';
 import { Util, UUID } from 'sdk';
 
 import { Undefinable } from '@types';
+import { Business } from '@models';
 
 @Injectable()
 export class BusinessRepository implements OnApplicationBootstrap {

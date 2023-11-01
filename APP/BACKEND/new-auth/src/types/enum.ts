@@ -51,4 +51,5 @@ export enum EntityNames {
   SKILLS = 'skills',
   VOLUNTEERING = 'volunteering',
   SKILL_ENDORSEMENTS = 'skill_endorsements',
+  USER_SKILLS = 'user_skills',
 }

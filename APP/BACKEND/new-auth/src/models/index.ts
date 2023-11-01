@@ -8,3 +8,6 @@ export * from './skills';
 export * from './volunteering';
 export * from './activities';
 export * from './school';
+export * from './skill-endorsement';
+export * from './experiences';
+export * from './user-skill';
