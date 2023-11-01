@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { ColumnType, EntityNames, OrNull } from '@types';
+import { ColumnType, EntityNames, Ordering, OrNull } from '@types';
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
@@ -8,7 +8,7 @@ import { Base } from './base';
 @Entity({
   name: EntityNames.PROJECTS,
   schema: SCHEMA,
-  orderBy: { updated_at: 'DESC' },
+  orderBy: { updated_at: Ordering.DESC },
   synchronize: false,
 })
 export class Project extends Base {
@@ -18,7 +18,7 @@ export class Project extends Base {
   }
 
   @Column({
-    type: 'varchar',
+    type: ColumnType.VARCHAR,
     name: 'name',
   })
   public name!: string;

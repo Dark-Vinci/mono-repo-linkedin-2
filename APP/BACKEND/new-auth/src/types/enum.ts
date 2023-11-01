@@ -19,6 +19,19 @@ export enum ColumnType {
   TIMESTAMP = 'timestamp',
   UUID = 'uuid',
   INT = 'int',
+  TEXT = 'text',
+  ENUM = 'enum',
+}
+
+export enum EmploymentType {
+  CONTRACT = 'contract',
+  PART_TIME = 'part_time',
+  FULL_TIME = 'full_time',
+}
+
+export enum ExperienceType {
+  POSITION = 'position',
+  CAREER_BREAK = 'career_break',
 }
 
 export enum Ordering {

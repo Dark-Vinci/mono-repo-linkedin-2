@@ -27,28 +27,49 @@ export class User extends Base {
     name: 'first_name',
     nullable: false,
   })
-  firstName!: string;
+  public firstName!: string;
 
   @Column({
     type: ColumnType.VARCHAR,
     name: 'first_name',
     nullable: false,
   })
-  lastName!: string;
+  public lastName!: string;
 
   @Column({
     type: ColumnType.VARCHAR,
     name: 'password',
     nullable: false,
   })
-  password!: string;
+  public password!: string;
 
   @Column({
     type: ColumnType.VARCHAR,
     name: 'email',
     nullable: false,
   })
-  email!: string;
+  public email!: string;
+
+  @Column({
+    name: 'about',
+    type: ColumnType.TEXT,
+    nullable: true,
+  })
+  public about!: OrNull<string>;
+
+  @Column({
+    name: 'phone_number',
+    type: ColumnType.VARCHAR,
+    nullable: false,
+  })
+  public phoneNumber!: string;
+
+  @Column({
+    name: 'date_of_birth',
+    type: ColumnType.TIMESTAMP,
+    nullable: false,
+  })
+  public dateOfBirth!: Date;
 
   public previousPassword!: OrNull<string>;
 
@@ -84,4 +105,8 @@ export class User extends Base {
       throw error;
     }
   }
+
+  // websites
+  // dp
+  //   converimage
 }
