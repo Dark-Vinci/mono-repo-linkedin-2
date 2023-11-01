@@ -23,4 +23,6 @@ export class Skill extends Base {
   })
   @Index({ unique: true })
   public name!: string;
+
+  //   endorsement
 }
