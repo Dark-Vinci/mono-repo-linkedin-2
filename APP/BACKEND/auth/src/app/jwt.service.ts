@@ -30,14 +30,6 @@ export class JwtAuthService {
     requestId: string;
     payload: object;
   }): Promise<string> {
-    // const logger = Logger.setContext(
-    //   __filename,
-    //   JWTServiceMethod.SIGN,
-    //   requestId,
-    //   this.logger!,
-    //   payload,
-    // );
-
     try {
       const token = await this.jwtService.signAsync(payload, {});
 
@@ -109,9 +101,18 @@ function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
           { payload: args[0] },
         );
 
+        const start = Date.now();
+
         const response = target.apply(this, [...args, methodLogger]);
 
-        methodLogger.log(JSON.stringify(response));
+        const duration = (Date.now() - start) / 1000;
+
+        methodLogger.log(
+          JSON.stringify({
+            response,
+            duration,
+          }),
+        );
 
         return response;
       };
