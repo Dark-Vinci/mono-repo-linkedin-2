@@ -1,12 +1,14 @@
 import global from 'globals';
+import fs from 'fs/promises';
 
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Logger as WinstonLogger } from 'winston';
+import { Repository } from 'typeorm';
+
+import { Undefinable } from 'sdk';
 
 import { Activities } from '@models';
-import { Repository } from 'typeorm';
-import { Undefinable } from '@types';
 
 @Injectable()
 export class ActivitiesStore implements OnApplicationBootstrap {
@@ -17,8 +19,11 @@ export class ActivitiesStore implements OnApplicationBootstrap {
     private readonly masterRepository: Repository<Activities>,
   ) {}
 
-  public onApplicationBootstrap(): void {
+  public async onApplicationBootstrap(): void {
     this.globalLogger = global.logger;
+
+    await using a = await fs.open('./')
+    a.createReadStream();
 
     console.log({
       a: this.globalLogger,

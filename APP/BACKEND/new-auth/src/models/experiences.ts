@@ -1,5 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
+import { Nullable } from 'sdk';
+
 import {
   ColumnType,
   EmploymentType,
@@ -7,7 +9,7 @@ import {
   ExperienceType,
   Ordering,
 } from '@types';
-import { SCHEMA } from '@constants';
+import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
 import { Base } from './base';
 
@@ -17,8 +19,8 @@ import { Base } from './base';
   synchronize: false,
   schema: SCHEMA,
 })
-export class Experiences extends Base {
-  public constructor(experience: Partial<Experiences>) {
+export class WorkExperiences extends Base {
+  public constructor(experience: Partial<WorkExperiences>) {
     super();
     Object.assign(this, experience);
   }
@@ -64,5 +66,71 @@ export class Experiences extends Base {
     nullable: false,
     enum: ExperienceType,
   })
-  public type!: ExperienceType;
+  public type: ExperienceType = ExperienceType.POSITION;
+}
+
+@Entity({
+  name: EntityNames.CAREER_BREAK,
+  schema: SCHEMA,
+  synchronize: false,
+  orderBy: { updatedAt: Ordering.DESC },
+})
+export class CareerBreak extends Base {
+  public constructor(careerBreak: Partial<CareerBreak>) {
+    super();
+    Object.assign(this, careerBreak);
+  }
+
+  @Column({
+    type: ColumnType.VARCHAR,
+    name: 'location',
+    nullable: true,
+  })
+  public location!: string;
+
+  @Column({
+    type: ColumnType.BOOLEAN,
+    name: 'currently',
+    nullable: false,
+    default: true,
+  })
+  public currently!: boolean;
+
+  @Column({
+    type: ColumnType.TIMESTAMP,
+    name: 'start_date',
+    nullable: false,
+    default: CURRENT_TIMESTAMP,
+  })
+  public startDate!: Date;
+
+  @Column({
+    type: ColumnType.TIMESTAMP,
+    name: 'last_date',
+    nullable: true,
+  })
+  public lastDate!: Nullable<Date>;
+
+  @Column({
+    type: ColumnType.VARCHAR,
+    name: 'type',
+    nullable: false,
+  })
+  public type!: string;
+
+  @Column({
+    type: ColumnType.TEXT,
+    name: 'description',
+    nullable: false,
+  })
+  public description!: string;
+
+  @Column({
+    type: ColumnType.VARCHAR,
+    name: 'headline',
+    nullable: false,
+  })
+  public headline!: string;
+
+  // media
 }

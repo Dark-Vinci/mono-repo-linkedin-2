@@ -18,6 +18,7 @@ export class SignInService {
   ) {}
 
   public onApplicationBootstrap(): void {
+    this.jwtAuthService.decode({ token: 'a', requestId: 'abc' });
     this.logger = global.logger;
     console.log({ a: this.logger, b: this.jwtAuthService, c: this.redis });
   }

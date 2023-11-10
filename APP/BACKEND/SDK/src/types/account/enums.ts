@@ -1,28 +1,3 @@
-export enum RedisTimerType {
-  EX = 'EX',
-}
-
-export enum AuthDatabase {
-  MASTER = 'auth_master',
-  SLAVE1 = 'auth_slave1',
-  SLAVE2 = 'auth_slave2',
-  SLAVE3 = 'auth_slave3',
-}
-
-export enum DBPassword {
-  MASTER = 'dbMasterPassword',
-  SLAVE = 'dbSlavePassword',
-}
-
-export enum ColumnType {
-  VARCHAR = 'varchar',
-  TIMESTAMP = 'timestamp',
-  UUID = 'uuid',
-  INT = 'int',
-  TEXT = 'text',
-  ENUM = 'enum',
-}
-
 export enum EmploymentType {
   CONTRACT = 'contract',
   PART_TIME = 'part_time',
@@ -32,11 +7,6 @@ export enum EmploymentType {
 export enum ExperienceType {
   POSITION = 'position',
   CAREER_BREAK = 'career_break',
-}
-
-export enum Ordering {
-  ASC = 'ASC',
-  DESC = 'DESC',
 }
 
 export enum EntityNames {
@@ -52,4 +22,15 @@ export enum EntityNames {
   VOLUNTEERING = 'volunteering',
   SKILL_ENDORSEMENTS = 'skill_endorsements',
   USER_SKILLS = 'user_skills',
+  CAREER_BREAK = 'career_breaks',
+}
+
+export enum ColumnType {
+  BOOLEAN = 'boolean',
+  VARCHAR = 'varchar',
+  TIMESTAMP = 'timestamp',
+  UUID = 'uuid',
+  INT = 'int',
+  TEXT = 'text',
+  ENUM = 'enum',
 }

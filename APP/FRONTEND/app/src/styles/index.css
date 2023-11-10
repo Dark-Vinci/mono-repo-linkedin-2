@@ -13,3 +13,14 @@
   font-family: Quicksand;
   src: url('../assets/fonts/QuickSand-Light.woff');
 }
+
+*,
+ *::before,
+ *::after {
+  background-clip: border-box;
+  box-sizing: border-box;
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+ }

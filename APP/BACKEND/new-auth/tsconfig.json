@@ -40,7 +40,6 @@
       "@server": ["./src/server"],
       "@constants": ["./src/constants"],
       "@connections": ["./src/connections"],
-      "@types": ["./src/types"],
       "@models": ["./src/models"],
       "@config": ["./src/config"],
       "@migrations": ["./src/migrations"]

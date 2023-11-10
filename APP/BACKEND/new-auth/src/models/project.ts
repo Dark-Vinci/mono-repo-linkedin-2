@@ -1,6 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-import { ColumnType, EntityNames, Ordering, OrNull } from '@types';
+import { ColumnType, EntityNames, Nullable, Ordering } from 'sdk';
+
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
@@ -42,10 +43,16 @@ export class Project extends Base {
     type: ColumnType.TIMESTAMP,
     nullable: true,
   })
-  public endDate!: OrNull<Date>;
+  public endDate!: Nullable<Date>;
 
   // not a column
-  public currently = this.endDate ? true : false;
+  @Column({
+    name: 'currently',
+    type: ColumnType.BOOLEAN,
+    nullable: false,
+    default: true,
+  })
+  public currently!: boolean;
 
   // skill
   // associated role

@@ -49,3 +49,8 @@ export interface ErrorResponse<T extends MessageType = 'failure'>
 export type ReturnT<T extends Data | Error> = T extends Error
   ? ErrorResponse
   : SuccessResponse;
+
+export enum Ordering {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}

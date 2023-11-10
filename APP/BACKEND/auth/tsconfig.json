@@ -20,7 +20,7 @@
     "allowJs": false,
     "strict": true,
     "strictFunctionTypes": true,
-    "noImplicitThis": true,
+    // "noImplicitThis": true,
     "useUnknownInCatchVariables": true,
     "alwaysStrict": true,
     "noUnusedLocals": true,

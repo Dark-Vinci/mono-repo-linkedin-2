@@ -4,9 +4,10 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Logger as WinstonLogger } from 'winston';
 
+import { Undefinable } from 'sdk';
+
 import { Experiences } from '@models';
 import { Repository } from 'typeorm';
-import { Undefinable } from '@types';
 
 @Injectable()
 export class ExperiencesStore implements OnApplicationBootstrap {
