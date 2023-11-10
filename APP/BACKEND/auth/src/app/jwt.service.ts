@@ -7,21 +7,8 @@ import { JwtService } from '@nestjs/jwt';
 import { MyLogger as Logger } from 'sdk';
 import { Undefinable } from '@types';
 
-// enum JWTServiceMethod {
-//   SIGN = 'JwtAuthService.sign',
-//   VERIFY = 'JwtAuthService.verify',
-//   DECODE = 'JwtAuthService.decode',
-// }
-
 @Injectable()
 export class JwtAuthService {
-  // private logger: Undefinable<WinstonLogger>;
-
-  // public onApplicationBootstrap(): void {
-  //   this.logger = global.logger;
-  //   return;
-  // }
-
   public constructor(private readonly jwtService: JwtService) {}
 
   public async sign({
@@ -110,7 +97,7 @@ function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
         methodLogger.log(
           JSON.stringify({
             response,
-            duration,
+            duration: `${duration} seconds`,
           }),
         );
 
