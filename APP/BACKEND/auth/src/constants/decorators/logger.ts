@@ -38,7 +38,7 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
           return response;
         } catch (error) {
           // log the error and throw error;
-          methodLogger!.error(<Error>error);
+          methodLogger.error(<Error>error);
           throw error;
         }
       };
