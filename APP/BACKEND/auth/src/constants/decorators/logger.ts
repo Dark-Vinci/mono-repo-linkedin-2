@@ -8,7 +8,7 @@ import { Undefinable } from '@types';
 export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
   return function (target: any, context: any): any {
     if (context.kind == 'method') {
-      return function (this: any, ...args: any[]): any {
+      return async function (this: any, ...args: any[]): Promise<any> {
         const methodLogger = Logger.setContext(
           __filename,
           context.name,
@@ -20,7 +20,7 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
         try {
           const start = Date.now();
 
-          const response = target.apply(this, [...args, methodLogger]);
+          const response = await target.apply(this, [...args, methodLogger]);
 
           const duration = (Date.now() - start) / 1000;
 
