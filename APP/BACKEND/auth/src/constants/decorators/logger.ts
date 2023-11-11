@@ -9,6 +9,7 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
   return function (target: any, context: any): any {
     if (context.kind == 'method') {
       return async function (this: any, ...args: any[]): Promise<any> {
+        // initialize the logger
         const methodLogger = Logger.setContext(
           __filename,
           context.name,
@@ -20,10 +21,13 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
         try {
           const start = Date.now();
 
+          // apply the method
           const response = await target.apply(this, [...args, methodLogger]);
 
+          // convert time to seconds
           const duration = (Date.now() - start) / 1000;
 
+          // log the response
           methodLogger.log(
             JSON.stringify({
               response,
@@ -33,6 +37,7 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
 
           return response;
         } catch (error) {
+          // log the error and throw error;
           methodLogger!.error(<Error>error);
           throw error;
         }
