@@ -22,7 +22,7 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
           const start = Date.now();
 
           // apply the method
-          const response = await target.apply(this, [...args, methodLogger]);
+          const response = await target.apply(this, args);
 
           // convert time to seconds
           const duration = (Date.now() - start) / 1000;
