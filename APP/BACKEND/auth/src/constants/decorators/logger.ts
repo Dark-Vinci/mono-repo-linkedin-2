@@ -6,7 +6,10 @@ import { MyLogger as Logger } from 'sdk';
 import { Undefinable } from '@types';
 
 export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
-  return function (target: any, context: any): any {
+  return function <C extends { name: string; kind: string } = any>(
+    target: any,
+    context: C,
+  ): any {
     if (context.kind == 'method') {
       return async function (this: any, ...args: any[]): Promise<any> {
         // initialize the logger
