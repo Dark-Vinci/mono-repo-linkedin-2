@@ -17,20 +17,25 @@ export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
           { payload: args[0] },
         );
 
-        const start = Date.now();
+        try {
+          const start = Date.now();
 
-        const response = target.apply(this, [...args, methodLogger]);
+          const response = target.apply(this, [...args, methodLogger]);
 
-        const duration = (Date.now() - start) / 1000;
+          const duration = (Date.now() - start) / 1000;
 
-        methodLogger.log(
-          JSON.stringify({
-            response,
-            duration: `${duration} seconds`,
-          }),
-        );
+          methodLogger.log(
+            JSON.stringify({
+              response,
+              duration: `${duration} seconds`,
+            }),
+          );
 
-        return response;
+          return response;
+        } catch (error) {
+          methodLogger!.error(<Error>error);
+          throw error;
+        }
       };
     }
   };
