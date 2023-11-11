@@ -11,44 +11,29 @@ import { LoggerDecorator } from '@constants';
 export class JwtAuthService {
   public constructor(private readonly jwtService: JwtService) {}
 
-  public async sign({
-    payload,
-  }: {
-    requestId: string;
-    payload: object;
-  }): Promise<string> {
+  @LoggerDecorator(global.logger)
+  public async sign(payload: string, logger?: Logger): Promise<string> {
     try {
       const token = await this.jwtService.signAsync(payload, {});
 
       return token;
     } catch (error) {
-      // logger.error(<Error>error);
+      logger!.error(<Error>error);
       throw error;
     }
   }
 
-  public async verify({
-    token,
-  }: {
-    token: string;
-    requestId: string;
-  }): Promise<boolean> {
-    // const logger = Logger.setContext(
-    //   __filename,
-    //   JWTServiceMethod.VERIFY,
-    //   requestId,
-    //   this.logger!,
-    //   {
-    //     token,
-    //   },
-    // );
-
+  @LoggerDecorator(global.logger)
+  public async verify(
+    { token }: decodePayload,
+    logger?: Logger,
+  ): Promise<boolean> {
     try {
       await this.jwtService.verifyAsync(token, {});
 
       return true;
     } catch (error) {
-      // logger.error(<Error>error);
+      logger!.error(<Error>error);
       throw error;
     }
   }
