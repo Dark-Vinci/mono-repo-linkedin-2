@@ -23,4 +23,5 @@ module.exports = {
     // '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-non-null-assertion': 'off'
   },
+  ecmaVersion: 2020,
 };

@@ -5,13 +5,22 @@ import { MyLogger as Logger } from 'sdk';
 
 import { Undefinable } from '@types';
 
-export function LoggerDecorator(logger: Undefinable<WinstonLogger>): any {
+export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logger: Undefinable<WinstonLogger>, defer?: DType): any {
   return function <C extends { name: string; kind: string } = any>(
     target: any,
     context: C,
   ): any {
     if (context.kind == 'method') {
       return async function (this: any, ...args: any[]): Promise<any> {
+        if (defer) {
+          await using stack = new AsyncDisposableStack();
+
+          stack.defer(async () => {
+
+            await defer.run();
+          })
+        }
+        
         // initialize the logger
         const methodLogger = Logger.setContext(
           __filename,

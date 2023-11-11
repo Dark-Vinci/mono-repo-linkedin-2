@@ -16,7 +16,7 @@ export class JwtAuthService {
     return token;
   }
 
-  @LoggerDecorator(global.logger)
+  @LoggerDecorator(global.logger, { run: () => Promise.resolve() })
   public async verify({ token }: decodePayload): Promise<boolean> {
     await this.jwtService.verifyAsync(token, {});
 
