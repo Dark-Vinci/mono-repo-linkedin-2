@@ -25,6 +25,7 @@
       "@helpers": ["./src/helpers"],
       "@models": ["./src/models"],
       "@types": ["./src/types"],
+      "@dtos": ["./src/DTOS"],
     }
   }
 }

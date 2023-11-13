@@ -12,7 +12,6 @@ import {
 
 import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
-// import { Base } from './base';
 import { User } from './user';
 import { Project } from './project';
 

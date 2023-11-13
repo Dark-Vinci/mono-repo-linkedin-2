@@ -1,5 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { UUID } from '@helpers';
+import { Base } from '@dtos';
 
 type Nullable<T> = T | null;
 
@@ -53,4 +54,31 @@ export type ReturnT<T extends Data | Error> = T extends Error
 export enum Ordering {
   ASC = 'ASC',
   DESC = 'DESC',
+}
+
+interface base {
+  requestId: string;
+}
+
+export interface partialEntity<T extends Base> extends base {
+  payload: Partial<T>;
+}
+
+export interface entityId<T extends Base> extends base {
+  id: Pick<T, 'id'>;
+}
+
+export interface updateEntity<T extends Base> extends base {
+  update: Partial<T>;
+  toBeUpdated: Partial<T>;
+}
+
+interface paginationOption {
+  skip: number;
+  size: number;
+}
+
+export interface genericGet<T extends Base> extends base {
+  payload: Required<Partial<T>>;
+  paginateOptions: paginationOption;
 }

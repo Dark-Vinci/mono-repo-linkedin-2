@@ -9,36 +9,18 @@ import {
   Repository,
 } from 'typeorm';
 
-import { AuthDatabase, LoggerDecorator, Undefinable, Util } from 'sdk';
+import {
+  AuthDatabase,
+  LoggerDecorator,
+  Undefinable,
+  Util,
+  entityId,
+  genericGet,
+  partialEntity,
+  updateEntity,
+} from 'sdk';
 
-import { Base, User } from '@models';
-
-interface base {
-  requestId: string;
-}
-
-interface partialEntity<T extends Base> extends base {
-  payload: Partial<T>;
-}
-
-interface entityId<T extends Base> extends base {
-  id: Pick<T, 'id'>;
-}
-
-interface updateEntity<T extends Base> extends base {
-  update: Partial<T>;
-  toBeUpdated: Partial<T>;
-}
-
-interface paginationOption {
-  skip: number;
-  size: number;
-}
-
-interface genericGet<T extends Base> extends base {
-  payload: Required<Partial<T>>;
-  paginateOptions: paginationOption;
-}
+import { User } from '@models';
 
 @Injectable()
 export class UserStore {
@@ -81,6 +63,7 @@ export class UserStore {
     return true;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async genericGet({
     paginateOptions,
     payload,
@@ -107,6 +90,7 @@ export class UserStore {
     return users;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async update({
     update,
     toBeUpdated,
@@ -121,6 +105,7 @@ export class UserStore {
     return true;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async getOne(payload: Partial<User>): Promise<User> {
     const findOneOrFailOptions: FindOneOptions = {
       where: { ...payload },
