@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import type { InputEvent } from '@types';
 
 import styles from './header.module.scss';
 
@@ -7,6 +9,12 @@ interface HomeProps {
 }
 
 export function Header(props: HomeProps): JSX.Element {
+    const [input, setInput] = useState<string>('');
+
+    const inputChangeHandler = (event: InputEvent) => {
+        setInput(event.target.value);
+    };
+
     return (
         <div className={styles.container}>
             <div className = {styles.left}>
@@ -14,7 +22,11 @@ export function Header(props: HomeProps): JSX.Element {
                     <div className= { styles.input }>
                         <div className={ styles.logo }></div>
                         <div className={ styles.search }>
-                            <input type="text" />
+                            <input 
+                                type="text"
+                                value={input}
+                                onChange={ inputChangeHandler }
+                            />
                         </div>
                     </div>
 
