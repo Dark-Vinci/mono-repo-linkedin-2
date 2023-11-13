@@ -29,7 +29,7 @@
     //  "moduleResolution": "Node",
     "paths": {
       "@components": ["./src/components"],
-      "@util": ["./src/util"],
+      "@utils": ["./src/helpers/utils"],
       "@types": ["./src/types"],
       "@startup": ["./src/startup"],
       "@pages": ["./src/pages"],
