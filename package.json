@@ -9,8 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "workspaces": [
-  ],
+  "workspaces": [],
   "dependencies": {
     "@types/jest": "^29.5.4",
     "husky": "^8.0.3",

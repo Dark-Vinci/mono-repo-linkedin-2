@@ -71,6 +71,7 @@ export class WorkExperience extends Base {
   })
   public type!: ExperienceType;
 
+  // @
   public projects!: Project[];
 
   public user!: User;

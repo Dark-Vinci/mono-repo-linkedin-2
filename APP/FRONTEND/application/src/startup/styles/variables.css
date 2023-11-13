@@ -1,9 +1,0 @@
-:root {
-  --main-color: blue;
-  --normal-size: 20px;
-  --border-default: 2px solid black;
-}
-
-.bg {
-  color: var(--main-color);
-}
