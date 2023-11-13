@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import type { InputEvent } from '@types';
 
@@ -6,9 +7,22 @@ import styles from './header.module.scss';
 
 interface HomeProps {
     name: string;
+    profileUrl: string;
 }
 
-export function Header(props: HomeProps): JSX.Element {
+function navState(isActive: boolean, isPending: boolean): string {
+    if (isActive) {
+        return "nav.active";
+    }
+
+    if (isPending) {
+        return "nav.pending";
+    }
+
+    return "";
+}
+
+export function Header({ profileUrl }: HomeProps): JSX.Element {
     const [input, setInput] = useState<string>('');
 
     const inputChangeHandler = (event: InputEvent) => {
@@ -33,33 +47,81 @@ export function Header(props: HomeProps): JSX.Element {
                     <div className={ styles.icons }>
                         <div className={ styles.icon_container }>
                             <div className={styles.home }>
-                                <p>logo</p>
-                                <div className="p">home</div>
+                                <NavLink
+                                    to='/home'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+                                    <p>logo</p>
+                                    <div className="p">home</div>
+                                </NavLink>
                             </div>
 
                             <div className={ styles.networks }>
-                                <p>logo</p>
-                                <div className="p">my network</div>
+                                <NavLink
+                                    to='/my-network'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+                                    <p>logo</p>
+                                    <div className="p">my network</div>
+                                </NavLink>
                             </div>
 
                             <div className={ styles.jobs }>
-                                <p>logo</p>
-                                <div className="p">jobs</div>
+                                <NavLink
+                                    to='/jobs'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+                                    <p>logo</p>
+                                    <div className="p">jobs</div>
+                                </NavLink>
                             </div>
 
                             <div className="messaging">
-                                <p>logo</p>
-                                <div className="p">messaging</div>
+                                <NavLink
+                                    to='/messaging'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+                                    <p>logo</p>
+                                    <div className="p">messaging</div>
+                                </NavLink>
                             </div>
 
                             <div className={ styles.notifications }>
+                                <NavLink
+                                    to='/notifications'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+
+                                </NavLink>
                                 <p>logo</p>
                                 <div className="p">notifications</div>
                             </div>
 
                             <div className="me">
-                                <p>logo</p>
-                                <div className="p">me</div>
+                                <NavLink
+                                    to='/me'
+                                    className={({isActive, isPending}) => {
+                                        return navState(isActive, isPending)
+                                    }}
+                                >
+                                    <div className="img">
+                                        <img 
+                                            src={profileUrl} 
+                                            alt="profileimage" 
+                                        />
+                                    </div>
+                                    <div className="p">me</div>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
