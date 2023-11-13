@@ -1,15 +1,34 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, AfterLoad } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  AfterLoad,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
 
 import { EntityNames, Hasher, ColumnType, Ordering, Nullable } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { Skill } from './skills';
+import { Volunteering } from './volunteering';
+import { Project } from './project';
+import { School } from './school';
+import { CareerBreak, WorkExperience } from './experiences';
+import { License } from './license';
+
+enum OpenToEnum {
+  HIRING = 'hiring',
+  SERVICE = 'service',
+}
 
 @Entity({
   name: EntityNames.USERS,
   orderBy: { created_at: Ordering.ASC },
-  synchronize: true,
+  synchronize: false,
   schema: SCHEMA,
 })
 export class User extends Base {
@@ -70,7 +89,36 @@ export class User extends Base {
   })
   public dateOfBirth!: Date;
 
-  public previousPassword!: Nullable<string>;
+  @Column({
+    name: 'open_to',
+    enum: OpenToEnum,
+    default: OpenToEnum.HIRING,
+    nullable: true,
+  })
+  public openTo!: Nullable<OpenToEnum>;
+
+  private previousPassword!: Nullable<string>;
+
+  @OneToMany(() => Skill, (s) => s.user)
+  public skills!: Skill[];
+
+  @OneToMany(() => Volunteering, (v) => v.user)
+  public volunteering!: Volunteering[];
+
+  @OneToMany(() => WorkExperience, (w) => w.user)
+  public workExperiences!: WorkExperience[];
+
+  @OneToMany(() => CareerBreak, (c) => c.user)
+  public careerBreak!: CareerBreak[];
+
+  @ManyToMany(() => School, (s) => s.students)
+  public schools!: School[];
+
+  @OneToMany(() => Project, (p) => p.user)
+  public projects!: Project[];
+
+  @ManyToMany(() => License, (l) => l.users)
+  public license!: License[];
 
   @AfterLoad()
   public loadPreviousPassword(): void {
@@ -105,7 +153,13 @@ export class User extends Base {
     }
   }
 
-  // websites
-  // dp
-  //   converimage
+  //websites
+  //dp
+  //converimage
+  // skills
+  // schools
+  // experiences
+  // projects
+  // volunteering
+  // license
 }

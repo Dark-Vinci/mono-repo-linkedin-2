@@ -5,6 +5,7 @@ import { ColumnType, EntityNames, Ordering } from 'sdk';
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.SCHOOLS,
@@ -24,4 +25,6 @@ export class School extends Base {
     nullable: false,
   })
   public name!: string;
+
+  public students!: User[];
 }

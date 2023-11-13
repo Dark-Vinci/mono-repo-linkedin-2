@@ -40,6 +40,10 @@ export type RedisModuleOptions = {
   onClientReady?: (client: Redis) => void;
 };
 
+export type ObjectOrString = string | Record<string, object>;
+
+export type ABC = string | null;
+
 export type RedisAsyncModuleOptions<T = never> = {
   useFactory: (
     ...args: T[]

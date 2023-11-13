@@ -1,10 +1,11 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
 import { EntityNames, Ordering } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.LICENSES,
@@ -20,6 +21,10 @@ export class License extends Base {
 
   @Column({
     name: 'title',
+    unique: true,
   })
+  @Index({ unique: true })
   public title!: string;
+
+  public users!: User[];
 }

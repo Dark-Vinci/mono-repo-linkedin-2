@@ -5,6 +5,7 @@ import { EntityNames, Ordering, ColumnType } from 'sdk';
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.SKILLS,
@@ -24,4 +25,6 @@ export class Skill extends Base {
   })
   @Index({ unique: true })
   public name!: string;
+
+  public user!: User;
 }

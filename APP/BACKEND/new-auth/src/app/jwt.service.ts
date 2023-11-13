@@ -3,11 +3,7 @@ import global from 'globals';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { LoggerDecorator } from '@constants';
-
-// let name = null;
-
-// name ??= "default name";
+import { LoggerDecorator, ObjectOrString, type decodePayload } from 'sdk';
 
 @Injectable()
 export class JwtAuthService {
@@ -28,16 +24,9 @@ export class JwtAuthService {
   }
 
   @LoggerDecorator(global.logger)
-  public decode({ token }: decodePayload): StringOrObject {
+  public decode({ token }: decodePayload): ObjectOrString {
     const detail = this.jwtService.decode(token, {});
 
-    return detail as StringOrObject;
+    return detail as ObjectOrString;
   }
 }
-
-type StringOrObject = string | Record<string, object>;
-
-type decodePayload = {
-  requestId: string;
-  token: string;
-};

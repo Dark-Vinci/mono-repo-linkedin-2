@@ -5,6 +5,7 @@ import { EntityNames, Ordering, ColumnType } from 'sdk';
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.VOLUNTEERING,
@@ -24,4 +25,6 @@ export class Volunteering extends Base {
     nullable: false,
   })
   public title!: string;
+
+  public user!: User;
 }

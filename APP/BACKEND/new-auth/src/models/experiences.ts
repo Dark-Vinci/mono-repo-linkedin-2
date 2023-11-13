@@ -12,6 +12,7 @@ import {
 import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.EXPERIENCES,
@@ -19,8 +20,8 @@ import { Base } from './base';
   synchronize: false,
   schema: SCHEMA,
 })
-export class WorkExperiences extends Base {
-  public constructor(experience: Partial<WorkExperiences>) {
+export class WorkExperience extends Base {
+  public constructor(experience: Partial<WorkExperience>) {
     super();
     Object.assign(this, experience);
   }
@@ -65,8 +66,11 @@ export class WorkExperiences extends Base {
     type: ColumnType.ENUM,
     nullable: false,
     enum: ExperienceType,
+    default: ExperienceType.POSITION,
   })
-  public type: ExperienceType = ExperienceType.POSITION;
+  public type!: ExperienceType;
+
+  public user!: User;
 }
 
 @Entity({
@@ -131,6 +135,8 @@ export class CareerBreak extends Base {
     nullable: false,
   })
   public headline!: string;
+
+  public user!: User;
 
   // media
 }

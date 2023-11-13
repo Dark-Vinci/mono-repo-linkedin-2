@@ -5,6 +5,7 @@ import { ColumnType, EntityNames, Nullable, Ordering } from 'sdk';
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { User } from './user';
 
 @Entity({
   name: EntityNames.PROJECTS,
@@ -53,6 +54,8 @@ export class Project extends Base {
     default: true,
   })
   public currently!: boolean;
+
+  public user!: User;
 
   // skill
   // associated role
