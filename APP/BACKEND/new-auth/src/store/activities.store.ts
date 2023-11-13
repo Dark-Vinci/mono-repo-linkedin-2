@@ -18,10 +18,10 @@ export class ActivitiesStore {
     private readonly masterRepository: Repository<Activities>,
   ) {}
 
-  @LoggerDecorator(global.logger)
-  public async createUser(): Promise<User> {
+  @LoggerDecorator(global.logger, __filename)
+  public async createUser(): Promise<Activities> {
     this.globalLogger = global.logger;
 
-    return new User({});
+    return new Activities();
   }
 }
