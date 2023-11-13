@@ -43,3 +43,9 @@ export enum Type {
   REQUEST_PAYLOAD = 'request_payload',
   RESPONSE_RESPONSE = 'response_payload',
 }
+
+export enum JoinColumnId {
+  WORK_EXPERIENCE_ID = 'work_experience_id',
+  SKILL_ID = 'skill_id',
+  USER_ID = 'user_id',
+}

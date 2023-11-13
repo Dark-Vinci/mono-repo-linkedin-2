@@ -13,6 +13,7 @@ import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
 import { Base } from './base';
 import { User } from './user';
+import { Project } from './project';
 
 @Entity({
   name: EntityNames.EXPERIENCES,
@@ -69,6 +70,8 @@ export class WorkExperience extends Base {
     default: ExperienceType.POSITION,
   })
   public type!: ExperienceType;
+
+  public projects!: Project[];
 
   public user!: User;
 }

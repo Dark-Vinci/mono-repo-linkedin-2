@@ -1,6 +1,21 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
-import { ColumnType, EntityNames, Nullable, Ordering } from 'sdk';
+import {
+  CASCADE,
+  ColumnType,
+  EntityNames,
+  ID,
+  JoinColumnId,
+  Nullable,
+  Ordering,
+} from 'sdk';
 
 import { SCHEMA } from '@constants';
 
@@ -56,19 +71,49 @@ export class Project extends Base {
   })
   public userId!: string;
 
+  @Column({
+    name: 'skill_id',
+    type: ColumnType.VARCHAR,
+    nullable: true,
+  })
+  public skillId!: string;
+
+  @Column({
+    name: 'work_experience_id',
+    type: ColumnType.VARCHAR,
+    nullable: true,
+  })
+  public workExperinceId!: string;
+
   @ManyToOne(() => User, (u) => u.projects, {
-    onDelete: 'CASCADE',
+    onDelete: CASCADE,
   })
   @JoinColumn({
-    name: 'user_id',
-    referencedColumnName: 'id',
+    name: JoinColumnId.USER_ID,
+    referencedColumnName: ID,
   })
   public user!: User;
 
+  @OneToMany(() => Skill, (s) => s.projects)
+  @JoinColumn({
+    name: JoinColumnId.SKILL_ID,
+    referencedColumnName: ID,
+  })
   public skills!: Skill[];
 
+  @OneToOne(() => WorkExperience, (w) => w.projects, {
+    onDelete: CASCADE,
+  })
+  @JoinColumn({
+    name: JoinColumnId.WORK_EXPERIENCE_ID,
+    referencedColumnName: ID,
+  })
   public associatedRole!: WorkExperience;
 
+  @OneToMany(() => Media, (m) => m.projects, {
+    onDelete: CASCADE,
+  })
+  // ids will be stored in media
   public medias!: Media[];
 
   public currently = !!this.endDate;

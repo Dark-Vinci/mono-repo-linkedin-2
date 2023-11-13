@@ -6,6 +6,7 @@ import { SCHEMA } from '@constants';
 
 import { Base } from './base';
 import { User } from './user';
+import { Project } from './project';
 
 @Entity({
   name: EntityNames.SKILLS,
@@ -25,6 +26,8 @@ export class Skill extends Base {
   })
   @Index({ unique: true })
   public name!: string;
+
+  public projects!: Project[];
 
   public user!: User;
 }

@@ -1,10 +1,11 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { ColumnType, MediaFor, Nullable, Ordering } from 'sdk';
+import { ColumnType, MediaFor, Ordering } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
+import { Project } from './project';
 
 @Entity({
   name: '',
@@ -28,16 +29,16 @@ export class Media extends Base {
   public urlFor!: MediaFor;
 
   @Column({
-    name: 'user_id',
-    nullable: true,
+    name: 'entity_id',
+    nullable: false,
     type: ColumnType.VARCHAR,
   })
-  public userId!: Nullable<string>;
+  public entityId!: string;
 
-  @Column({
-    name: 'school_id',
-    nullable: true,
-    type: ColumnType.VARCHAR,
+  @ManyToOne(() => Project, (p) => p.medias)
+  @JoinColumn({
+    name: 'entity_id',
+    referencedColumnName: 'id',
   })
-  public schoolId!: Nullable<string>;
+  public projects!: Project;
 }

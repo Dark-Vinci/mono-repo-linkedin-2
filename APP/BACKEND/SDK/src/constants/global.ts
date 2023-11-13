@@ -15,3 +15,7 @@ export const logFiles = ['./log/logger.txt', './log/error.txt'] as const;
 export const DOT_ENV_PATH = '../../.env' as const;
 
 export const mongoURL = 'mongodb://localhost:27017/linkedin-logger' as const;
+
+export const CASCADE = 'CASCADE' as const; 
+
+export const ID = 'id' as const;
