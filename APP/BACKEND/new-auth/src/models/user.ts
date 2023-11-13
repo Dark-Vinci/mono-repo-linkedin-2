@@ -15,6 +15,7 @@ import {
   Ordering,
   Nullable,
   OpenToEnum,
+  CASCADE,
 } from 'sdk';
 
 import { SCHEMA } from '@constants';
@@ -104,22 +105,22 @@ export class User extends Base {
   @OneToMany(() => Skill, (s) => s.user)
   public skills!: Skill[];
 
-  @OneToMany(() => Volunteering, (v) => v.user)
+  @OneToMany(() => Volunteering, (v) => v.user, { onDelete: CASCADE })
   public volunteering!: Volunteering[];
 
-  @OneToMany(() => WorkExperience, (w) => w.user)
+  @OneToMany(() => WorkExperience, (w) => w.user, { onDelete: CASCADE })
   public workExperiences!: WorkExperience[];
 
-  @OneToMany(() => CareerBreak, (c) => c.user)
+  @OneToMany(() => CareerBreak, (c) => c.user, { onDelete: CASCADE })
   public careerBreak!: CareerBreak[];
 
-  @ManyToMany(() => School, (s) => s.students)
+  @ManyToMany(() => School, (s) => s.students, { onDelete: CASCADE })
   public schools!: School[];
 
-  @OneToMany(() => Project, (p) => p.user)
+  @OneToMany(() => Project, (p) => p.user, { onDelete: CASCADE })
   public projects!: Project[];
 
-  @ManyToMany(() => License, (l) => l.users)
+  @ManyToMany(() => License, (l) => l.users, { onDelete: CASCADE })
   public license!: License[];
 
   @AfterLoad()
