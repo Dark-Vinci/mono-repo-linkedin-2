@@ -8,7 +8,14 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-import { EntityNames, Hasher, ColumnType, Ordering, Nullable } from 'sdk';
+import {
+  EntityNames,
+  Hasher,
+  ColumnType,
+  Ordering,
+  Nullable,
+  OpenToEnum,
+} from 'sdk';
 
 import { SCHEMA } from '@constants';
 
@@ -19,11 +26,6 @@ import { Project } from './project';
 import { School } from './school';
 import { CareerBreak, WorkExperience } from './experiences';
 import { License } from './license';
-
-enum OpenToEnum {
-  HIRING = 'hiring',
-  SERVICE = 'service',
-}
 
 @Entity({
   name: EntityNames.USERS,

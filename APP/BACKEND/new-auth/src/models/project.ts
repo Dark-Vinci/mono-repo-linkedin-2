@@ -1,4 +1,4 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { ColumnType, EntityNames, Nullable, Ordering } from 'sdk';
 
@@ -6,6 +6,9 @@ import { SCHEMA } from '@constants';
 
 import { Base } from './base';
 import { User } from './user';
+import { WorkExperience } from './experiences';
+import { Skill } from './skills';
+import { Media } from './media';
 
 @Entity({
   name: EntityNames.PROJECTS,
@@ -46,18 +49,27 @@ export class Project extends Base {
   })
   public endDate!: Nullable<Date>;
 
-  // not a column
   @Column({
-    name: 'currently',
-    type: ColumnType.BOOLEAN,
+    name: 'user_id',
+    type: ColumnType.VARCHAR,
     nullable: false,
-    default: true,
   })
-  public currently!: boolean;
+  public userId!: string;
 
+  @ManyToOne(() => User, (u) => u.projects, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'user_id',
+    referencedColumnName: 'id',
+  })
   public user!: User;
 
-  // skill
-  // associated role
-  // media
+  public skills!: Skill[];
+
+  public associatedRole!: WorkExperience;
+
+  public medias!: Media[];
+
+  public currently = !!this.endDate;
 }
