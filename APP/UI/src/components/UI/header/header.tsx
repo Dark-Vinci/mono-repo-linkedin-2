@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import type { HomeProps, InputEvent } from "@types";
 
@@ -7,6 +7,13 @@ import { Navigation } from "./navigation";
 
 export function Header({ profileUrl }: HomeProps): JSX.Element {
   const [input, setInput] = useState<string>("");
+
+  useEffect(() => {
+    console.log('MOUNTING: header is mounting')
+    return () => {
+        console.log('UNMOUNTING: header is unmounting')
+    }
+  }, []);
 
   const inputChangeHandler = (event: InputEvent) => {
     setInput(event.target.value);
@@ -17,7 +24,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
       <div className={styles.left}>
         <div className={styles.left_container}>
           <div className={styles.input}>
-            <div className={styles.logo}></div>
+            <div className={styles.logo}>logo</div>
             <div className={styles.search}>
               <input type="text" value={input} onChange={inputChangeHandler} />
             </div>

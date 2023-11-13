@@ -8,7 +8,7 @@ import styles from './navigation.module.scss';
 
 export function Navigation({ profileUrl }: UG): JSX.Element {
   return (
-    <div className="container">
+    <div className={ styles.container }>
       <div className={styles.icon_container}>
         <div className={styles.home}>
           <NavLink
