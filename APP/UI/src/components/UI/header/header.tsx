@@ -5,6 +5,15 @@ import type { InputEvent } from '@types';
 
 import styles from './header.module.scss';
 
+enum Pages {
+    HOME = '/home',
+    ME = '/me',
+    NOTIFICATION = '/notification',
+    JOB = '/job',
+    MY_NETWORK = '/my-network',
+    MESSAGING = '/messaging',
+}
+
 interface HomeProps {
     name: string;
     profileUrl: string;
@@ -38,7 +47,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
                         <div className={ styles.search }>
                             <input 
                                 type="text"
-                                value={input}
+                                value={ input }
                                 onChange={ inputChangeHandler }
                             />
                         </div>
@@ -48,7 +57,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
                         <div className={ styles.icon_container }>
                             <div className={styles.home }>
                                 <NavLink
-                                    to='/home'
+                                    to={ Pages.HOME }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
@@ -60,7 +69,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
 
                             <div className={ styles.networks }>
                                 <NavLink
-                                    to='/my-network'
+                                    to={ Pages.MY_NETWORK }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
@@ -72,7 +81,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
 
                             <div className={ styles.jobs }>
                                 <NavLink
-                                    to='/jobs'
+                                    to={ Pages.JOB }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
@@ -84,7 +93,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
 
                             <div className="messaging">
                                 <NavLink
-                                    to='/messaging'
+                                    to={ Pages.MESSAGING }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
@@ -96,20 +105,19 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
 
                             <div className={ styles.notifications }>
                                 <NavLink
-                                    to='/notifications'
+                                    to={ Pages.NOTIFICATION }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
                                 >
-
+                                    <p>logo</p>
+                                    <div className="p">notifications</div>
                                 </NavLink>
-                                <p>logo</p>
-                                <div className="p">notifications</div>
                             </div>
 
                             <div className="me">
                                 <NavLink
-                                    to='/me'
+                                    to={ Pages.ME }
                                     className={({isActive, isPending}) => {
                                         return navState(isActive, isPending)
                                     }}
