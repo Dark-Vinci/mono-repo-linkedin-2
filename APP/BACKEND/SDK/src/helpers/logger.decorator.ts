@@ -4,7 +4,7 @@ import { Undefinable } from '@types';
 
 import { MyLogger } from './logger';
 
-export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logger: Undefinable<WinstonLogger>, defer?: DType): any {
+export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logger: Undefinable<WinstonLogger>, fileName: string, defer?: DType): any {
   return function <C extends { name: string; kind: string } = any>(
     target: any,
     context: C,
@@ -22,7 +22,7 @@ export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logg
         
         // initialize the logger
         const methodLogger = MyLogger.setContext(
-          __filename,
+          fileName,
           context.name,
           args[0].requestId,
           logger!,

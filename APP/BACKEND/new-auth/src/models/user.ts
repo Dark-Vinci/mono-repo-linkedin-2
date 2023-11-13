@@ -155,14 +155,4 @@ export class User extends Base {
       throw error;
     }
   }
-
-  //websites
-  //dp
-  //converimage
-  // skills
-  // schools
-  // experiences
-  // projects
-  // volunteering
-  // license
 }

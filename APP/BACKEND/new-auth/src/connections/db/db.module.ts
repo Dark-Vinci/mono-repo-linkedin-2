@@ -3,9 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
+import { AuthDatabase, DBPassword, configInterface } from 'sdk';
+
 import { DB_PORT, HOST, USERNAME, DB_LOGGER, DB_TYPE } from '@constants';
-import { AuthDatabase, DBPassword, configInterface } from '@types';
-// import { Business, User } from '@models';
 
 @Module({})
 export class DB {
@@ -18,8 +18,8 @@ export class DB {
         const connectionConfig = {
           namingStrategy: new SnakeNamingStrategy(),
           migrationsTableName: 'migrations',
-          // entities: [User, Business],
-          // migrations: [CreateBussiness1698115751953],
+          entities: [],
+          migrations: [],
           username: get(USERNAME)!,
           logging: true,
           logger: DB_LOGGER,
@@ -29,6 +29,7 @@ export class DB {
 
           replication: {
             master: {
+              name: AuthDatabase.MASTER,
               port: +get(DB_PORT),
               host: get(HOST)!,
               database: AuthDatabase.MASTER,
@@ -42,7 +43,7 @@ export class DB {
                 database: AuthDatabase.SLAVE1,
                 username: get(USERNAME)!,
                 password: get(DBPassword.SLAVE)!,
-                // name: AuthDatabase.SLAVE1,
+                name: AuthDatabase.SLAVE1,
               },
               {
                 port: +get(DB_PORT),
@@ -50,7 +51,7 @@ export class DB {
                 database: AuthDatabase.SLAVE2,
                 username: get(USERNAME)!,
                 password: get(DBPassword.SLAVE)!,
-                // name: AuthDatabase.SLAVE2,
+                name: AuthDatabase.SLAVE2,
               },
               {
                 port: +get(DB_PORT),
@@ -58,7 +59,7 @@ export class DB {
                 database: AuthDatabase.SLAVE3,
                 username: get(USERNAME)!,
                 password: get(DBPassword.SLAVE)!,
-                // name: AuthDatabase.SLAVE3,
+                name: AuthDatabase.SLAVE3,
               },
             ],
           },

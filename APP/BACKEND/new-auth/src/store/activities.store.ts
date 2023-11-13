@@ -1,17 +1,16 @@
 import global from 'globals';
-import fs from 'fs/promises';
 
-import { Injectable, OnApplicationBootstrap, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Logger as WinstonLogger } from 'winston';
 import { Repository } from 'typeorm';
 
-import { Undefinable } from 'sdk';
+import { LoggerDecorator, Undefinable } from 'sdk';
 
-import { Activities } from '@models';
+import { Activities, User } from '@models';
 
 @Injectable()
-export class ActivitiesStore implements OnApplicationBootstrap {
+export class ActivitiesStore {
   public globalLogger: Undefinable<WinstonLogger>;
 
   public constructor(
@@ -19,15 +18,10 @@ export class ActivitiesStore implements OnApplicationBootstrap {
     private readonly masterRepository: Repository<Activities>,
   ) {}
 
-  public async onApplicationBootstrap(): void {
+  @LoggerDecorator(global.logger)
+  public async createUser(): Promise<User> {
     this.globalLogger = global.logger;
 
-    await using a = await fs.open('./')
-    a.createReadStream();
-
-    console.log({
-      a: this.globalLogger,
-      b: this.masterRepository,
-    });
+    return new User({});
   }
 }

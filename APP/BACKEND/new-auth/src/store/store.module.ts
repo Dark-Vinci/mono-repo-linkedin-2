@@ -1,6 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthDatabase } from 'sdk';
+
 import {
   Activities,
   Business,
@@ -12,29 +14,84 @@ import {
   Volunteering,
   UserSkills,
   SkillEndorsement,
-  Experiences,
+  WorkExperience,
 } from '@models';
-import { UserRepository } from './user.service';
+
+import { UserStore } from './user.store';
 import { BusinessRepository } from './business.service';
 
 @Global()
 @Module({
-  providers: [UserRepository, BusinessRepository],
+  providers: [UserStore, BusinessRepository],
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      Business,
-      Experiences,
-      Activities,
-      License,
-      Organization,
-      Project,
-      Skill,
-      SkillEndorsement,
-      UserSkills,
-      Volunteering,
-    ]),
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Business,
+        WorkExperience,
+        Activities,
+        License,
+        Organization,
+        Project,
+        Skill,
+        SkillEndorsement,
+        UserSkills,
+        Volunteering,
+      ],
+      AuthDatabase.MASTER,
+    ),
+
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Business,
+        WorkExperience,
+        Activities,
+        License,
+        Organization,
+        Project,
+        Skill,
+        SkillEndorsement,
+        UserSkills,
+        Volunteering,
+      ],
+      AuthDatabase.SLAVE1,
+    ),
+
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Business,
+        WorkExperience,
+        Activities,
+        License,
+        Organization,
+        Project,
+        Skill,
+        SkillEndorsement,
+        UserSkills,
+        Volunteering,
+      ],
+      AuthDatabase.SLAVE2,
+    ),
+
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Business,
+        WorkExperience,
+        Activities,
+        License,
+        Organization,
+        Project,
+        Skill,
+        SkillEndorsement,
+        UserSkills,
+        Volunteering,
+      ],
+      AuthDatabase.SLAVE3,
+    ),
   ],
-  exports: [UserRepository, BusinessRepository],
+  exports: [UserStore, BusinessRepository],
 })
 export class StoreModule {}
