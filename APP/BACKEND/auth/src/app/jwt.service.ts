@@ -5,6 +5,10 @@ import { JwtService } from '@nestjs/jwt';
 
 import { LoggerDecorator } from '@constants';
 
+// let name = null;
+
+// name ??= "default name";
+
 @Injectable()
 export class JwtAuthService {
   public constructor(private readonly jwtService: JwtService) {}

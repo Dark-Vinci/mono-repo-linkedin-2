@@ -1,6 +1,7 @@
 import { Column, Entity, Index } from 'typeorm';
 
-import { ColumnType, EntityNames, Ordering } from '@types';
+import { EntityNames, Ordering, ColumnType } from 'sdk';
+
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';
@@ -23,6 +24,4 @@ export class Skill extends Base {
   })
   @Index({ unique: true })
   public name!: string;
-
-  //   endorsement
 }

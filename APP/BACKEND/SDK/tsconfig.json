@@ -18,11 +18,13 @@
     "noFallthroughCasesInSwitch": true,
      "noImplicitReturns": true,
     "noImplicitAny": true,
+    "lib": ["es2022", "esnext.disposable", "dom"],
     "paths": {
       "@constants": ["./src/constants"],
       "@errors": ["./src/errors"],
       "@helpers": ["./src/helpers"],
       "@models": ["./src/models"],
+      "@types": ["./src/types"],
     }
   }
 }

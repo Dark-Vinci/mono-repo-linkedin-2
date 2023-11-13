@@ -1,9 +1,8 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, AfterLoad } from 'typeorm';
 
-import { Hasher } from 'sdk';
+import { EntityNames, Hasher, ColumnType, Ordering, Nullable } from 'sdk';
 
 import { SCHEMA } from '@constants';
-import { ColumnType, EntityNames, Ordering, OrNull } from '@types';
 
 import { Base } from './base';
 
@@ -55,7 +54,7 @@ export class User extends Base {
     type: ColumnType.TEXT,
     nullable: true,
   })
-  public about!: OrNull<string>;
+  public about!: Nullable<string>;
 
   @Column({
     name: 'phone_number',
@@ -71,7 +70,7 @@ export class User extends Base {
   })
   public dateOfBirth!: Date;
 
-  public previousPassword!: OrNull<string>;
+  public previousPassword!: Nullable<string>;
 
   @AfterLoad()
   public loadPreviousPassword(): void {

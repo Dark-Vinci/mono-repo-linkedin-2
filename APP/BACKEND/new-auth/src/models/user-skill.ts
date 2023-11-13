@@ -1,8 +1,7 @@
 import { Entity } from 'typeorm';
 
-import { UUID } from 'sdk';
+import { Ordering, UUID, EntityNames } from 'sdk';
 
-import { EntityNames, Ordering } from '@types';
 import { SCHEMA } from '@constants';
 
 import { SkillEndorsement } from './skill-endorsement';

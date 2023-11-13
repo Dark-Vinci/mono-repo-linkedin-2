@@ -1,6 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-import { ColumnType, EntityNames, Ordering } from '@types';
+import { EntityNames, Ordering, ColumnType } from 'sdk';
+
 import { SCHEMA } from '@constants';
 
 import { Base } from './base';

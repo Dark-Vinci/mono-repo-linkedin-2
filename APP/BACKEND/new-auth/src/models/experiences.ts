@@ -1,14 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-import { Nullable } from 'sdk';
+import { EntityNames, Nullable, Ordering } from 'sdk';
 
-import {
-  ColumnType,
-  EmploymentType,
-  EntityNames,
-  ExperienceType,
-  Ordering,
-} from '@types';
 import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
 import { Base } from './base';

@@ -7,9 +7,8 @@ import {
   VersionColumn,
 } from 'typeorm';
 
-import { UUID } from 'sdk';
+import { ColumnType, Nullable, UUID } from 'sdk';
 
-import { ColumnType, OrNull } from '@types';
 import { CURRENT_TIMESTAMP } from '@constants';
 
 export class Base extends BaseEntity {
@@ -37,7 +36,7 @@ export class Base extends BaseEntity {
     type: ColumnType.TIMESTAMP,
     nullable: true,
   })
-  deletedAt!: OrNull<Date>;
+  deletedAt!: Nullable<Date>;
 
   @VersionColumn({
     name: 'version',

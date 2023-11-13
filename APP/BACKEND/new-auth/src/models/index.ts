@@ -11,5 +11,3 @@ export * from './school';
 export * from './skill-endorsement';
 export * from './experiences';
 export * from './user-skill';
-
-export class Experiences {}

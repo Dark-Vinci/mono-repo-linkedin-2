@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+
 import { Business, User } from '@models';
 
 const dataSource = new DataSource({
