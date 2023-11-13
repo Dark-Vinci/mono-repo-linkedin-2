@@ -2,13 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { navState } from '@utils';
-import { Pages } from "@types";
+import { Pages, type UG } from '@types';
 
 import styles from './navigation.module.scss';
-
-interface UG {
-    readonly profileUrl: string;
-}
 
 export function Navigation({ profileUrl }: UG): JSX.Element {
   return (
