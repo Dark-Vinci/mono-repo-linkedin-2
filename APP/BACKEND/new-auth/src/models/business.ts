@@ -1,7 +1,9 @@
 import { Entity } from 'typeorm';
 
+import { EntityNames, Ordering } from 'sdk';
+
 import { SCHEMA } from '@constants';
-// import { EntityNames, Ordering } from '@types';
+
 import { Base } from './base';
 
 @Entity({

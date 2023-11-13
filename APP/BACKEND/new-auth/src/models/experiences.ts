@@ -1,6 +1,13 @@
 import { Column, Entity } from 'typeorm';
 
-import { EntityNames, Nullable, Ordering } from 'sdk';
+import {
+  EntityNames,
+  Nullable,
+  Ordering,
+  ColumnType,
+  EmploymentType,
+  ExperienceType,
+} from 'sdk';
 
 import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
