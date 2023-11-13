@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { ColumnType, MediaFor, Ordering } from 'sdk';
+import { ColumnType, MediaFor, Ordering, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-import { Base } from './base';
+// import { Base } from './base';
 import { Project } from './project';
 
 @Entity({

@@ -1,4 +1,3 @@
-export * from './base';
 export * from './user';
 export * from './business';
 export * from './license';

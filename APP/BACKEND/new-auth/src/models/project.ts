@@ -15,11 +15,11 @@ import {
   JoinColumnId,
   Nullable,
   Ordering,
+  Base,
 } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-import { Base } from './base';
 import { User } from './user';
 import { WorkExperience } from './experiences';
 import { Skill } from './skills';

@@ -1,11 +1,10 @@
 import { Entity } from 'typeorm';
 
-import { Ordering, UUID, EntityNames } from 'sdk';
+import { Ordering, UUID, EntityNames, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { SkillEndorsement } from './skill-endorsement';
-import { Base } from './base';
 
 @Entity({
   name: EntityNames.USER_SKILLS,

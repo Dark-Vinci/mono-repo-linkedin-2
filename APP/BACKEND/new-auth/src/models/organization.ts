@@ -1,10 +1,8 @@
 import { Column, Entity } from 'typeorm';
 
-import { EntityNames, Ordering } from 'sdk';
+import { EntityNames, Ordering, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
-
-import { Base } from './base';
 
 @Entity({
   name: EntityNames.ORGANIZATIONS,

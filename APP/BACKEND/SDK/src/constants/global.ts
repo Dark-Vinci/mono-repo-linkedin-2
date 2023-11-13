@@ -19,3 +19,5 @@ export const mongoURL = 'mongodb://localhost:27017/linkedin-logger' as const;
 export const CASCADE = 'CASCADE' as const; 
 
 export const ID = 'id' as const;
+
+export const CURRENT_TIMESTAMP = 'CURRENT_TIMESTAMP' as const;

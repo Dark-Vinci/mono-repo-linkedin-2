@@ -1,10 +1,9 @@
 import { Column, Entity, Index } from 'typeorm';
 
-import { EntityNames, Ordering, ColumnType } from 'sdk';
+import { EntityNames, Ordering, ColumnType, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-import { Base } from './base';
 import { User } from './user';
 import { Project } from './project';
 

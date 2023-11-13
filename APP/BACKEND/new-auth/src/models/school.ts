@@ -1,10 +1,9 @@
 import { Column, Entity } from 'typeorm';
 
-import { ColumnType, EntityNames, Ordering } from 'sdk';
+import { ColumnType, EntityNames, Ordering, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-import { Base } from './base';
 import { User } from './user';
 
 @Entity({

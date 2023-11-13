@@ -16,11 +16,11 @@ import {
   Nullable,
   OpenToEnum,
   CASCADE,
+  Base,
 } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-import { Base } from './base';
 import { Skill } from './skills';
 import { Volunteering } from './volunteering';
 import { Project } from './project';

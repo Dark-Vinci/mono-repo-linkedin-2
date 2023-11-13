@@ -1,12 +1,11 @@
 import { Column, Entity, JoinColumn } from 'typeorm';
 
-import { ColumnType, EntityNames, Ordering } from 'sdk';
+import { ColumnType, EntityNames, Ordering, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { Skill } from './skills';
 import { User } from './user';
-import { Base } from './base';
 
 @Entity({
   name: EntityNames.SKILL_ENDORSEMENTS,

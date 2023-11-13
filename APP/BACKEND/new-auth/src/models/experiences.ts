@@ -7,11 +7,12 @@ import {
   ColumnType,
   EmploymentType,
   ExperienceType,
+  Base,
 } from 'sdk';
 
 import { CURRENT_TIMESTAMP, SCHEMA } from '@constants';
 
-import { Base } from './base';
+// import { Base } from './base';
 import { User } from './user';
 import { Project } from './project';
 
