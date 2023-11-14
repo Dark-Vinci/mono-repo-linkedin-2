@@ -31,20 +31,20 @@ export class UserStore {
     private readonly masterRepository: Repository<User>,
 
     @InjectRepository(User, AuthDatabase.SLAVE1)
-    userSlave1Repository: Repository<User>,
+    slave1Repository: Repository<User>,
 
     @InjectRepository(User, AuthDatabase.SLAVE2)
-    userSlave2Repository: Repository<User>,
+    slave2Repository: Repository<User>,
 
     @InjectRepository(User, AuthDatabase.SLAVE3)
-    userSlave3Repository: Repository<User>,
+    slave3Repository: Repository<User>,
 
     private readonly util: Util,
   ) {
     this.slaveRepositories = [
-      userSlave3Repository,
-      userSlave2Repository,
-      userSlave1Repository,
+      slave3Repository,
+      slave2Repository,
+      slave1Repository,
     ];
   }
 
