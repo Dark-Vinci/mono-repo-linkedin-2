@@ -1,5 +1,5 @@
 export * from './user.store';
-export * from './business.service';
+export * from './business.store';
 export * from './activities.store';
 export * from './experiences.store';
 export * from './license.store';

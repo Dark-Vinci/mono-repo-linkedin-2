@@ -9,7 +9,6 @@ import { Util } from 'sdk';
 import {
   AppCoreConfig,
   DBConfig,
-  JWTConfig,
   KafkaConfig,
   MongoConfig,
   RedisConfig,
@@ -20,18 +19,10 @@ import { ShutdownService } from './app.shutdown.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      // envFilePath: [DOT_ENV_PATH]
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      load: [
-        DBConfig,
-        AppCoreConfig,
-        MongoConfig,
-        KafkaConfig,
-        RedisConfig,
-        JWTConfig,
-      ],
+      load: [DBConfig, AppCoreConfig, MongoConfig, KafkaConfig, RedisConfig],
     }),
 
     // // rabbitmq

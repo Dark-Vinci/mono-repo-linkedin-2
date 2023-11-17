@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import type { HomeProps, InputEvent } from "@types";
+import type { HomeProps, InputEvent } from '@types';
 
-import styles from "./header.module.scss";
-import { Navigation } from "./navigation";
+import styles from './header.module.scss';
+import { Navigation } from './navigation';
 
 export function Header({ profileUrl }: HomeProps): JSX.Element {
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
 
   useEffect(() => {
-    console.log('MOUNTING: header is mounting')
+    console.log('MOUNTING: header is mounting');
     return () => {
-        console.log('UNMOUNTING: header is unmounting')
-    }
+      console.log('UNMOUNTING: header is unmounting');
+    };
   }, []);
 
   const inputChangeHandler = (event: InputEvent) => {
@@ -31,9 +31,7 @@ export function Header({ profileUrl }: HomeProps): JSX.Element {
           </div>
 
           <div className={styles.icons}>
-            <Navigation 
-                profileUrl={profileUrl} 
-            />
+            <Navigation profileUrl={profileUrl} />
           </div>
         </div>
       </div>

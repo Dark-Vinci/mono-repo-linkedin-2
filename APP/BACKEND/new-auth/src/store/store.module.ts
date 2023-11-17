@@ -18,7 +18,7 @@ import {
 } from '@models';
 
 import { UserStore } from './user.store';
-import { BusinessRepository } from './business.service';
+import { BusinessRepository } from './business.store';
 
 @Global()
 @Module({
@@ -94,4 +94,4 @@ import { BusinessRepository } from './business.service';
   ],
   exports: [UserStore, BusinessRepository],
 })
-export class StoreModule {}
+export class StoreModule { }

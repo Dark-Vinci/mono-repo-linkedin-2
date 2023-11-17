@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { navState } from '@utils';
 import { Pages, type UG } from '@types';
@@ -8,7 +8,7 @@ import styles from './navigation.module.scss';
 
 export function Navigation({ profileUrl }: UG): JSX.Element {
   return (
-    <div className={ styles.container }>
+    <div className={styles.container}>
       <div className={styles.icon_container}>
         <div className={styles.home}>
           <NavLink
