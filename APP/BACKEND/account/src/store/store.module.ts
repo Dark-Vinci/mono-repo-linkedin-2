@@ -18,11 +18,29 @@ import {
 } from '@models';
 
 import { UserStore } from './user.store';
-import { BusinessRepository } from './business.store';
+import { BusinessStore } from './business.store';
+import { VolunteeringStore } from './volunteering.store';
+import { UserSkillStore } from './user-skill.store';
+import { LicenseStore } from './license.store';
+import { ActivitiesStore } from './activities.store';
+import { ProjectStore } from './project.store';
+import { SkillsEndorsementStore } from './skills-endorsement.store';
+import { WorkExperiencesStore } from './experiences.store';
 
 @Global()
 @Module({
-  providers: [UserStore, BusinessRepository],
+  providers: [
+    UserStore,
+    BusinessStore,
+    VolunteeringStore,
+    UserSkillStore,
+    LicenseStore,
+    ActivitiesStore,
+    ProjectStore,
+    SkillsEndorsementStore,
+    WorkExperiencesStore,
+  ],
+
   imports: [
     TypeOrmModule.forFeature(
       [
@@ -92,6 +110,17 @@ import { BusinessRepository } from './business.store';
       AuthDatabase.SLAVE3,
     ),
   ],
-  exports: [UserStore, BusinessRepository],
+
+  exports: [
+    UserStore,
+    BusinessStore,
+    VolunteeringStore,
+    UserSkillStore,
+    LicenseStore,
+    ActivitiesStore,
+    ProjectStore,
+    SkillsEndorsementStore,
+    WorkExperiencesStore,
+  ],
 })
-export class StoreModule { }
+export class StoreModule {}

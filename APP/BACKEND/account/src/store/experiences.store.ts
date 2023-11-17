@@ -23,7 +23,7 @@ import {
 import { WorkExperience } from '@models';
 
 @Injectable()
-export class ExperiencesStore {
+export class WorkExperiencesStore {
   private slaveRepositories: Undefinable<Repository<WorkExperience>[]>;
 
   public constructor(
