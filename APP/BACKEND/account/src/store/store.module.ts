@@ -26,6 +26,7 @@ import { ActivitiesStore } from './activities.store';
 import { ProjectStore } from './project.store';
 import { SkillsEndorsementStore } from './skills-endorsement.store';
 import { WorkExperiencesStore } from './work-experiences';
+import { CarrerBreakStore } from './career-break';
 
 @Global()
 @Module({
@@ -39,6 +40,7 @@ import { WorkExperiencesStore } from './work-experiences';
     ProjectStore,
     SkillsEndorsementStore,
     WorkExperiencesStore,
+    CarrerBreakStore,
   ],
 
   imports: [
@@ -121,6 +123,7 @@ import { WorkExperiencesStore } from './work-experiences';
     ProjectStore,
     SkillsEndorsementStore,
     WorkExperiencesStore,
+    CarrerBreakStore,
   ],
 })
-export class StoreModule { }
+export class StoreModule {}
