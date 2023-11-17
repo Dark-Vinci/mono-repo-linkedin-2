@@ -3,11 +3,16 @@ import global from 'globals';
 import { Logger as WinstonLogger } from 'winston';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-
-import { MyLogger as Logger, UUID, AuthPingRequest, Type, Util } from 'sdk';
+import {
+  MyLogger as Logger,
+  UUID,
+  AuthPingRequest,
+  Type,
+  Util,
+  Undefinable,
+} from 'sdk';
 
 import { appServiceMethods, fileNames } from '@constants';
-import { Undefinable } from '@types';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {

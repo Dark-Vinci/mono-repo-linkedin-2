@@ -4,7 +4,7 @@ import { Controller, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger as WinstonLogger } from 'winston';
 
 import { SignInService } from '@app';
-import { Undefinable } from '@types';
+import { Undefinable } from 'sdk';
 
 @Controller()
 export class LogInController implements OnApplicationBootstrap {
