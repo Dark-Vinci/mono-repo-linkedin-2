@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
-
 import { configInterface } from 'sdk';
 
 import StoreModule from '@store';
@@ -11,7 +10,6 @@ import {
   JWT_NOT_BEFORE,
   JWT_SECRET,
 } from '@constants';
-
 import { SignUpService } from './signup';
 import { SignInService } from './login';
 import { AppServiceService } from './app';
@@ -43,4 +41,4 @@ import { AppServiceService } from './app';
   providers: [SignUpService, SignInService, AppServiceService],
   exports: [SignUpService, SignInService, AppServiceService],
 })
-export class AppServiceModule { }
+export class AppServiceModule {}
