@@ -7,7 +7,6 @@ import winston from 'winston';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-
 import {
   TIME_ZONE,
   GRPC_LOADER_OPTIONS,
