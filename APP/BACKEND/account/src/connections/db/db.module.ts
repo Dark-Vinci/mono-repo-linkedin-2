@@ -20,7 +20,6 @@ export class DB {
           migrationsTableName: 'migrations',
           entities: [],
           migrations: [],
-          username: get(USERNAME)!,
           logging: true,
           logger: DB_LOGGER,
           type: get(DB_TYPE)!,
