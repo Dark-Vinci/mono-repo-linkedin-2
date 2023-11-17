@@ -34,7 +34,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "prod": "start prod"
+    "prod": "start prod",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "eslintConfig": {
     "extends": [

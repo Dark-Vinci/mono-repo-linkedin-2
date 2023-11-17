@@ -7,16 +7,13 @@ import { router } from '../router';
 function App() {
   useEffect(() => {
     //console.log (application mount)
-    console.log({message: 'application mount'})
+    console.log({ message: 'application mount' });
   }, []);
 
   return (
     <div className={styles.App}>
       this is the
-      <RouterProvider
-        router={router}
-        fallbackElement={<div>here</div>}
-      />
+      <RouterProvider router={router} fallbackElement={<div>here</div>} />
     </div>
   );
 }

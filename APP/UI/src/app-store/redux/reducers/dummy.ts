@@ -1,4 +1,3 @@
-
 interface DummyData {
   name: string;
   action: string;
@@ -13,12 +12,15 @@ const dummyData: DummyData = {
 
 const ACTIVATE = 'ACTIVATE';
 
-interface Action <PType extends {} = any> {
+interface Action<PType extends {} = any> {
   readonly type: string;
   readonly payload?: PType;
 }
 
-export function dummyReducer(state: DummyData = dummyData, action: Action): any {
+export function dummyReducer(
+  state: DummyData = dummyData,
+  action: Action,
+): any {
   switch (action.type) {
     case ACTIVATE:
       return {
@@ -29,4 +31,3 @@ export function dummyReducer(state: DummyData = dummyData, action: Action): any 
       return state;
   }
 }
-

@@ -18,14 +18,14 @@ export const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home />
+    element: <Home />,
   },
   {
     path: '/notification',
-    element: <Notification />
+    element: <Notification />,
   },
   {
     path: '*',
-    element: <Page404/>,
-  }
+    element: <Page404 />,
+  },
 ]);
