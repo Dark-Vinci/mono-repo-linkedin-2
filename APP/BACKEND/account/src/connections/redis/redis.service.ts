@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Redis } from 'ioredis';
 
 import { IORedisKey } from '@constants';
-import { RedisTimerType } from '@types';
+import { RedisTimerType } from 'sdk';
 
 @Injectable()
 export class RedisClient {

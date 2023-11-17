@@ -4,7 +4,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Logger as WinstonLogger } from 'winston';
 
 import { RedisClient } from '@connections';
-import { Undefinable } from '@types';
+import { Undefinable } from 'sdk';
 
 @Injectable()
 export class SignUpService implements OnApplicationBootstrap {
