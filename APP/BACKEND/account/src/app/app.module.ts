@@ -12,9 +12,9 @@ import {
   JWT_SECRET,
 } from '@constants';
 
-import { SignUpService } from './signup.service';
-import { SignInService } from './login.service';
-import { AppServiceService } from './app.service';
+import { SignUpService } from './signup';
+import { SignInService } from './login';
+import { AppServiceService } from './app';
 
 @Module({
   imports: [
@@ -43,4 +43,4 @@ import { AppServiceService } from './app.service';
   providers: [SignUpService, SignInService, AppServiceService],
   exports: [SignUpService, SignInService, AppServiceService],
 })
-export class AppServiceModule {}
+export class AppServiceModule { }

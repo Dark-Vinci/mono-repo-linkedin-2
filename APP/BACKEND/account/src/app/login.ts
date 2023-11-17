@@ -5,7 +5,7 @@ import { Logger as WinstonLogger } from 'winston';
 import { Undefinable } from 'sdk';
 
 import { RedisClient } from '@connections';
-import { JwtAuthService } from './jwt.service';
+import { JwtAuthService } from './jwt';
 
 @Injectable()
 export class SignInService {

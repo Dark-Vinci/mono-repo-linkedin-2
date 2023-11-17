@@ -12,4 +12,4 @@ import { AppController } from './app';
   providers: [],
   controllers: [AppController, LogInController, SignInController],
 })
-export class ServerModule { }
+export class ServerModule {}
