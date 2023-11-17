@@ -9,7 +9,7 @@ import {
   Repository,
 } from 'typeorm';
 
-import { User, UserSkills } from '@models';
+import { UserSkills } from '@models';
 import {
   AuthDatabase,
   entityId,
@@ -58,7 +58,7 @@ export class UserSkillStore {
     return userSkill;
   }
 
-  public async softDelete({ id }: entityId<User>): Promise<boolean> {
+  public async softDelete({ id }: entityId<UserSkills>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 
     return true;
@@ -72,14 +72,14 @@ export class UserSkillStore {
   }: genericGet<UserSkills>): Promise<Array<UserSkills>> {
     const strPayload = JSON.stringify(payload);
 
-    const findObj: FindManyOptions<User> = {
-      where: { ...(payload as unknown as FindOptionsWhere<User>[]) },
+    const findObj: FindManyOptions<UserSkills> = {
+      where: { ...(payload as unknown as FindOptionsWhere<UserSkills>[]) },
 
       take: paginateOptions.size,
       skip: paginateOptions.skip,
 
       order: { createdAt: 'ASC' },
-      comment: `get user that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
+      comment: `get userSkill that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
     };
 
     const findMap = this.slaveRepositories!.map(
@@ -98,10 +98,10 @@ export class UserSkillStore {
     update,
     toBeUpdated,
   }: updateEntity<UserSkills>): Promise<boolean> {
-    // move all the update to the user object <-
+    // move all the update to the userSkill object <-
     Object.assign(toBeUpdated, update);
 
-    this.util.assert(!!toBeUpdated.id, 'user id is not provided');
+    this.util.assert(!!toBeUpdated.id, 'userSkill id is not provided');
 
     await this.masterRepository.update(toBeUpdated.id!, toBeUpdated);
 
@@ -115,7 +115,7 @@ export class UserSkillStore {
     const findOneOrFailOptions: FindOneOptions = {
       where: { ...payload },
 
-      comment: `find one user skill with details ${strPayload} or fail`,
+      comment: `find one userSkill with details ${strPayload} or fail`,
     };
 
     const findMap = this.slaveRepositories!.map(
@@ -124,8 +124,8 @@ export class UserSkillStore {
       },
     );
 
-    const user = await Promise.any(findMap);
+    const userSkill = await Promise.any(findMap);
 
-    return user;
+    return userSkill;
   }
 }

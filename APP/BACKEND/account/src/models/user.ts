@@ -136,7 +136,14 @@ export class User extends Base {
   @BeforeUpdate()
   public async hashPassword(): Promise<void> {
     try {
-      if (this.password == this.previousPassword && this.password) {
+      if (
+        // new user;
+        (this.password && !this.previousPassword) ||
+        // updated user[password]
+        (this.password !== this.previousPassword &&
+          this.previousPassword &&
+          this.password)
+      ) {
         const hashedPassword = await this.hasher.hash(this.password);
 
         this.password = hashedPassword;
