@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 
 import AppModule from '@app';
 
-import { LogInController } from './login.controller';
-import { SignInController } from './signin.controller';
-import { AppController } from './app.controller';
+import { LogInController } from './login';
+import { SignInController } from './signin';
+import { AppController } from './app';
 
 @Module({
   imports: [AppModule],
@@ -12,4 +12,4 @@ import { AppController } from './app.controller';
   providers: [],
   controllers: [AppController, LogInController, SignInController],
 })
-export class ServerModule {}
+export class ServerModule { }
