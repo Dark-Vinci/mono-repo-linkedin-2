@@ -69,7 +69,7 @@ export class UserStore {
     payload,
     requestId,
   }: genericGet<User>): Promise<Array<User>> {
-    const stringifiedPayload = JSON.stringify(payload);
+    const strPayload = JSON.stringify(payload);
 
     const findObj: FindManyOptions<User> = {
       where: { ...(payload as unknown as FindOptionsWhere<User>[]) },
@@ -78,7 +78,7 @@ export class UserStore {
       skip: paginateOptions.skip,
 
       order: { createdAt: 'ASC' },
-      comment: `get user that matches ${stringifiedPayload} by pagination strategy with requestId ${requestId}`,
+      comment: `get user that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
     };
 
     const findMap = this.slaveRepositories!.map((repo: Repository<User>) => {

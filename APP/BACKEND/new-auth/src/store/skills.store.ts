@@ -6,7 +6,7 @@ import { Logger as WinstonLogger } from 'winston';
 
 import { Skill } from '@models';
 import { Repository } from 'typeorm';
-import { Undefinable } from '@types';
+// import { Undefinable } from '@types';
 
 @Injectable()
 export class SkillsStore implements OnApplicationBootstrap {
