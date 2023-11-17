@@ -12,7 +12,8 @@ const dummyData: DummyData = {
 
 const ACTIVATE = 'ACTIVATE';
 
-interface Action<PType extends {} = any> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface Action<PType extends object = any> {
   readonly type: string;
   readonly payload?: PType;
 }
@@ -20,7 +21,7 @@ interface Action<PType extends {} = any> {
 export function dummyReducer(
   state: DummyData = dummyData,
   action: Action,
-): any {
+): unknown {
   switch (action.type) {
     case ACTIVATE:
       return {
