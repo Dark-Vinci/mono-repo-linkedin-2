@@ -3,13 +3,13 @@ import global from 'globals';
 import { Controller, OnApplicationBootstrap } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Logger as WinstonLogger } from 'winston';
-
 import {
   AuthPingRequest,
   AuthPingResponse,
   AuthService,
   MyLogger as Logger,
   Type,
+  Undefinable,
   Util,
 } from 'sdk';
 
@@ -20,7 +20,6 @@ import {
   MethodName,
 } from '@constants';
 import { AppService } from '@startup';
-import { Undefinable } from '@types';
 
 @Controller()
 export class AppController
