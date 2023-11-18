@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthDatabase } from 'sdk';
@@ -28,7 +28,6 @@ import { SkillsEndorsementStore } from './skills-endorsement.store';
 import { WorkExperiencesStore } from './work-experiences';
 import { CarrerBreakStore } from './career-break';
 
-@Global()
 @Module({
   providers: [
     UserStore,
