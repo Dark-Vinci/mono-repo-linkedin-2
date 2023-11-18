@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import styles from '../styles/App.module.scss';
-import { router } from '../router';
+import { router } from '@router';
+import styles from './App.module.scss';
 
 function App() {
   useEffect(() => {

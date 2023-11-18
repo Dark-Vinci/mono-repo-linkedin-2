@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./user-home-card.module.scss";
-import type { UserHomeCardProps } from "@types";
+import styles from './user-home-card.module.scss';
+import type { UserHomeCardProps } from '@types';
 
 export function UserHomeCard({
   profileUrl,
