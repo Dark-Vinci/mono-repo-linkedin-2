@@ -88,9 +88,9 @@ export class UserSkillStore {
       },
     );
 
-    const users = await Promise.any(findMap);
+    const userSkills = await Promise.any(findMap);
 
-    return users;
+    return userSkills;
   }
 
   @LoggerDecorator(global.Logger, __filename)

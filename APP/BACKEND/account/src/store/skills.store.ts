@@ -85,9 +85,9 @@ export class SkillStore {
       return repo.find(findObj);
     });
 
-    const users = await Promise.any(findMap);
+    const skills = await Promise.any(findMap);
 
-    return users;
+    return skills;
   }
 
   @LoggerDecorator(global.Logger, __filename)

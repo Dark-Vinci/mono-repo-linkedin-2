@@ -85,9 +85,9 @@ export class ProjectStore {
       return repo.find(findObj);
     });
 
-    const users = await Promise.any(findMap);
+    const projects = await Promise.any(findMap);
 
-    return users;
+    return projects;
   }
 
   @LoggerDecorator(global.Logger, __filename)
