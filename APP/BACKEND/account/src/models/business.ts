@@ -13,42 +13,6 @@ import { EntityNames, Ordering, Base, ColumnType } from 'sdk';
 import { SCHEMA } from '@constants';
 import { User } from './user';
 
-// @Entity({
-//   name: EntityNames.FOLLOWS,
-//   orderBy: { created_at: Ordering.DESC },
-//   synchronize: true,
-//   schema: SCHEMA,
-// })
-// export class Follows extends Base {
-//   @Column({
-//     name: 'follower_id',
-//     type: ColumnType.UUID,
-//     nullable: false,
-//   })
-//   followerId!: string;
-
-//   @Column({
-//     name: 'business_id',
-//     type: ColumnType.UUID,
-//     nullable: false,
-//   })
-//   businessId!: string;
-
-//   @ManyToOne(() => Business, (b) => b.follows)
-//   @JoinColumn({
-//     name: 'business_id',
-//     referencedColumnName: 'id',
-//   })
-//   followers!: Business;
-
-//   @ManyToOne(() => User, (u) => u.pages)
-//   @JoinColumn({
-//     name: 'follower_id',
-//     referencedColumnName: 'id',
-//   })
-//   following!: User;
-// }
-
 @Entity({
   name: EntityNames.BUSINESSES,
   orderBy: { created_at: Ordering.DESC },
@@ -105,17 +69,19 @@ export class Business extends Base {
   })
   public specialities!: string;
 
-  @ManyToMany(() => User, (f) => f.createdBusinesses, {})
+  @ManyToMany(() => User, (u) => u.createdBusinesses, {})
   @JoinTable()
   public founders!: User[];
 
-  @ManyToMany(() => User, (f) => f.workAt, {})
+  @ManyToMany(() => User, (u) => u.workAt, {})
   @JoinTable()
   public employees!: User[];
 
   @OneToMany(() => Follows, (f) => f.following)
   follows!: Follows[];
 }
+
+class Employ {}
 
 @Entity({
   name: EntityNames.FOLLOWS,
