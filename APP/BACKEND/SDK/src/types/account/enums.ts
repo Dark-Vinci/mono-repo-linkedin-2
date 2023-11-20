@@ -23,6 +23,7 @@ export enum EntityNames {
   SKILL_ENDORSEMENTS = 'skill_endorsements',
   USER_SKILLS = 'user_skills',
   CAREER_BREAK = 'career_breaks',
+  CONNECTIONS = 'connections',
 }
 
 export enum ColumnType {

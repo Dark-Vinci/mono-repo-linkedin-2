@@ -6,6 +6,10 @@ import {
   AfterLoad,
   OneToMany,
   ManyToMany,
+  JoinTable,
+  ManyToOne,
+  JoinColumn,
+  Index,
 } from 'typeorm';
 
 import {
@@ -27,6 +31,7 @@ import { Project } from './project';
 import { School } from './school';
 import { CareerBreak, WorkExperience } from './experiences';
 import { License } from './license';
+import { Business } from './business';
 
 @Entity({
   name: EntityNames.USERS,
@@ -102,6 +107,22 @@ export class User extends Base {
 
   private previousPassword!: Nullable<string>;
 
+  @ManyToMany(() => Business, (b) => b.founders)
+  @JoinTable({})
+  public createdBusinesses!: Business[];
+
+  @ManyToMany(() => Business, (b) => b.employees)
+  @JoinTable({})
+  public workAt!: Business[];
+
+  // LIST OF FOLLOWINGS
+  @OneToMany(() => Connections, (b) => b.follower, { cascade: true })
+  public following!: Connections[];
+
+  // LIST OF FOLLOWERS
+  @OneToMany(() => Connections, (b) => b.followed, { cascade: true })
+  public followers!: Connections[];
+
   @OneToMany(() => Skill, (s) => s.user)
   public skills!: Skill[];
 
@@ -162,4 +183,48 @@ export class User extends Base {
       throw error;
     }
   }
+}
+
+@Entity({
+  name: EntityNames.CONNECTIONS,
+  orderBy: { created_at: Ordering.ASC },
+  synchronize: false,
+  schema: SCHEMA,
+})
+@Index(['follower_id', 'followed_id'], { unique: true })
+export class Connections extends Base {
+  @Column({
+    name: 'follower_id',
+    type: ColumnType.UUID,
+    default: false,
+    nullable: false,
+  })
+  followerId!: string;
+
+  @Column({
+    name: 'followed_id',
+    type: ColumnType.UUID,
+    default: false,
+    nullable: false,
+  })
+  followedId!: string;
+
+  @Column({
+    name: 'accepted',
+    type: ColumnType.BOOLEAN,
+    default: false,
+    nullable: false,
+  })
+  accepted!: boolean;
+
+  @ManyToOne(() => User, (user) => user.following)
+  @JoinColumn({
+    name: 'follower_id',
+    referencedColumnName: 'id',
+  })
+  follower!: User;
+
+  @ManyToOne(() => User, (user) => user.followers)
+  @JoinColumn({ name: 'followed_id', referencedColumnName: 'id' })
+  followed!: User;
 }
