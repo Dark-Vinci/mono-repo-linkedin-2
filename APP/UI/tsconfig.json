@@ -9,7 +9,7 @@
     "noEmit": true,
     "jsx": "react",
     "outDir": "./dist",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "module": "commonjs",
     "declaration": true,

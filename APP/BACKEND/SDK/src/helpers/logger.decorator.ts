@@ -8,13 +8,24 @@ enum DecoratorFor {
   METHOD = 'method',
 }
 
-export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logger: Undefinable<WinstonLogger>, fileName: string, defer?: DType): any {
-  return function <C extends { name: string; kind: string } = any>(
+export function LoggerDecorator<
+    DType extends { run: () => Promise<void> }
+  >(
+    logger: Undefinable<WinstonLogger>, 
+    fileName: string, 
+    defer?: DType
+  ): any {
+  return function <
+    C extends { name: string; kind: string } = any
+  >(
     target: any,
     context: C,
   ): any {
     if (context.kind == DecoratorFor.METHOD) {
-      return async function (this: any, ...args: any[]): Promise<any> {
+      return async function (
+        this: any, 
+        ...args: any[]
+      ): Promise<any> {
         if (defer) {
           await using stack = new AsyncDisposableStack();
 
