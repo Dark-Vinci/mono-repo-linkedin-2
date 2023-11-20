@@ -71,6 +71,10 @@ export class WorkExperience extends Base {
   })
   public type!: ExperienceType;
 
+  public userId!: string;
+
+  public businessId!: string;
+
   // @
   public projects!: Project[];
 
@@ -139,6 +143,8 @@ export class CareerBreak extends Base {
     nullable: false,
   })
   public headline!: string;
+
+  public userId!: string;
 
   public user!: User;
 

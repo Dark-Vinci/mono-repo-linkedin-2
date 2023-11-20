@@ -77,11 +77,15 @@ export class Business extends Base {
   @JoinTable()
   public employees!: User[];
 
+  // done
   @OneToMany(() => Follows, (f) => f.following)
   follows!: Follows[];
 }
 
-class Employ {}
+class Employment {
+  businessId!: string;
+  userId!: string;
+}
 
 @Entity({
   name: EntityNames.FOLLOWS,
@@ -91,11 +95,11 @@ class Employ {}
 })
 export class Follows extends Base {
   @Column({
-    name: 'follower_id',
+    name: 'user_id',
     type: ColumnType.UUID,
     nullable: false,
   })
-  followerId!: string;
+  userId!: string;
 
   @Column({
     name: 'business_id',
@@ -104,17 +108,17 @@ export class Follows extends Base {
   })
   businessId!: string;
 
-  @ManyToOne(() => Business, (b) => b.follows)
+  @ManyToOne(() => User, (u) => u.pages)
+  @JoinColumn({
+    name: 'user_id',
+    referencedColumnName: 'id',
+  })
+  followers!: User;
+
+  @ManyToOne(() => Business, (u) => u.follows)
   @JoinColumn({
     name: 'business_id',
     referencedColumnName: 'id',
   })
-  followers!: Business;
-
-  @ManyToOne(() => User, (u) => u.pages)
-  @JoinColumn({
-    name: 'follower_id',
-    referencedColumnName: 'id',
-  })
-  following!: User;
+  following!: Business;
 }
