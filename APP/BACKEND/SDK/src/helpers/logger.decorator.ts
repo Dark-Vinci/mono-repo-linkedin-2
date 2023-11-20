@@ -4,12 +4,16 @@ import { Undefinable } from '@types';
 
 import { MyLogger } from './logger';
 
+enum DecoratorFor {
+  METHOD = 'method',
+}
+
 export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logger: Undefinable<WinstonLogger>, fileName: string, defer?: DType): any {
   return function <C extends { name: string; kind: string } = any>(
     target: any,
     context: C,
   ): any {
-    if (context.kind == 'method') {
+    if (context.kind == DecoratorFor.METHOD) {
       return async function (this: any, ...args: any[]): Promise<any> {
         if (defer) {
           await using stack = new AsyncDisposableStack();
@@ -17,9 +21,9 @@ export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logg
           stack.defer(async () => {
 
             await defer.run();
-          })
+          });
         }
-        
+
         // initialize the logger
         const methodLogger = MyLogger.setContext(
           fileName,
@@ -47,7 +51,7 @@ export function LoggerDecorator<DType extends { run: () => Promise<void> }>(logg
           );
 
           return response;
-        } catch (error) {
+        } catch (error: unknown) {
           // log the error and throw error;
           methodLogger.error(<Error>error);
           throw error;
