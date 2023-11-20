@@ -31,7 +31,7 @@ import { Project } from './project';
 import { School } from './school';
 import { CareerBreak, WorkExperience } from './experiences';
 import { License } from './license';
-import { Business } from './business';
+import { Business, Follows } from './business';
 
 @Entity({
   name: EntityNames.USERS,
@@ -122,6 +122,9 @@ export class User extends Base {
   // LIST OF FOLLOWERS
   @OneToMany(() => Connections, (b) => b.followed, { cascade: true })
   public followers!: Connections[];
+
+  @OneToMany(() => Follows, (f) => f.following, { cascade: true })
+  public pages!: Follows[];
 
   @OneToMany(() => Skill, (s) => s.user)
   public skills!: Skill[];

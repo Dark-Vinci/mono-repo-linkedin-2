@@ -1,19 +1,53 @@
-import { Column, Entity, JoinTable, ManyToMany, Timestamp } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 import { EntityNames, Ordering, Base, ColumnType } from 'sdk';
 
 import { SCHEMA } from '@constants';
 import { User } from './user';
 
-class Following extends Base {
-  follower_id!: string;
+// @Entity({
+//   name: EntityNames.FOLLOWS,
+//   orderBy: { created_at: Ordering.DESC },
+//   synchronize: true,
+//   schema: SCHEMA,
+// })
+// export class Follows extends Base {
+//   @Column({
+//     name: 'follower_id',
+//     type: ColumnType.UUID,
+//     nullable: false,
+//   })
+//   followerId!: string;
 
-  business_id!: string;
+//   @Column({
+//     name: 'business_id',
+//     type: ColumnType.UUID,
+//     nullable: false,
+//   })
+//   businessId!: string;
 
-  followers!: User[];
+//   @ManyToOne(() => Business, (b) => b.follows)
+//   @JoinColumn({
+//     name: 'business_id',
+//     referencedColumnName: 'id',
+//   })
+//   followers!: Business;
 
-  following!: Business[];
-}
+//   @ManyToOne(() => User, (u) => u.pages)
+//   @JoinColumn({
+//     name: 'follower_id',
+//     referencedColumnName: 'id',
+//   })
+//   following!: User;
+// }
 
 @Entity({
   name: EntityNames.BUSINESSES,
@@ -78,4 +112,43 @@ export class Business extends Base {
   @ManyToMany(() => User, (f) => f.workAt, {})
   @JoinTable()
   public employees!: User[];
+
+  @OneToMany(() => Follows, (f) => f.following)
+  follows!: Follows[];
+}
+
+@Entity({
+  name: EntityNames.FOLLOWS,
+  orderBy: { created_at: Ordering.DESC },
+  synchronize: true,
+  schema: SCHEMA,
+})
+export class Follows extends Base {
+  @Column({
+    name: 'follower_id',
+    type: ColumnType.UUID,
+    nullable: false,
+  })
+  followerId!: string;
+
+  @Column({
+    name: 'business_id',
+    type: ColumnType.UUID,
+    nullable: false,
+  })
+  businessId!: string;
+
+  @ManyToOne(() => Business, (b) => b.follows)
+  @JoinColumn({
+    name: 'business_id',
+    referencedColumnName: 'id',
+  })
+  followers!: Business;
+
+  @ManyToOne(() => User, (u) => u.pages)
+  @JoinColumn({
+    name: 'follower_id',
+    referencedColumnName: 'id',
+  })
+  following!: User;
 }
