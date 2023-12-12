@@ -58,6 +58,7 @@ export class SkillsEndorsementStore {
     return skillEndorsement;
   }
 
+  @LoggerDecorator(global.logger, __filename)
   public async softDelete({
     id,
   }: entityId<SkillEndorsement>): Promise<boolean> {

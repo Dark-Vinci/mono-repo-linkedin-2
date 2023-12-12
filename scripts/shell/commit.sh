@@ -2,12 +2,12 @@
 
 echo "commit command will run now";
 
-cd ..
+cd ../..
 
 echo "commit type: [$1]";
 echo "commit message: [$2]";
 
-directory = '../APP/BACKEND';
+#directory = '../APP/BACKEND';
 
 
 # for diren in "$directory"; do

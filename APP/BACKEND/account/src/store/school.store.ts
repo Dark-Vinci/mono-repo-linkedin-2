@@ -57,6 +57,7 @@ export class SchoolStore {
     return activity;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async softDelete({ id }: entityId<School>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 

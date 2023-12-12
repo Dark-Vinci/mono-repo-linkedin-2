@@ -59,6 +59,7 @@ export class WorkExperiencesStore {
     return workExperience;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async softDelete({ id }: entityId<WorkExperience>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 

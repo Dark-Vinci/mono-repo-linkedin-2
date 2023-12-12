@@ -58,6 +58,7 @@ export class CareerBreakStore {
     return careerBreak;
   }
 
+  @LoggerDecorator(global.logger, __filename)
   public async softDelete({ id }: entityId<CareerBreak>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 
