@@ -10,5 +10,4 @@ export * from './user-skill.store';
 export * from './user.store';
 export * from './volunteering.store';
 export * from './school.store';
-
-export { StoreModule as default } from './store.module';
+export * from './store.module';
