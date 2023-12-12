@@ -26,7 +26,7 @@ import { ActivitiesStore } from './activities.store';
 import { ProjectStore } from './project.store';
 import { SkillsEndorsementStore } from './skills-endorsement.store';
 import { WorkExperiencesStore } from './work-experiences';
-import { CarrerBreakStore } from './career-break';
+import { CareerBreakStore } from './career-break';
 
 @Module({
   providers: [
@@ -39,7 +39,7 @@ import { CarrerBreakStore } from './career-break';
     ProjectStore,
     SkillsEndorsementStore,
     WorkExperiencesStore,
-    CarrerBreakStore,
+    CareerBreakStore,
   ],
 
   imports: [
@@ -122,7 +122,7 @@ import { CarrerBreakStore } from './career-break';
     ProjectStore,
     SkillsEndorsementStore,
     WorkExperiencesStore,
-    CarrerBreakStore,
+    CareerBreakStore,
   ],
 })
 export class StoreModule {}

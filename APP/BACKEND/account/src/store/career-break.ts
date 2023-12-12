@@ -22,7 +22,7 @@ import {
 import { CareerBreak } from '@models';
 
 @Injectable()
-export class CarrerBreakStore {
+export class CareerBreakStore {
   private slaveRepositories: Undefinable<Repository<CareerBreak>[]>;
 
   public constructor(
