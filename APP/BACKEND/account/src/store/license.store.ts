@@ -18,6 +18,7 @@ import {
   genericGet,
   updateEntity,
   Undefinable,
+  Ordering,
 } from 'sdk';
 
 import { License } from '@models';
@@ -57,6 +58,7 @@ export class LicenseStore {
     return license;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async softDelete({ id }: entityId<License>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 
@@ -77,7 +79,7 @@ export class LicenseStore {
       take: paginateOptions.size,
       skip: paginateOptions.skip,
 
-      order: { createdAt: 'ASC' },
+      order: { createdAt: Ordering.ASC },
       comment: `get license that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
     };
 

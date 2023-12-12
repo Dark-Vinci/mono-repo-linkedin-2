@@ -72,7 +72,7 @@ export class VolunteeringStore {
     payload,
     requestId,
   }: genericGet<Volunteering>): Promise<Array<Volunteering>> {
-    const stringifiedPayload = JSON.stringify(payload);
+    const normalizedPayload = JSON.stringify(payload);
 
     const findObj: FindManyOptions<Volunteering> = {
       where: { ...(payload as unknown as FindOptionsWhere<Volunteering>[]) },
@@ -81,7 +81,7 @@ export class VolunteeringStore {
       skip: paginateOptions.skip,
 
       order: { createdAt: 'ASC' },
-      comment: `get volunteering that matches ${stringifiedPayload} by pagination strategy with requestId ${requestId}`,
+      comment: `get volunteering that matches ${normalizedPayload} by pagination strategy with requestId ${requestId}`,
     };
 
     const findMap = this.slaveRepositories!.map(
@@ -90,9 +90,9 @@ export class VolunteeringStore {
       },
     );
 
-    const volunteerings = await Promise.any(findMap);
+    const volunteering = await Promise.any(findMap);
 
-    return volunteerings;
+    return volunteering;
   }
 
   @LoggerDecorator(global.Logger, __filename)

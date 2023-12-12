@@ -18,6 +18,7 @@ import {
   genericGet,
   partialEntity,
   updateEntity,
+  Ordering,
 } from 'sdk';
 
 import { Activities } from '@models';
@@ -79,7 +80,7 @@ export class ActivitiesStore {
       take: paginateOptions.size,
       skip: paginateOptions.skip,
 
-      order: { createdAt: 'ASC' },
+      order: { createdAt: Ordering.ASC },
       comment: `get activity that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
     };
 

@@ -8,3 +8,4 @@ export * from './param-decorator';
 export * from './middlewares';
 export * from './exception';
 export * from './logger.decorator';
+export * from './helper.module';

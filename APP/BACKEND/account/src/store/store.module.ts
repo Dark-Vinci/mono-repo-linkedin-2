@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthDatabase } from 'sdk';
+import { AuthDatabase, HelperModule } from 'sdk';
 
 import {
   Activities,
@@ -110,6 +110,7 @@ import { CareerBreakStore } from './career-break';
       ],
       AuthDatabase.SLAVE3,
     ),
+    HelperModule,
   ],
 
   exports: [

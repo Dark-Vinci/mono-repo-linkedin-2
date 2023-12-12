@@ -18,6 +18,7 @@ import {
   genericGet,
   updateEntity,
   Undefinable,
+  Ordering,
 } from 'sdk';
 
 import { Project } from '@models';
@@ -57,6 +58,7 @@ export class ProjectStore {
     return project;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async softDelete({ id }: entityId<Project>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 
@@ -77,7 +79,7 @@ export class ProjectStore {
       take: paginateOptions.size,
       skip: paginateOptions.skip,
 
-      order: { createdAt: 'ASC' },
+      order: { createdAt: Ordering.ASC },
       comment: `get project that matches ${strPayload} by pagination strategy with requestId ${requestId}`,
     };
 
