@@ -8,8 +8,6 @@ import {
   FindOptionsWhere,
   Repository,
 } from 'typeorm';
-
-import { UserSkills } from '@models';
 import {
   AuthDatabase,
   entityId,
@@ -20,6 +18,8 @@ import {
   Util,
   genericGet,
 } from 'sdk';
+
+import { UserSkills } from '@models';
 
 @Injectable()
 export class UserSkillStore {
@@ -58,6 +58,7 @@ export class UserSkillStore {
     return userSkill;
   }
 
+  @LoggerDecorator(global.Logger, __filename)
   public async softDelete({ id }: entityId<UserSkills>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 

@@ -57,6 +57,7 @@ export class SkillStore {
     return userSkill;
   }
 
+  @LoggerDecorator(global.logger, __filename)
   public async softDelete({ id }: entityId<Skill>): Promise<boolean> {
     await this.masterRepository.softDelete(id);
 

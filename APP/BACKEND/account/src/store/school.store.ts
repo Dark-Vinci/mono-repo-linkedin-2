@@ -85,9 +85,9 @@ export class SchoolStore {
       return repo.find(findObj);
     });
 
-    const activities = await Promise.any(findMap);
+    const activity = await Promise.any(findMap);
 
-    return activities;
+    return activity;
   }
 
   @LoggerDecorator(global.Logger, __filename)
