@@ -82,7 +82,7 @@ export class Business extends Base {
   follows!: Follows[];
 }
 
-class Employment {
+export class Employment {
   businessId!: string;
   userId!: string;
 }

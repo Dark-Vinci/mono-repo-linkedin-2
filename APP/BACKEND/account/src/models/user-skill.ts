@@ -1,10 +1,12 @@
-import { Entity } from 'typeorm';
-
-import { Ordering, UUID, EntityNames, Base } from 'sdk';
+import { Column, Entity } from 'typeorm';
+import { Ordering, UUID, EntityNames, Base, ColumnType } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
 import { SkillEndorsement } from './skill-endorsement';
+import { WorkExperience } from './experiences';
+import { School } from './school';
+import { Project } from './project';
 
 @Entity({
   name: EntityNames.USER_SKILLS,
@@ -13,8 +15,29 @@ import { SkillEndorsement } from './skill-endorsement';
   schema: SCHEMA,
 })
 export class UserSkills extends Base {
-  public skill_id!: UUID;
-  public user_id!: UUID;
+  @Column({
+    name: 'skill_id',
+    type: ColumnType.UUID,
+    nullable: false,
+  })
+  public skill_id!: string;
 
+  @Column({
+    name: 'user_id',
+    type: ColumnType.UUID,
+    nullable: false,
+  })
+  public user_id!: string;
+
+  @Column({
+    name: 'visible',
+    type: ColumnType.VARCHAR,
+    default: true,
+  })
+  public visible!: boolean;
+
+  public experience!: WorkExperience[];
+  public education!: School[];
+  public project!: Project[];
   public endorser!: SkillEndorsement[];
 }
