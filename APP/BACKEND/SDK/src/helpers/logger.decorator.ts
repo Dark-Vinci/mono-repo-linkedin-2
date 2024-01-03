@@ -26,14 +26,14 @@ export function LoggerDecorator<
         this: any, 
         ...args: any[]
       ): Promise<any> {
-        if (defer) {
-          await using stack = new AsyncDisposableStack();
-
-          stack.defer(async () => {
-
-            await defer.run();
-          });
-        }
+        // if (defer) {
+        //   await using stack = new AsyncDisposableStack();
+        //
+        //   stack.defer(async () => {
+        //
+        //     await defer.run();
+        //   });
+        // }
 
         // initialize the logger
         const methodLogger = MyLogger.setContext(

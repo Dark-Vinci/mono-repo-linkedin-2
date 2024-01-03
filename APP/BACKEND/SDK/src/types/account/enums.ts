@@ -25,6 +25,7 @@ export enum EntityNames {
   CAREER_BREAK = 'career_breaks',
   CONNECTIONS = 'connections',
   FOLLOWS = 'follows',
+  RECOMMENDATION = 'recommendations',
 }
 
 export enum ColumnType {

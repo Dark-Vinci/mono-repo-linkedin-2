@@ -18,7 +18,10 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "lib": ["es2022", "esnext.disposable", "dom"],
+    "lib": ["es2022", "dom"],
+    "moduleResolution": "Node",
+    // "typeRoots": ["./node_modules/@types"],
+//    "types": ["node", "aria-query"],
     "paths": {
       "@constants": ["./constants"],
       "@errors": ["./errors"],

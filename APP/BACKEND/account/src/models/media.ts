@@ -4,13 +4,12 @@ import { ColumnType, MediaFor, Ordering, Base } from 'sdk';
 
 import { SCHEMA } from '@constants';
 
-// import { Base } from './base';
 import { Project } from './project';
 
 @Entity({
   name: '',
   schema: SCHEMA,
-  orderBy: { upddatedAt: Ordering.DESC },
+  orderBy: { updatedAt: Ordering.DESC },
   synchronize: false,
 })
 export class Media extends Base {

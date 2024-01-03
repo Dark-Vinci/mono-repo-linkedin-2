@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { Ordering, UUID, EntityNames, Base, ColumnType } from 'sdk';
+import { Ordering, EntityNames, Base, ColumnType } from 'sdk';
 
 import { SCHEMA } from '@constants';
 

@@ -11,3 +11,4 @@ export * from './skill-endorsement';
 export * from './experiences';
 export * from './user-skill';
 export * from './media';
+export * from './recommendation';
